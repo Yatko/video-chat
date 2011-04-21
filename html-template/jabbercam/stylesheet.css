@@ -1,0 +1,227 @@
+/**
+ * VIDEOSOFTWARE.PRO
+ * Copyright 2010 VideoSoftware.PRO
+ * All Rights Reserved.
+ *
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License
+ *  as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+ *  warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *  See the GNU General Public License for more details.
+ *  You should have received a copy of the GNU General Public License along with this program.
+ *  If not, see <http://www.gnu.org/licenses/>.
+ * 
+ *  Author: Our small team and fast growing online community at videosoftware.pro
+ */
+
+html, body {
+	margin: 0px;
+	text-align: center;
+	background-color: #3B5997;
+	font-family: Arial, Helvetica, Verdana, sans-serif;
+	font-size: 11px;
+    font-size: 100%;
+	color: #716B62;
+}
+a:link {
+	color:#00c;
+}
+h1 {
+	font-size: 14px;
+	margin: 1.2em 0em 0.7em 0em;
+	padding: 0;
+	color: #FFF;
+}
+h2 {
+	font-size: 12px;
+	margin: 1.2em 0em 0.7em 0em;
+	padding: 0;
+}
+
+#header {
+	height: 30px;
+	padding-top: 10px;
+	background-color:  #1D1A17;
+	border-bottom: solid 1px #716B62;
+	text-align: center;
+	font-size: 80%;
+}
+
+#impressum{
+	overflow: auto;
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	background: ;
+}
+
+#fcontainer{
+	float: left;
+	padding-left: 4px;
+	padding-right: 4px;
+	padding-top: 0px;
+	padding-bottom: 4px;
+	text-align:left;
+	width: 24%;
+	font-size: 11px;
+	color: #EFEFEF;
+	background: ;
+	vertical-align: top;
+	display: block;
+}
+#fcontainer a:link {
+	color: #FFF;
+}
+#fcontainer a:visited {
+	color: #FFF;
+}
+
+#statistX{
+	width:100%;
+	height: 41;
+	margin-left: auto ;
+	margin-right: auto ;
+	background-color: #38558E;
+	border-top: solid 1px #4062A6;
+	padding-top: 10px;
+}
+
+
+/* Vertical */
+#body_v{
+	position: static;
+	margin-left: auto ;
+	margin-right: auto ;
+}
+
+#adspace_v1{
+	width: 95%;
+	margin-left: auto ;
+	margin-right: auto ;
+	padding-top: 5px;
+	padding-bottom: 0px;
+}
+#adspace_v2{
+	width: 92%;
+	margin-left: auto ;
+	margin-right: auto ;
+}
+#adspace_v3{
+	width: 92%;
+	margin-left: auto ;
+	margin-right: auto ;
+	padding-top: 6px;
+	padding-bottom: 9px;
+}
+
+#footer_v{
+	width: 100%;
+	text-align: center;
+	border-top: solid 0px #716B62;
+}
+#impressum_v{
+	width: 92%;
+	margin-left: auto ;
+	margin-right: auto ;
+}
+
+
+/* Horizontal */
+#body_h{
+	width:720px;
+	position: static;
+	margin-left: auto ;
+	margin-right: auto ;
+	background-color: gray;
+}
+
+#middle{
+	width:720px;
+	height: 489;
+	position: static;
+	top:0px;
+	background-color: green;
+}
+
+#JabberCam_Flash{
+	width:720px;
+	height: 489;
+	position: relative;
+	top:0px;
+	margin-left: auto ;
+	margin-right: auto ;
+	background-color: blue;
+}
+
+#left{
+	width: 13%;
+	position: absolute;
+	top: 50px;
+	left: 20px;
+	height: 600px;
+	background-color: ;
+	font-size: 11px;
+	color: #EFEFEF;
+}
+#left a:link {
+	color: #FFF;
+}
+#left a:visited {
+	color: #FFF;
+}
+
+
+#right{
+	width: 13%;
+	position: absolute;
+	top: 50px;
+	right: 20px;
+	height: 600px;
+	background-color: ;
+	font-size: 11px;
+	color: #EFEFEF;
+}
+#right a:link {
+	color: #FFF;
+}
+#right a:visited {
+	color: #FFF;
+}
+
+#footer_h{
+	width: 100%;
+	text-align: center;
+	border-top: solid 0px #716B62;
+}
+#impressum_h{
+	width: 897px;
+	margin-left: auto ;
+	margin-right: auto ;
+}
+
+#adspace_h1{
+	width: 95%;
+	margin-left: auto ;
+	margin-right: auto ;
+	padding-top: 5px;
+	padding-bottom: 0px;
+}
+#adspace_h2{
+	width: 897px;
+	margin-left: auto ;
+	margin-right: auto ;
+}
+#adspace_h3{
+	width: 92%;
+	margin-left: auto ;
+	margin-right: auto ;
+	padding-top: 6px;
+	padding-bottom: 9px;
+}
+
+
+/*  */
+
+
+
