@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * VIDEOSOFTWARE.PRO
+ * Copyright 2010 VideoSoftware.PRO
+ * All Rights Reserved.
+ *
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License
+ *  as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+ *  warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *  See the GNU General Public License for more details.
+ *  You should have received a copy of the GNU General Public License along with this program.
+ *  If not, see <http://www.gnu.org/licenses/>.
+ * 
+ *  Author: Our small team and fast growing online community at videosoftware.pro
+ */
+-->
+<!--JabberCam English translation by videosoftware.pro-->
+<!--Compatibility: v 3.3-->
+<!--Translated by: Kalman V.-->
+<lang>
+	<settings>
+		<backgroundImage_1>jabbercam/images/BgImage1.jpg</backgroundImage_1>
+		<backgroundImage_2>jabbercam/images/BgImage2.jpg</backgroundImage_2>
+		<backgroundImage_3>jabbercam/images/BgImage3.jpg</backgroundImage_3>
+		<backgroundImage_4>jabbercam/images/BgImage4.jpg</backgroundImage_4>
+		<backgroundImage_5>jabbercam/images/BgImage5.jpg</backgroundImage_5>
+		<backgroundImage_6>jabbercam/images/BgImage6.jpg</backgroundImage_6>
+		<facebookLink>http://facebook.com/JabberCam</facebookLink>
+		<twitterLink>http://twitter.com/JabberCam</twitterLink>
+		<myspaceLink>http://myspace.com/JabberCam</myspaceLink>
+		<getSourceCode image="get-the-source-code.png">http://www.videosoftware.pro</getSourceCode>
+		<!-- text|flag -->
+		<languageFilter>flag</languageFilter>
+	</settings>
+	<statuses>
+		<defaultMacCamera><![CDATA[USB Video Class Video]]></defaultMacCamera>
+		<noMicrophone><![CDATA[Mikrofon nem elérhető]]></noMicrophone>
+		<noCamera><![CDATA[Kamera nem elérhető]]></noCamera>
+		
+		<myspaceButtonTooltip><![CDATA[Follow us on MySpace!]]></myspaceButtonTooltip>
+		<facebookButtonTooltip><![CDATA[Follow us on Facebook!]]></facebookButtonTooltip>
+		<twitterButtonTooltip><![CDATA[Follow us on Twitter!]]></twitterButtonTooltip>
+		
+		<welcomeMessage>
+			<line><![CDATA[Üdvözöl a <b>JabberCam</b>, a <b>piacvazető random video chat</b> alternatíva!]]></line>
+			<line><![CDATA[Indítsd el a sajátrandom chat weboldalad! Töltsd le a forráskodot: www.videosoftware.pro]]></line>
+			<line><![CDATA[Válassz nemet]]></line>
+			<line><![CDATA[és kattints az <b>INDÍT</b> gombra.]]></line>
+		</welcomeMessage>
+		<enteringCarouselMessage>
+			<line><![CDATA[Belépés. Kérlek, várj türelemmel...............]]></line>
+			<line><![CDATA[Tarts velünk, a JabberCam tűz alá vette a Stratus szervert. Ez eltarthat egy ideig]]></line>
+		</enteringCarouselMessage>
+		<unableToConnectMessage><![CDATA[nem tudtam kapcsolodni a(hoz) ]]></unableToConnectMessage>
+		<successMessage><![CDATA[Sikeres kapcsolat!]]></successMessage>
+		<yourIdLabel><![CDATA[Saját ID-d: ]]></yourIdLabel>
+		<partnerDisconnectMessage>
+			<line><![CDATA[A partnered <b>továbblépett</b>.]]></line>
+			<line><![CDATA[Kattints a <b>TOVÁBB</b> gombra, hogy új partnert találj.]]></line>
+		</partnerDisconnectMessage>
+		<registerSuccessMessage><![CDATA[Kattints a <b>TOVÁBB</b>-ra új partner kereséséhez.]]></registerSuccessMessage>
+		<lookForPartnersMessage><![CDATA[Szeretnéd ha a JabberCam automatikusan keresne? Válaszd a 'Automata TOVÁBB' opciót.]]></lookForPartnersMessage>
+		<updateSexSuccess><![CDATA[a nemed megváltoztatva]]></updateSexSuccess>
+		<updateAgeSuccess>
+			<line><![CDATA[Korszűrő kikapcsolva.]]></line>
+			<line><![CDATA[A korod ]]></line>
+			<line><![CDATA[A korod több mint ]]></line>
+		</updateAgeSuccess>
+		<updateAgeLookupFilter>
+			<line><![CDATA[Looking for all ages.]]></line>
+			<line><![CDATA[Looking for ]]></line>
+		</updateAgeLookupFilter>
+		<usersOnlineLabel><![CDATA[ online felhasználó]]></usersOnlineLabel>
+		<noUsersReadyMessage><![CDATA[senki nincs chatrekészen]]></noUsersReadyMessage>
+		<checkAutoFindMessage><![CDATA[Próbáld az 'Automata TOVÁBB' bejelölése után a <b>TOVÁBB</b> gombbal.]]></checkAutoFindMessage>
+		<connectingStatus><![CDATA[kapcsolódás........]]></connectingStatus>
+		<otherIdLabel><![CDATA[Partner ID: ]]></otherIdLabel>
+		
+		<nobodyFoundMessage><![CDATA[nem találtam senkit]]></nobodyFoundMessage>
+		<nobodyFoundInTimeMessage><![CDATA[senkit nem találtam az adott idő alatt...no problem, próbáld újra]]></nobodyFoundInTimeMessage>
+		
+		<lookingForFemaleOnly><![CDATA[Csak <b>lányokkal</b> chatelnél, a 'mindkető' talán segít.]]></lookingForFemaleOnly>
+		<lookingForMaleOnly><![CDATA[Csak <b>fiúkkal</b> chatelnél, a 'mindkető' talán segít.]]></lookingForMaleOnly>
+		<lookingForSpecificAgeOnly><![CDATA[Te egy adott <b>korosztályt</b> keresel; kapcsold ki, talán segít.]]></lookingForSpecificAgeOnly>
+		<switchAutoFindOffMessage><![CDATA['Automata TOVÁBB' kikapcsolva]]></switchAutoFindOffMessage>
+		<spinRouletteMessage><![CDATA[Kattints a <b>TOVÁBB</b>-ra és keress más partnert.]]></spinRouletteMessage>
+		
+		<errorConnectingToBackend>
+			<line><![CDATA[Could not connect to backend services. Error message: ]]></line>
+			<line><![CDATA[Please reload JabberCam and start over.]]></line>
+		</errorConnectingToBackend>
+		
+		<callNotReadyStatus>callNotReady</callNotReadyStatus>
+		<callReadyStatus>callReady</callReadyStatus>
+		<callEstablishedStatus>callEstablished</callEstablishedStatus>
+		<callingStatus>calling.....</callingStatus>
+		
+		<yourPartnerLabel><![CDATA[Partner: ]]></yourPartnerLabel>
+		<partnerNotFemaleError><![CDATA[nem <b>lány</b> volt, szétkapcsolás....]]></partnerNotFemaleError>
+		<partnerNotMaleError><![CDATA[[nem <b>fiú</b> volt, szétkapcsolás....]]></partnerNotMaleError>
+		<partnerNotRequestedAge><![CDATA[nem a kért<b>korosztály</b>, szétkapcsolás....]]></partnerNotRequestedAge>
+
+		
+		<connectionSuccess>
+			<line><![CDATA[<b>Kapcsolódva! <font color='#6E9226'>[x]</font>, <font color='#6E9226'>[y]</font>.</b> Élvezd a beszélgetést ;)]]></line>
+			<line><![CDATA[Kattints a <b>TOVÁBB</b>-ra ha új chatpartnert szeretnél.]]></line>
+		</connectionSuccess>
+		
+		<allPartnersBusyMessage><![CDATA[Minden felhasználó egymással chatel. Kattints a <b>TOVÁBB</b>-ra, vagy jelöld be az 'Automata TOVÁBB' opciót.]]></allPartnersBusyMessage>
+		
+		<youDisconnectedPartnerMessage><![CDATA[<b>Szétkapcsoltál</b>. Kattints: <b>TOVÁBB</b>!]]></youDisconnectedPartnerMessage>
+		
+		<autoFindNextActive><![CDATA['Automata TOVÁBB' aktív!]]></autoFindNextActive>
+		
+		<tryingToFindSomeoneMessage><![CDATA[keresek neked valakit......]]></tryingToFindSomeoneMessage>
+		
+		<connectionTimeoutMessage><![CDATA[a kapcsolódási időkorlát tullépve]]></connectionTimeoutMessage>
+		
+		<leaveChatMessage>
+			<line><![CDATA[Elhagytad a <b>JabberCam</b> rendszerét <b>szétkapcsolva</b>.]]></line>
+			<line><![CDATA[Kattints az <b>INDÍT</b>-ra, ha visszajönnél.]]></line>
+		</leaveChatMessage>
+		
+		<femaleSexChange><![CDATA[mostantól lány vagy]]></femaleSexChange>
+		<maleSexChange><![CDATA[most fiú vagy]]></maleSexChange>
+		<ageChange><![CDATA[a korod megváltozott]]></ageChange>
+		
+		<youText><![CDATA[Én]]></youText>
+
+		<!-- $x, $y are parameters that will be replaced by the actual ammount they represent -->
+		<filterSuccessMessage><![CDATA[You won't be connected with this user for $x minutes.]]></filterSuccessMessage>
+		<reporterReportSuccessMessage><![CDATA[You did send the $x-th report.]]></reporterReportSuccessMessage>
+		<reportedReportSuccessMessage><![CDATA[This is your $x-th report of $y.]]></reportedReportSuccessMessage>
+		<bannedMessage><![CDATA[You are banned for $x minutes.]]></bannedMessage>
+		<blockedMessage><![CDATA[Az ip cimed blokkolva.]]></blockedMessage>
+		
+		<waitingForCameraMessage><![CDATA[Waiting for camera .....]]></waitingForCameraMessage>
+		<openSettingsMessageLink><![CDATA[<font color='#ff0000'>Your camera is off, <a href="event:opensetts"><u>click here</u></a> to start your WebCam.</font>]]></openSettingsMessageLink>
+
+		<partnerLabel><![CDATA[Partner]]></partnerLabel>
+		<autoNextIntervalLabel><![CDATA[auto Next (sec)]]></autoNextIntervalLabel>
+		<youLabel><![CDATA[Én]]></youLabel>
+		<meLabel><![CDATA[Nemem]]></meLabel>
+		<femaleLabel><![CDATA[lány]]></femaleLabel>
+		<maleLabel><![CDATA[fiú]]></maleLabel>
+		<seekingLabel><![CDATA[Keresek]]></seekingLabel>
+		<myLanguageLabel><![CDATA[Lang.]]></myLanguageLabel>
+		<partnerLanguageLabel><![CDATA[Lang.]]></partnerLanguageLabel>
+		<bothLabel><![CDATA[mindkettőt]]></bothLabel>
+		<ladiesLabel><![CDATA[lányokat]]></ladiesLabel>
+		<gentsLabel><![CDATA[fiúkat]]></gentsLabel>
+		<autoFindNextLabel><![CDATA[Automata TOVÁBB]]></autoFindNextLabel>
+		<microphoneLabel><![CDATA[mikrofon]]></microphoneLabel>
+		<volumeLabel><![CDATA[hangszórók]]></volumeLabel>
+		<previewVideoLabel><![CDATA[Saját videó bekapcsolása]]></previewVideoLabel>
+		<findNextLabel><![CDATA[TOVÁBB]]></findNextLabel>
+		<startLabel><![CDATA[INDÍT]]></startLabel>
+		<stopLabel><![CDATA[Kilép]]></stopLabel>
+		<clearLabel><![CDATA[Töröl]]></clearLabel>
+		<sendLabel><![CDATA[KÜLD]]></sendLabel>
+		<getTheSourceLabel><![CDATA[Szerezd meg a forráskódot!]]></getTheSourceLabel>
+		<betaLabel><![CDATA[BETA]]></betaLabel>
+		<reportLabel><![CDATA[Report]]></reportLabel>
+		<filterLabel><![CDATA[Filter]]></filterLabel>
+		<cameraOnLabel><![CDATA[Camera ON Only]]></cameraOnLabel>
+		<startButtonTooltip><![CDATA[This is a DEMO site. You may not be able to connect if there are only a few users online or the server is down.]]></startButtonTooltip>
+		<nextButtonTooltip><![CDATA[This is a DEMO site. You may not be able to connect if there are only a few users online or the server is down.]]></nextButtonTooltip>
+		<usernameTextInputLabel><![CDATA[Nickname: ]]></usernameTextInputLabel>
+		<filterButtonTooltip><![CDATA[Filter this user]]></filterButtonTooltip>
+		<reportButtonTooltip><![CDATA[Report this user]]></reportButtonTooltip>
+		<langFilterAllLabel><![CDATA[Nemzetközi]]></langFilterAllLabel>
+		<btnStopAutoNextLabel><![CDATA[STOP]]></btnStopAutoNextLabel>
+		<changeBackgroundButtonTooltip><![CDATA[Háttér változtatása]]></changeBackgroundButtonTooltip>
+		<connectMeDirectlyToLabel><![CDATA[Kapcsolj ehhez (User ID)]]></connectMeDirectlyToLabel>
+		<connectMeDirectlyToButtonLabel><![CDATA[Kapcsolj]]></connectMeDirectlyToButtonLabel>
+		<iamLabel><![CDATA[Én]]></iamLabel>
+		<fromLabel><![CDATA[, ]]></fromLabel>
+	</statuses>
+</lang>

@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/**
+* VIDEOSOFTWARE.PRO
+* Copyright 2010 VideoSoftware.PRO
+* All Rights Reserved.
+*
+* This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License
+*  as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+*  warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+*  See the GNU General Public License for more details.
+*  You should have received a copy of the GNU General Public License along with this program.
+*  If not, see <http://www.gnu.org/licenses/>.
+* 
+*  Author: Our small team and fast growing online community at videosoftware.pro
+*/
+-->
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml"
+	 backgroundImage="{background.selectedValue}"
+	 applicationComplete="this.appComplete = true; initApp()" 
+	 initialize="init()" layout="horizontal"
+	 color="#000000" backgroundColor="#000000"
+	 horizontalAlign="center" verticalAlign="top" borderColor="#FFFFFF"
+	 xmlns:local="jabbercam.comp.*"
+	 keyUp="checkKeyPressed(event)" width="100%" height="621" paddingLeft="0" paddingTop="0"
+	 paddingRight="0" paddingBottom="0">
+	 
+	 <mx:HTTPService id="settingsLoader" resultFormat="e4x" result="getSettings(event)" showBusyCursor="true"
+	 	url="jabbercam/config.php?setts" fault="trace('fault: ',event.message)" />
+	 	
+<mx:Script source="JabberCam.as">
+</mx:Script>
+
+<mx:Style source="../assets/style.css"></mx:Style>
+
+<mx:Boolean id="lockOwnControls">false</mx:Boolean>
+<mx:Boolean id="canHideOwnControls">true</mx:Boolean>
+<mx:Boolean id="lockPartnerControls">false</mx:Boolean>
+<mx:Boolean id="canHidePartnerControls">true</mx:Boolean>
+
+<mx:VBox width="95%" height="613" verticalGap="0" id="bigContainer" horizontalAlign="center" paddingTop="5">
+	<mx:HBox height="72" width="100%" horizontalGap="0" paddingLeft="5" paddingRight="5" paddingTop="5" paddingBottom="5" backgroundColor="0x3B5997" filters="{[new DropShadowFilter(2, 90,90,1,2, 8)]}" borderStyle="solid" cornerRadius="4">
+		<!--Header 1st Box-->
+		<mx:VBox height="100%">
+			<mx:HBox width="163" height="100%" cornerRadius="5" borderStyle="solid" borderThickness="0">
+				<mx:Button skin="@Embed(source='../assets/logo.png')" toolTip="JabberCam Random Video Chat!" click="onSocialButtonClick('http://www.videosoftware.pro')" buttonMode="true" verticalCenter="0" horizontalCenter="0"/>
+			</mx:HBox>
+		</mx:VBox>
+	
+		<!--Header 2nd Box-->
+		<mx:VBox height="100%">
+			<mx:HBox x="10" y="10">
+				<mx:Label styleName="White" id="iamLabel"/>
+				<mx:TextInput id="myUsername" editable="false" enter="changeUsername()" alpha="0.7" width="76" borderStyle="solid" cornerRadius="4" paddingBottom="0" styleName="White"/>
+				<local:AgeSelector id="age" change="onAgeChange()" liveDragging="false" showDataTip="false" labelOffset="-6" width="110"/>
+				<mx:Label id="myLanguageLabel" visible="false" styleName="White" width="1"/>
+				<mx:ComboBox id="langSetting" change="langSettingChange()" dataProvider="{langFilterValues}" selectedIndex="0"/>
+				<mx:RadioButtonGroup id="rgMySex"/>
+					<mx:RadioButton id="rbFemale" groupName="rgMySex" click="onSexFemale()" enabled="true" top="0" horizontalGap="0" paddingTop="0" paddingBottom="0" styleName="White"/>
+					<mx:RadioButton id="rbMale" groupName="rgMySex" click="onSexMale()" enabled="true" top="0" horizontalGap="0" paddingTop="0" paddingBottom="0" styleName="White"/>
+			</mx:HBox>
+			<mx:HBox>
+				<mx:HBox visible="{CustomFilter.customFilter1Values != null &amp;&amp; CustomFilter.customFilter1Values.length &gt; 0}" id="customFilter1C">
+					<mx:Label color="#FFFFFF" text="{CustomFilter.customFilter1Label}" />
+					<mx:ComboBox id="customFilter1Setting" change="customFilter1SettingChange()" dataProvider="{CustomFilter.customFilter1Labels}" selectedIndex="0" />
+				</mx:HBox>
+				<mx:HBox visible="{CustomFilter.customFilter2Values != null &amp;&amp; CustomFilter.customFilter2Values.length &gt; 0}" id="customFilter2C">
+					<mx:Label color="#FFFFFF" text="{CustomFilter.customFilter2Label}" />
+					<mx:ComboBox id="customFilter2Setting" change="customFilter2SettingChange()" dataProvider="{CustomFilter.customFilter2Labels}" selectedIndex="0" />
+				</mx:HBox>
+			</mx:HBox>
+		</mx:VBox>
+		
+		<!--Header 3rd Box (spacer)-->	
+		<mx:VBox width="20" height="100%" horizontalAlign="center" verticalAlign="middle"><!--SPACER-->
+		<mx:VRule height="55" width="1"/>
+		</mx:VBox>
+	
+		<!--Header 4th Box-->
+		<mx:VBox height="100%">
+			<mx:HBox x="10" y="50">
+				<mx:Label id="seekingLabel" styleName="White"/>
+				<local:AgeSelector id="lookupAge" change="lookupAgeChange()" liveDragging="false" showDataTip="false" labelOffset="-6" width="110"/>
+				<mx:Label id="partnerLanguageLabel" visible="false" styleName="White" width="1"/>
+				<mx:ComboBox id="langFilter" change="langFilterChange()" selectedIndex="0" dataProvider="{langFilterValues}" text="Lang" />
+				<mx:CheckBox id="rbSexFemale" change="checkSexFilter()" enabled="true" top="0" horizontalGap="0" paddingTop="0" paddingBottom="0" styleName="White"/>
+				<mx:CheckBox id="rbSexMale" change="checkSexFilter()" enabled="true" top="0" horizontalGap="0" paddingTop="0" paddingBottom="0" styleName="White"/>
+			</mx:HBox>
+			<mx:HBox>
+				<mx:HBox visible="{CustomFilter.customFilter1Values != null &amp;&amp; CustomFilter.customFilter1Values.length &gt; 0}" id="customFilter1PC">
+					<mx:Label color="#FFFFFF" text="{CustomFilter.customFilter1Label}" />
+					<mx:ComboBox id="customFilter1Pref" change="customFilter1PrefChange()" dataProvider="{CustomFilter.customFilter1Labels}" selectedIndex="0" />
+				</mx:HBox>
+				<mx:HBox visible="{CustomFilter.customFilter2Values != null &amp;&amp; CustomFilter.customFilter2Values.length &gt; 0}" id="customFilter2PC">
+					<mx:Label color="#FFFFFF" text="{CustomFilter.customFilter2Label}" />
+					<mx:ComboBox id="customFilter2Pref" change="customFilter2PrefChange()" dataProvider="{CustomFilter.customFilter2Labels}" selectedIndex="0" />
+				</mx:HBox>
+			</mx:HBox>
+		</mx:VBox>
+	</mx:HBox>
+	<!--Body-->
+	<mx:VBox height="100%" width="100%" verticalGap="2" paddingLeft="0" paddingTop="5" paddingRight="5" paddingBottom="5" id="vbContent">	
+		<mx:HBox height="100%" width="100%" horizontalScrollPolicy="off">
+			<mx:VBox height="100%" width="330" paddingLeft="5" paddingTop="5" paddingRight="5" paddingBottom="0">
+				<mx:VBox verticalGap="0" width="320" height="240">
+					<mx:Canvas width="320" height="240" backgroundColor="#000000" mouseOver="canHidePartnerControls=false; partnerControls.visible=true;"
+						rollOut="canHidePartnerControls=true; if(!lockPartnerControls){partnerControls.visible=false;}">
+						<mx:VideoDisplay width="320" height="240" id="vidOther" verticalCenter="0"/>
+						<mx:Canvas backgroundColor="0x000000" width="320" height="240" id="adContainer"
+							visible="{!peerCameraAllowed || ccCallState != CCCallEstablished}"
+							includeInLayout="{adContainer.visible}" verticalCenter="0">
+							<mx:Image width="320" height="240" horizontalAlign="center" verticalAlign="middle"
+							source="{currentAd}" open="beginLoadingAd()" complete="completeLoadingAd()"
+							id="ad" />
+						</mx:Canvas>
+						
+						<mx:VBox id="partnerControls" bottom="0" showEffect="Fade" hideEffect="Fade" visible="false" width="320" height="240" horizontalAlign="center" verticalAlign="top">
+							<mx:HBox width="95%" horizontalGap="0" right="0" paddingTop="10">
+								<mx:Label id="partnerLabel" color="#FFFFFF" width="100%"/>
+								<mx:Label id="volumeLabel" fontWeight="bold" color="#ffffff"/>
+								<mx:HSlider id="speakerVolumeSlider" showDataTip="false" width="120" minimum="0" maximum="1" change="speakerVolumeChanged(event)"/>			
+							</mx:HBox>
+							<mx:HBox width="95%" horizontalAlign="center">					
+							</mx:HBox>
+						</mx:VBox>
+					</mx:Canvas>
+				</mx:VBox>
+				<!--<mx:HRule width="100%" alpha="20"/>-->
+				<mx:VBox verticalGap="0" width="320" height="240">
+					<mx:Canvas backgroundColor="#000000" width="320" height="240" mouseOver="canHideOwnControls = false; ownControls.visible=true"	rollOut="canHideOwnControls=true; if(!lockOwnControls)ownControls.visible=false">
+						<mx:VideoDisplay width="320" height="240" id="vidMe" verticalCenter="0" />
+						
+						<mx:VBox id="ownControls" bottom="0" showEffect="Fade" hideEffect="Fade" visible="false" width="320" height="240" horizontalAlign="center" verticalAlign="top">
+							<mx:HBox width="95%" horizontalGap="0" right="0" paddingTop="10">
+								<mx:Label id="youLabel"  color="#FFFFFF" width="100%"/>
+								<mx:Label id="fromLabel" styleName="White"/>
+								<mx:Image source="jabbercam/flags/{countryCode.toLowerCase()}.png" visible="{countryCode != '' &amp;&amp; countryCode != null}" toolTip="{country}" />
+								<mx:Label id="microphoneLabel" fontWeight="bold" color="#ffffff"/>
+								<mx:HSlider id="micVolumeSlider" showDataTip="false" width="120" minimum="0" maximum="100" change="micVolumeChanged(event)"/>				
+							</mx:HBox>
+							<mx:HBox width="95%" horizontalAlign="center" verticalAlign="middle" height="120">
+								<mx:Button click="onPreview()" id="btnPreview" width="150" toggle="true"/>
+							</mx:HBox>
+							<mx:HBox width="95%" horizontalAlign="center" verticalAlign="middle" height="40">
+							<mx:Button skin="@Embed(source='../assets/myspace.png')" toolTip="{this.lang.myspaceTooltip}"
+					click="onSocialButtonClick(this.lang.getSetting('myspaceLink'))" buttonMode="true" />
+							<mx:Button skin="@Embed(source='../assets/facebook.png')" toolTip="{this.lang.facebookTooltip}"
+					click="onSocialButtonClick(this.lang.getSetting('facebookLink'))" buttonMode="true" />
+							<mx:Button skin="@Embed(source='../assets/twitter.png')" toolTip="{this.lang.twitterTooltip}"
+					click="onSocialButtonClick(this.lang.getSetting('twitterLink'))" buttonMode="true" />
+							<mx:Button skin="@Embed(source='../assets/jabbercam.png')" toolTip="Start Your Own JabberCam Website! Get the Program and the Source Code. Click Here for more information."
+					click="onSocialButtonClick('http://www.videosoftware.pro')" buttonMode="true" />
+							</mx:HBox>
+							<mx:HBox width="95%" horizontalAlign="center">
+								<mx:ComboBox open="lockOwnControls=true" close="lockOwnControls=false;
+									if(canHideOwnControls)ownControls.visible = false" id="cameraSelection"
+									dataProvider="{cameraNames}" change="cameraChanged(event)" width="149" />
+								<mx:ComboBox open="lockOwnControls=true" close="lockOwnControls=false;
+									if(canHideOwnControls)ownControls.visible = false" id="micSelection" 
+									dataProvider="{micNames}" change="micChanged(event)" width="149"/>
+							</mx:HBox>
+						</mx:VBox>	
+					</mx:Canvas>
+				</mx:VBox>
+			</mx:VBox>		
+			<mx:HBox horizontalGap="0" height="100%" width="100%">
+				<mx:VBox height="491" width="100%" paddingTop="5">
+					<mx:Canvas width="100%" height="100%">
+						<mx:TextArea width="100%" height="100%" id="taChat" editable="false" wordWrap="true" />
+						<mx:Button label="SpeedDate" id="speedDate" click="onSpeedDateClick()" toggle="true" width="106" height="22" right="120" top="37" fontFamily="Arial" fontSize="9" />
+						<mx:Button label="SpeedChat" id="speedChat" click="onSpeedChatClick()" toggle="true" width="106" height="22" right="120" top="64" fontFamily="Arial" fontSize="9" />
+						<mx:Button label="Credits" click="onSocialButtonClick('http://www.videosoftware.pro')" width="106" height="22" right="120" top="91" fontFamily="Arial" fontSize="9" />
+						<mx:Button label="Help" click="onSocialButtonClick('http://www.jabbercam.com/help')" width="106" height="22" right="120" top="118" fontFamily="Arial" fontSize="9" />
+						
+						<mx:ComboBox id="language" width="93" dataProvider="{LanguageLoader.languages}" selectedIndex="0" change="changeLanguage(event)"  right="20" top="10"/>
+						<mx:Button id="btnFilter" click="onFilter()" enabled="{ccCallState==CCCallEstablished}" width="93" height="22" right="20" top="37" fontFamily="Arial" fontSize="9" />
+						<mx:Button id="btnReport" click="onReport()" enabled="{ccCallState==CCCallEstablished}" width="93" height="22" right="20" top="64" fontFamily="Arial" fontSize="9" />
+						<mx:Button id="btnClear" click="onClearChat()" width="93" height="22" right="20" top="91" fontFamily="Arial" fontSize="9" />
+						<mx:Button id="btnStop" click="onStop()" enabled="false" width="93" height="22" right="20" top="118" fontFamily="Arial" fontSize="9" />
+						<mx:RadioButtonGroup id="background" />
+						<mx:HBox id="backgroundButtons" right="20" top="149" horizontalGap="2" paddingLeft="0" paddingTop="0" paddingRight="0">
+							<mx:RadioButton enabled="true" value="{lang.backgroundImage}" selected="true" color="#FFFFFF" group="{background}" />
+							<mx:RadioButton enabled="true" value="{lang.backgroundImage2}" color="#2A55FF" group="{background}" />
+							<mx:RadioButton enabled="true" value="{lang.backgroundImage3}" color="#AA2AFF" group="{background}" />
+							<mx:RadioButton enabled="true" value="{lang.backgroundImage4}" color="#FFFFFF" group="{background}" />
+							<mx:RadioButton enabled="true" value="{lang.backgroundImage5}" color="#2A55FF" group="{background}" />
+							<mx:RadioButton enabled="true" value="{lang.backgroundImage6}" color="#AA2AFF" group="{background}" />
+						</mx:HBox>
+						<mx:Button skin="@Embed(source='../assets/horizontal.png')" toolTip="Switch to Horizontal layout" click="loadHorizLayout();"  width="93" height="67" right="20" top="173" />
+						<mx:CheckBox id="cbCameraOnOnly" selected="false" click="onCameraOnOnly()" right="23" top="298" />
+						<mx:HBox left="10" top="10">
+							<mx:Label text="Connect me diretly to (User ID)" styleName="Blue"/>
+							<mx:TextInput id="ccUsername" alpha="0.7" width="76" borderStyle="solid" cornerRadius="4" paddingBottom="0" styleName="Blue"/>
+							<mx:Button label="Connect" click="findUserByName()" id="ccConnect" width="76" height="22" fontFamily="Arial" fontSize="9"/>
+						</mx:HBox>
+						<mx:Canvas width="216" height="80" right="10" top="323" backgroundColor="#3b5997"
+							cornerRadius="4" borderStyle="solid" borderThickness="1" borderColor="#ffffff">
+							<mx:CheckBox id="cbAutoFindNext" selected="false" click="onAutoFindNext()"
+								color="#FFFFFF" top="2" right="2"/>
+							
+							<mx:Label id="autoNextIntervalLabel" text="auto Next (sec)" fontSize="9" color="#FFFFFF"
+								left="5" top="2" />
+							
+							<mx:HSlider id="autoDisconnect" labels="{['man', '5', '10', '30', '1min']}"
+								minimum="0" maximum="4" snapInterval="1" tickInterval="1" tickColor="#ffffff"
+								labelStyleName="sliderLabelStyle" liveDragging="false"
+								change="autoDisconnectChange()" bottom="2" left="2" right="2" showDataTip="false" />
+						</mx:Canvas>						
+					</mx:Canvas>
+					<mx:HBox width="100%" height="70">
+						<mx:VBox width="100%" height="69" cornerRadius="4" borderStyle="solid"
+							backgroundColor="#D7E0E7" backgroundAlpha="0.95" verticalGap="0">
+							<mx:Canvas width="100%" height="100%">
+								<mx:TextInput width="100%" height="100%" id="tiChat" enter="callLater(onSend);" 
+									backgroundAlpha="0" borderStyle="none" focusAlpha="0.4" focusRoundedCorners="4"/>
+								<mx:Button label="BUZZ!" verticalCenter="0" right="10" fontFamily="Arial" fontSize="10"
+									alpha="0.5" click="onBuzz()" />
+							</mx:Canvas>
+							<mx:Canvas paddingTop="0" backgroundColor="#cccccc" width="100%" height="15">
+								<mx:HBox>
+									<mx:Label id="lblID" width="100" fontSize="8" truncateToFit="false"/>
+									<mx:Label id="lblOtherId" width="100" fontSize="8" truncateToFit="false"/>
+									<mx:Label id="betaLabel" fontSize="8"/>
+								</mx:HBox>
+								<mx:HBox right="0">
+									<mx:Label id="lblUsersOnline" width="130" fontSize="8"  textAlign="right"/>
+									<mx:Label id="lblOnlineIndicator" fontSize="8" textAlign="right" />
+									<mx:Label fontSize="8" width="74" textAlign="right" id="lblCcCallState" color="#DDDDDD"/>
+								</mx:HBox>
+							</mx:Canvas>
+						</mx:VBox>
+						<!--<mx:VBox verticalGap="0">
+							<mx:Button width="0" height="51" id="btnSend" visible="false" click="onSend()" enabled="false" fontFamily="Arial" fontSize="16"/>
+						</mx:VBox>-->
+						<mx:VBox verticalGap="0">
+							<mx:Canvas width="121" height="69">
+									<mx:Button id="btnStart" click="onStart()" visible="{btnStart.enabled}" width="100%" height="100%" fontFamily="Arial" fontSize="16" />
+								<mx:VBox width="100%" height="100%" visible="{!btnStart.visible}" verticalGap="3">
+									<mx:Canvas width="100%" height="100%" backgroundAlpha="0" borderStyle="none">
+									<mx:Button height="100%" width="100%" id="btnStopAutoNextTimer" click="autoDisconnect.value=0; autoDisconnectChange()"
+										visible="{autoDisconnect.value>0 &amp;&amp; ccCallState == CCCallEstablished}" fontFamily="Arial" fontSize="16" />
+									<mx:Button height="100%" id="btnNext" enabled="false" click="onNext()" width="100%" fontFamily="Arial" fontSize="16"
+										visible="{!btnStopAutoNextTimer.visible}" />
+									</mx:Canvas>
+								</mx:VBox>
+							</mx:Canvas>
+						</mx:VBox>
+					</mx:HBox>	
+				</mx:VBox>
+			</mx:HBox>
+			
+			<mx:VBox verticalGap="10" paddingTop="5">
+				<mx:Button skin="@Embed(source='../assets/myspace.png')" toolTip="{this.lang.myspaceTooltip}"
+					click="onSocialButtonClick(this.lang.getSetting('myspaceLink'))" buttonMode="true" />
+				<mx:Button skin="@Embed(source='../assets/facebook.png')" toolTip="{this.lang.facebookTooltip}"
+					click="onSocialButtonClick(this.lang.getSetting('facebookLink'))" buttonMode="true" />
+				<mx:Button skin="@Embed(source='../assets/twitter.png')" toolTip="{this.lang.twitterTooltip}"
+					click="onSocialButtonClick(this.lang.getSetting('twitterLink'))" buttonMode="true" />
+				<mx:Button skin="@Embed(source='../assets/jabbercam.png')" toolTip="Start Your Own JabberCam Website! Get the Program and the Source Code. Click Here for more information."
+					click="onSocialButtonClick('http://www.videosoftware.pro')" buttonMode="true" />
+			</mx:VBox>
+		</mx:HBox>	
+		
+		
+		<!--<mx:Spacer height="0" />
+		<mx:HBox width="100%" horizontalAlign="center">
+		<mx:Image source="{lang.getSourceCodeImage}" visible="{lang.getSourceCodeImage != null}" id="btnGetTheSource" click="onGetYourOwn()" includeInLayout="{btnGetTheSource.visible}" />
+		</mx:HBox>-->
+	</mx:VBox>
+</mx:VBox>
+	
+</mx:Application>

@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * VIDEOSOFTWARE.PRO
+ * Copyright 2010 VideoSoftware.PRO
+ * All Rights Reserved.
+ *
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License
+ *  as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+ *  warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *  See the GNU General Public License for more details.
+ *  You should have received a copy of the GNU General Public License along with this program.
+ *  If not, see <http://www.gnu.org/licenses/>.
+ * 
+ *  Author: Our small team and fast growing online community at videosoftware.pro
+ */
+-->
+<!--JabberCam French translation by videosoftware.pro-->
+<!--Compatibility: v 3.3-->
+<!--Translated by: Claudia-->
+<lang>
+	<settings>
+		<backgroundImage_1>jabbercam/images/BgImage1.jpg</backgroundImage_1>
+		<backgroundImage_2>jabbercam/images/BgImage2.jpg</backgroundImage_2>
+		<backgroundImage_3>jabbercam/images/BgImage3.jpg</backgroundImage_3>
+		<backgroundImage_4>jabbercam/images/BgImage4.jpg</backgroundImage_4>
+		<backgroundImage_5>jabbercam/images/BgImage5.jpg</backgroundImage_5>
+		<backgroundImage_6>jabbercam/images/BgImage6.jpg</backgroundImage_6>
+		<facebookLink>http://facebook.com/JabberCam</facebookLink>
+		<twitterLink>http://twitter.com/JabberCam</twitterLink>
+		<myspaceLink>http://myspace.com/JabberCam</myspaceLink>
+		<getSourceCode image="get-the-source-code.png">http://www.videosoftware.pro</getSourceCode>
+		<!-- text|flag -->
+		<languageFilter>flag</languageFilter>
+	</settings>
+	<statuses>
+		<defaultMacCamera><![CDATA[USB Video Class Video]]></defaultMacCamera>
+		<noMicrophone><![CDATA[Pas de microphone disponible]]></noMicrophone>
+		<noCamera><![CDATA[Pas de camera disponible]]></noCamera>
+		
+		<myspaceButtonTooltip><![CDATA[Follow us on MySpace!]]></myspaceButtonTooltip>
+		<facebookButtonTooltip><![CDATA[Follow us on Facebook!]]></facebookButtonTooltip>
+		<twitterButtonTooltip><![CDATA[Follow us on Twitter!]]></twitterButtonTooltip>
+		
+		<welcomeMessage>
+			<line><![CDATA[Bienvenue a <b>JabberCam</b>!]]></line>
+			<line><![CDATA[Demarrez votre propre site JabberCam avec les meilleures solutions disponibles fournies par www.videosoftware.pro]]></line>
+			<line><![CDATA[En premier lieu, indiquez si vous ętes une femme ou un homme ...]]></line>
+			<line><![CDATA[depuis, cliquez sur <b>DEMARRER</b>]]></line>
+		</welcomeMessage>
+		<enteringCarouselMessage>
+			<line><![CDATA[Vous entrez maintenant dans le carrousel ... s'il vous plait etre patient.....]]></line>
+			<line><![CDATA[Resiste avec nous. JabberCam mettai les webserveurs d'Adobe sous le feu. Saisie pourrait prendre de temps.]]></line>
+		</enteringCarouselMessage>
+		<unableToConnectMessage><![CDATA[impossible de se connecter a ]]></unableToConnectMessage>
+		<successMessage><![CDATA[Succes!]]></successMessage>
+		<yourIdLabel><![CDATA[Votre ID: ]]></yourIdLabel>
+		<partnerDisconnectMessage>
+			<line><![CDATA[Votre partenaire a <b>deconnecte</b>.]]></line>
+			<line><![CDATA[Cliquez sur <b>TROUVER</b> pour rechercher un hasard nouveaux video partenaire de chat.]]></line>
+		</partnerDisconnectMessage>
+		<registerSuccessMessage><![CDATA[Cliquez sur <b>TROUVER</b> pour recherche un partenaire au hasard.]]></registerSuccessMessage>
+		<lookForPartnersMessage><![CDATA[Si vous voulez le carrousel pour continuer a chercher des partenaires, selectionnez la case 'Auto TROUVER'.]]></lookForPartnersMessage>
+		<updateSexSuccess><![CDATA[votre sexe a change]]></updateSexSuccess>
+		<updateAgeSuccess>
+			<line><![CDATA[Age filter off.]]></line>
+			<line><![CDATA[Your age is ]]></line>
+			<line><![CDATA[Your age is over ]]></line>
+		</updateAgeSuccess>
+		<updateAgeLookupFilter>
+			<line><![CDATA[Looking for all ages.]]></line>
+			<line><![CDATA[Looking for ]]></line>
+		</updateAgeLookupFilter>
+		<usersOnlineLabel><![CDATA[ Utilisateurs disponibles]]></usersOnlineLabel>
+		<noUsersReadyMessage><![CDATA[il semble qu'il n'y a personne pręte]]></noUsersReadyMessage>
+		<checkAutoFindMessage><![CDATA[Vous pouvez vouloir vérifier 'Auto TROUVER' dans le menu Paramčtres et cliquez sur <b>TROUVER</b>.]]></checkAutoFindMessage>
+		<connectingStatus><![CDATA[connexion........]]></connectingStatus>
+		<otherIdLabel><![CDATA[Autre ID: ]]></otherIdLabel>
+		
+		<nobodyFoundMessage><![CDATA[Impossible de trouver alcune personne]]></nobodyFoundMessage>
+		<nobodyFoundInTimeMessage><![CDATA[Impossible de trouver quelqu'un au temps]]></nobodyFoundInTimeMessage>
+		
+		<lookingForFemaleOnly><![CDATA[Vous etes a la recherche actuellement pour les <b>filles</b>, seulement. Selectionnant 'tout le monde' peut aider.]]></lookingForFemaleOnly>
+		<lookingForMaleOnly><![CDATA[Vous etes a la recherche actuellement pour les <b>garçons</b>, seulement. Selectionnant 'tout le monde' peut aider.]]></lookingForMaleOnly>
+		<lookingForSpecificAgeOnly><![CDATA[Vous etes a la recherche actuellement pour les <b>âge</b>, seulement. Selectionnant 'tout le monde' peut aider.]]></lookingForSpecificAgeOnly>
+		<switchAutoFindOffMessage><![CDATA[Nous avons desactive 'Auto TROUVER' pour vous.]]></switchAutoFindOffMessage>
+		<spinRouletteMessage><![CDATA[Cliquez nouvement sur <b>TROUVER</b> pour tourner la roulette.]]></spinRouletteMessage>
+		
+		<errorConnectingToBackend>
+			<line><![CDATA[Impossible de se connecter au backend services. Le message d'erreur etendue ete determine: ]]></line>
+			<line><![CDATA[S'il vous plaît recharge JabberCam pour recommencer.]]></line>
+		</errorConnectingToBackend>
+		
+		<callNotReadyStatus>callNotReady</callNotReadyStatus>
+		<callReadyStatus>callReady</callReadyStatus>
+		<callEstablishedStatus>callEstablished</callEstablishedStatus>
+		<callingStatus>calling.....</callingStatus>
+		
+		<yourPartnerLabel><![CDATA[Partenaire: ]]></yourPartnerLabel>
+		<partnerNotFemaleError><![CDATA[Votre partenaire n'a ete pas <b>femmes</b>. Nous avons deconnecte pour vous....]]></partnerNotFemaleError>
+		<partnerNotMaleError><![CDATA[[Votre partenaire n'a ete pas <b>masculin</b>. Nous avons deconnecte pour vous....]]></partnerNotMaleError>
+		<partnerNotRequestedAge><![CDATA[Votre partenaire n'a ete pas <b>d'âge</b>. Nous avons deconnecte pour vous....]]></partnerNotRequestedAge>
+
+		
+		<connectionSuccess>
+			<line><![CDATA[<b>Engage! <font color='#6E9226'>[x]</font>, <font color='#6E9226'>[y]</font>.</b>]]></line>
+			<line><![CDATA[A tout moment, simplement cliquez sur <b>TROUVER</b> encore une fois, pour avoir un nouveau partenaire.]]></line>
+		</connectionSuccess>
+		
+		<allPartnersBusyMessage><![CDATA[Tous les partenaires sont actuellement occupes et engages dans des chats. Toucher <b>TROUVER</b>, nouvement, ou cocher 'Auto TROUVER'.]]></allPartnersBusyMessage>
+		
+		<youDisconnectedPartnerMessage><![CDATA[Vous avez <b>deconnecte</b> votre partenaire. Vous voulez un nouveau? toucher <b>TROUVER</b>!]]></youDisconnectedPartnerMessage>
+		
+		<autoFindNextActive><![CDATA['Auto TROUVER' est actif. a tout moment decochez 'Auto TROUVER' pour arreter la recherche d'un partenaire!]]></autoFindNextActive>
+		
+		<tryingToFindSomeoneMessage><![CDATA[Essayer de trouver quelqu'un pour vous......]]></tryingToFindSomeoneMessage>
+		
+		<connectionTimeoutMessage><![CDATA[connexion temporairement suspendu]]></connectionTimeoutMessage>
+		
+		<leaveChatMessage>
+			<line><![CDATA[Vous avez quitte l'univers <b>JabberCam</b> et <b>deconnecte</b>.]]></line>
+			<line><![CDATA[Cliquez sur <b>DEMARRER</b> pour revenir.]]></line>
+		</leaveChatMessage>
+		
+		<femaleSexChange><![CDATA[Mettre a jour votre sexe: feminin.]]></femaleSexChange>
+		<maleSexChange><![CDATA[Mettre a jour votre sexe: masculin.]]></maleSexChange>
+		<ageChange><![CDATA[Mettre a jour votre âge]]></ageChange>
+		
+		<youText><![CDATA[Moi]]></youText>
+
+		<!-- $x, $y are parameters that will be replaced by the actual ammount they represent -->
+		<filterSuccessMessage><![CDATA[You won't be connected with this user for $x minutes.]]></filterSuccessMessage>
+		<reporterReportSuccessMessage><![CDATA[You did send the $x-th report.]]></reporterReportSuccessMessage>
+		<reportedReportSuccessMessage><![CDATA[This is your $x-th report of $y.]]></reportedReportSuccessMessage>
+		<bannedMessage><![CDATA[You are banned for $x minutes.]]></bannedMessage>
+		<blockedMessage><![CDATA[Your ip is blocked.]]></blockedMessage>
+
+		<waitingForCameraMessage><![CDATA[Waiting for camera .....]]></waitingForCameraMessage>
+		<openSettingsMessageLink><![CDATA[<font color='#ff0000'>Your camera is off, <a href="event:opensetts"><u>click here</u></a> to start your WebCam.</font>]]></openSettingsMessageLink>
+		
+		<partnerLabel><![CDATA[Partner]]></partnerLabel>
+		<autoNextIntervalLabel><![CDATA[auto Next (sec)]]></autoNextIntervalLabel>
+		<youLabel><![CDATA[Moi]]></youLabel>
+		<meLabel><![CDATA[Je suis]]></meLabel>
+		<femaleLabel><![CDATA[femme]]></femaleLabel>
+		<maleLabel><![CDATA[homme]]></maleLabel>
+		<seekingLabel><![CDATA[Cherche]]></seekingLabel>
+		<myLanguageLabel><![CDATA[Lang.]]></myLanguageLabel>
+		<partnerLanguageLabel><![CDATA[Lang.]]></partnerLanguageLabel>
+		<bothLabel><![CDATA[tout le monde]]></bothLabel>
+		<ladiesLabel><![CDATA[filles]]></ladiesLabel>
+		<gentsLabel><![CDATA[garçons]]></gentsLabel>
+		<autoFindNextLabel><![CDATA[Auto FIND next]]></autoFindNextLabel>
+		<microphoneLabel><![CDATA[microphone]]></microphoneLabel>
+		<volumeLabel><![CDATA[volume]]></volumeLabel>
+		<previewVideoLabel><![CDATA[Affichage Video]]></previewVideoLabel>
+		<findNextLabel><![CDATA[TROUVER]]></findNextLabel>
+		<startLabel><![CDATA[DEMARRER]]></startLabel>
+		<stopLabel><![CDATA[Arreter]]></stopLabel>
+		<clearLabel><![CDATA[claire]]></clearLabel>
+		<sendLabel><![CDATA[ENVOYER]]></sendLabel>
+		<getTheSourceLabel><![CDATA[Obtenir la Source!]]></getTheSourceLabel>
+		<betaLabel><![CDATA[BETA]]></betaLabel>
+		<reportLabel><![CDATA[Report]]></reportLabel>
+		<filterLabel><![CDATA[Filter]]></filterLabel>
+		<cameraOnLabel><![CDATA[Camera ON Only]]></cameraOnLabel>
+		<startButtonTooltip><![CDATA[This is a DEMO site. You may not be able to connect if there are only a few users online or the server is down.]]></startButtonTooltip>
+		<nextButtonTooltip><![CDATA[This is a DEMO site. You may not be able to connect if there are only a few users online or the server is down.]]></nextButtonTooltip>
+		<usernameTextInputLabel><![CDATA[Nickname: ]]></usernameTextInputLabel>
+		<filterButtonTooltip><![CDATA[Filter this user]]></filterButtonTooltip>
+		<reportButtonTooltip><![CDATA[Report this user]]></reportButtonTooltip>
+		<langFilterAllLabel><![CDATA[International]]></langFilterAllLabel>
+		<btnStopAutoNextLabel><![CDATA[STOP]]></btnStopAutoNextLabel>
+		<changeBackgroundButtonTooltip><![CDATA[Change Background]]></changeBackgroundButtonTooltip>
+		<connectMeDirectlyToLabel><![CDATA[Connect me directly to (User ID)]]></connectMeDirectlyToLabel>
+		<connectMeDirectlyToButtonLabel><![CDATA[Connect]]></connectMeDirectlyToButtonLabel>
+		<iamLabel><![CDATA[I am]]></iamLabel>
+		<fromLabel><![CDATA[from]]></fromLabel>
+	</statuses>
+</lang>
