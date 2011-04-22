@@ -58,13 +58,13 @@
 			private var manager : AbstractCCUserManager;
 			private var conn : NetConnection;
 			private var curUrl : String;
-			private var firstTime : Boolean = true;
+			private static var firstTime : Boolean = true;
 			
 			private var connected : Boolean = false;
 			private var blocked : Boolean = false;
 			private var banned : Boolean = false;
 			
-			public function showSettingsPanel() : void {
+			public static function showSettingsPanel() : void {
 				if(firstTime)
 				try {
 //					var conn : NetConnection = new NetConnection();

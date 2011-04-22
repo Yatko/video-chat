@@ -220,6 +220,12 @@
 		private var partnerCountry : String;
 		
 		private var firstStart : Boolean = true;
+
+		[Bindable]
+		private var cameraRequired : Boolean = false;
+
+		[Bindable]
+		private var loginScreenEnabled : Boolean = false;
 		
 		private function init() : void {
 			settingsLoader.send();
@@ -446,6 +452,9 @@
 				CustomFilter.customFilter2Values = filter2Values;
 			}
 			
+			loginScreenEnabled = event.result.loginScreenEnable.toString() == "true";
+			cameraRequired = event.result.cameraRequired.toString() == "true";
+			
 			if(!this.appInitialized && this.appComplete && this.lang.ready)
 			this.initApp();
 		}
@@ -459,14 +468,22 @@
 			
 			if(firstStart) {
 			CONFIG::RELEASE {
-				var startup : StartupAlert = new StartupAlert();
-				startup.addEventListener(ValidationResultEvent.VALID, function(ev : ValidationResultEvent) : void {
-					startup.removeEventListener(ValidationResultEvent.VALID, arguments.callee);
-					PopUpManager.removePopUp(startup);
-					myUsername.text = startup.username.text;
+				var startup : StartupAlert;
+				
+				var func : Function = function(ev : ValidationResultEvent = null) : void {
+					if(loginScreenEnabled) {
+						startup.removeEventListener(ValidationResultEvent.VALID, arguments.callee);
+						PopUpManager.removePopUp(startup);
+						
+						myUsername.text = startup.username.text;
+					} else {
+						myUsername.editable = true;
+						ccLabel.visible = ccConnect.visible = ccUsername.visible = false;
+						ccLabel.includeInLayout = ccConnect.includeInLayout = ccUsername.includeInLayout = false;
+					}
 					
-					if(Camera.getCamera().muted) {
-						startup.showSettingsPanel();
+					if(cameraRequired && Camera.getCamera().muted) {
+						StartupAlert.showSettingsPanel();
 						btnStart.enabled = true;
 						
 						status(lang.getSimpleProperty('waitingForCameraMessage')+"\n");
@@ -488,9 +505,17 @@
 					} else {
 						connect();
 					}
-				});
-				PopUpManager.addPopUp(startup, this, true);
-				PopUpManager.centerPopUp(startup);
+				};
+				
+				if(loginScreenEnabled) {
+					startup = new StartupAlert();
+					startup.addEventListener(ValidationResultEvent.VALID, func);
+					
+					PopUpManager.addPopUp(startup, this, true);
+					PopUpManager.centerPopUp(startup);
+				} else {
+					func();
+				}
 			}
 			
 			var snd : Sound = new Sound(new URLRequest("jabbercam/sounds/welcome.mp3"));
@@ -2335,7 +2360,7 @@
 			this.btnClear.label=this.lang.getSimpleProperty('clearLabel');
 			this.myLanguageLabel.text = this.lang.getSimpleProperty('myLanguageLabel');
 			this.partnerLanguageLabel.text = this.lang.getSimpleProperty('partnerLanguageLabel');
-//			this.ccUsername.text = this.lang.getSimpleProperty('connectMeDirectlyToLabel');
+			this.ccLabel.text = this.lang.getSimpleProperty('connectMeDirectlyToLabel');
 			this.ccConnect.label = this.lang.getSimpleProperty('connectMeDirectlyToButtonLabel');
 //			this.btnSend.label=this.lang.getSimpleProperty('sendLabel');
 //			this.btnGetTheSource.label=this.lang.getSimpleProperty('getTheSourceLabel');

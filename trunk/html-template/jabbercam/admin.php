@@ -74,6 +74,16 @@ if(preg_match('/^clean$/', $task)) {
 	
 	echo('Cleared all sessions<br/>');
 	
+} else if(preg_match('/^cleanAllOlder$/', $task)) {
+
+	$result = mysql_query("DELETE sessions, filters, user_settings, user_prefs, chats FROM sessions ".
+		"LEFT JOIN filters ON sessions.id=filters.id LEFT JOIN user_settings ON sessions.id=user_settings.id ".
+		"LEFT JOIN user_prefs ON sessions.id=user_prefs.id LEFT JOIN chats ON sessions.id=chats.peer1 || ".
+		"sessions.id=chats.peer2 ".
+		"WHERE created_at < DATE_SUB(NOW(),INTERVAL $REMOVE_SESSIONS_OLDER_THAN MINUTE);");
+	
+	echo('Deleted '.mysql_affected_rows().' session(s)<br/>');
+	
 } else if(preg_match('/^blockip$/', $task)) {
 
 	$result = mysql_query("INSERT IGNORE INTO block VALUES(\"".urldecode($_GET['ip'])."\")");

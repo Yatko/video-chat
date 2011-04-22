@@ -54,6 +54,8 @@ if($SERVER_TYPE == 'Red5') {
 	$DB_DATABASE = $RED5_DB_DATABASE;
 }
 
+$REMOVE_SESSIONS_OLDER_THAN = '180'; // minutes
+
 $RED5_CONNECT_URL = 'rtmp://www.jabbercam.com/JabberCamApp';	// leave this free, temporary resource or use your own
 $RED5_CONNECT_URL_B1 = '';
 $RED5_CONNECT_URL_B2 = '';
@@ -84,6 +86,9 @@ $CUSTOM_FILTER_1 = array("paris"=>"Paris", "london"=>"London");
 $CUSTOM_FILTER_2_ENABLE = true;
 $CUSTOM_FITLER_2_LABEL = "Looking for";
 $CUSTOM_FILTER_2 = array("dating"=>"Dating", "justtalk"=>"Just Talk");
+
+$LOGIN_SCREEN_ENABLE = true;
+$CAMERA_REQUIRED = true;
 
 if(isset($_GET['setts'])) {
 	header('Content-type: text/xml');
@@ -167,6 +172,9 @@ if(isset($_GET['setts'])) {
 		}
 		echo '</customFilter2>';
 	}
+	
+	echo '<loginScreenEnable>'.($LOGIN_SCREEN_ENABLE?'true':'false').'</loginScreenEnable>';
+	echo '<cameraRequired>'.($CAMERA_REQUIRED?'true':'false').'</cameraRequired>';
 	
 	echo '</settings>';
 }
