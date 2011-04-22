@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
 /**
-* VIDEOSOFTWARE.PRO
-* Copyright 2010 VideoSoftware.PRO
-* All Rights Reserved.
-*
-* This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License
-*  as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
-* This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-*  warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-*  See the GNU General Public License for more details.
-*  You should have received a copy of the GNU General Public License along with this program.
-*  If not, see <http://www.gnu.org/licenses/>.
-* 
-*  Author: Our small team and fast growing online community at videosoftware.pro
-*/
+ * VIDEOSOFTWARE.PRO
+ * Copyright 2010 VideoSoftware.PRO
+ * All Rights Reserved.
+ *
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License
+ *  as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+ *  warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *  See the GNU General Public License for more details.
+ *  You should have received a copy of the GNU General Public License along with this program.
+ *  If not, see <http://www.gnu.org/licenses/>.
+ * 
+ *  Author: Our small team and fast growing online community at videosoftware.pro
+ */
 -->
 <mx:Application xmlns:mx="http://www.adobe.com/2006/mxml"
 	 backgroundImage="{background.selectedValue}"
@@ -163,7 +163,7 @@
 				<mx:TextArea width="670" height="120" id="taChat" editable="false" wordWrap="true" added="/* if(event.target is VScrollBar)taChatVScrollBarAdded(event.target as VScrollBar) */" />
 				<mx:Label styleName="White" id="iamLabel" visible="false"/>
 				<mx:HBox left="9" top="4">
-					<mx:Label text="Connect me diretly to (User ID)" styleName="Blue"/>
+					<mx:Label id="ccLabel" text="Connect me diretly to (User ID)" styleName="Blue"/>
 					<mx:TextInput id="ccUsername" alpha="0.7" width="76" height="16" borderStyle="solid" cornerRadius="4" paddingBottom="0" styleName="Blue" fontFamily="Arial" fontSize="9"/>
 					<mx:Button label="Connect" click="findUserByName()" id="ccConnect" width="64" height="16" fontFamily="Arial" fontSize="9"/>
 				</mx:HBox>
