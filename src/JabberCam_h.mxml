@@ -100,7 +100,7 @@
 					<mx:Label id="youLabel"  color="#FFFFFF"/>
 					<mx:HBox horizontalGap="0" right="0">
 						<mx:Label id="fromLabel" styleName="White" visible="false" />
-				<mx:Image source="jabbercam/flags/{countryCode.toLowerCase()}.png" visible="{countryCode != '' &amp;&amp; countryCode != null}" toolTip="{country}"/>
+				<mx:Image source="jabbercam/media/images/flags/{countryCode.toLowerCase()}.png" visible="{countryCode != '' &amp;&amp; countryCode != null}" toolTip="{country}"/>
 						<mx:Label id="microphoneLabel" fontWeight="bold" color="#ffffff"/>
 						<mx:HSlider id="micVolumeSlider" showDataTip="false" width="120" minimum="0" maximum="100" change="micVolumeChanged(event)"/>				
 					</mx:HBox>
@@ -153,6 +153,8 @@
 				click="onSocialButtonClick(this.lang.getSetting('facebookLink'))" buttonMode="true" />
 			<mx:Button skin="@Embed(source='../assets/twitter.png')" toolTip="{this.lang.twitterTooltip}"
 				click="onSocialButtonClick(this.lang.getSetting('twitterLink'))" buttonMode="true" />
+			<mx:Button skin="@Embed(source='../assets/buzz.png')" toolTip="{this.lang.buzzTooltip}"
+					   click="onSocialButtonClick(this.lang.getSetting('buzzLink'))" buttonMode="true" />
 			<mx:Button skin="@Embed(source='../assets/jabbercam.png')" toolTip="Start Your Own JabberCam Website! Get the Program and the Source Code. Click Here for more information."
 				click="onSocialButtonClick('http://www.videosoftware.pro')" buttonMode="true" />
 		</mx:VBox>

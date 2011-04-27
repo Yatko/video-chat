@@ -21,15 +21,16 @@
 <!--Translated by: Claudia-->
 <lang>
 	<settings>
-		<backgroundImage_1>jabbercam/images/BgImage1.jpg</backgroundImage_1>
-		<backgroundImage_2>jabbercam/images/BgImage2.jpg</backgroundImage_2>
-		<backgroundImage_3>jabbercam/images/BgImage3.jpg</backgroundImage_3>
-		<backgroundImage_4>jabbercam/images/BgImage4.jpg</backgroundImage_4>
-		<backgroundImage_5>jabbercam/images/BgImage5.jpg</backgroundImage_5>
-		<backgroundImage_6>jabbercam/images/BgImage6.jpg</backgroundImage_6>
+		<backgroundImage_1>jabbercam/media/images/BgImage1.jpg</backgroundImage_1>
+		<backgroundImage_2>jabbercam/media/images/BgImage2.jpg</backgroundImage_2>
+		<backgroundImage_3>jabbercam/media/images/BgImage3.jpg</backgroundImage_3>
+		<backgroundImage_4>jabbercam/media/images/BgImage4.jpg</backgroundImage_4>
+		<backgroundImage_5>jabbercam/media/images/BgImage5.jpg</backgroundImage_5>
+		<backgroundImage_6>jabbercam/media/images/BgImage6.jpg</backgroundImage_6>
 		<facebookLink>http://facebook.com/JabberCam</facebookLink>
 		<twitterLink>http://twitter.com/JabberCam</twitterLink>
 		<myspaceLink>http://myspace.com/JabberCam</myspaceLink>
+		<buzzLink>http://www.google.com/buzz/post?message=Chat%20Roulette%20Alternative!&url=http://www.jabbercam.com</buzzLink>
 		<getSourceCode image="get-the-source-code.png">http://www.videosoftware.pro</getSourceCode>
 		<!-- text|flag -->
 		<languageFilter>flag</languageFilter>
@@ -42,6 +43,7 @@
 		<myspaceButtonTooltip><![CDATA[Follow us on MySpace!]]></myspaceButtonTooltip>
 		<facebookButtonTooltip><![CDATA[Follow us on Facebook!]]></facebookButtonTooltip>
 		<twitterButtonTooltip><![CDATA[Follow us on Twitter!]]></twitterButtonTooltip>
+		<buzzButtonTooltip><![CDATA[Google Buzz!]]></buzzButtonTooltip>
 		
 		<welcomeMessage>
 			<line><![CDATA[Benvenuti a <b>JabberCam</b>!]]></line>
