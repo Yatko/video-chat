@@ -40,7 +40,7 @@
 <mx:Boolean id="canHidePartnerControls">true</mx:Boolean>
 
 <mx:VBox width="95%" height="613" verticalGap="0" id="bigContainer" horizontalAlign="center" paddingTop="5">
-	<mx:HBox height="72" width="100%" horizontalGap="0" paddingLeft="5" paddingRight="5" paddingTop="5" paddingBottom="5" backgroundColor="0x3B5997" filters="{[new DropShadowFilter(2, 90,90,1,2, 8)]}" borderStyle="solid" cornerRadius="4">
+	<mx:HBox height="72" width="100%" horizontalGap="0" paddingLeft="5" paddingRight="5" paddingTop="5" paddingBottom="5" backgroundColor="#3B5997" filters="{[new DropShadowFilter(2, 90,90,1,2, 8)]}" borderStyle="solid" borderThickness="0" cornerRadius="4">
 		<!--Header 1st Box-->
 		<mx:VBox height="100%">
 			<mx:HBox width="163" height="100%" cornerRadius="5" borderStyle="solid" borderThickness="0">
@@ -104,15 +104,15 @@
 		<mx:HBox height="100%" width="100%" horizontalScrollPolicy="off">
 			<mx:VBox height="100%" width="330" paddingLeft="5" paddingTop="5" paddingRight="5" paddingBottom="0">
 				<mx:VBox verticalGap="0" width="320" height="240">
-					<mx:Canvas width="320" height="240" backgroundColor="#000000" mouseOver="canHidePartnerControls=false; partnerControls.visible=true;"
+					<mx:Canvas width="320" height="240" mouseOver="canHidePartnerControls=false; partnerControls.visible=true;"
 						rollOut="canHidePartnerControls=true; if(!lockPartnerControls){partnerControls.visible=false;}">
-						<mx:VideoDisplay width="320" height="240" id="vidOther" verticalCenter="0"/>
-						<mx:Canvas backgroundColor="0x000000" width="320" height="240" id="adContainer"
+						<mx:VideoDisplay width="320" height="240" id="vidOther" verticalCenter="0" cornerRadius="4" borderStyle="solid" borderColor="#B7BABC" borderThickness="4" backgroundColor="#000000"/>
+						<mx:Canvas width="316" height="236" id="adContainer"
 							visible="{!peerCameraAllowed || ccCallState != CCCallEstablished}"
-							includeInLayout="{adContainer.visible}" verticalCenter="0">
-							<mx:Image width="320" height="240" horizontalAlign="center" verticalAlign="middle"
+							includeInLayout="{adContainer.visible}" verticalCenter="0" horizontalCenter="0">
+							<mx:Image width="316" height="236" horizontalAlign="center" verticalAlign="middle"
 							source="{currentAd}" open="beginLoadingAd()" complete="completeLoadingAd()"
-							id="ad" />
+							id="ad"/>
 						</mx:Canvas>
 						
 						<mx:VBox id="partnerControls" bottom="0" showEffect="Fade" hideEffect="Fade" visible="false" width="320" height="240" horizontalAlign="center" verticalAlign="top">
@@ -128,14 +128,13 @@
 				</mx:VBox>
 				<!--<mx:HRule width="100%" alpha="20"/>-->
 				<mx:VBox verticalGap="0" width="320" height="240">
-					<mx:Canvas backgroundColor="#000000" width="320" height="240" mouseOver="canHideOwnControls = false; ownControls.visible=true"	rollOut="canHideOwnControls=true; if(!lockOwnControls)ownControls.visible=false">
-						<mx:VideoDisplay width="320" height="240" id="vidMe" verticalCenter="0" />
-						
+					<mx:Canvas width="320" height="240" mouseOver="canHideOwnControls = false; ownControls.visible=true"	rollOut="canHideOwnControls=true; if(!lockOwnControls)ownControls.visible=false">
+						<mx:VideoDisplay width="320" height="240" id="vidMe" verticalCenter="0" cornerRadius="4" borderStyle="solid" borderColor="#B7BABC" borderThickness="4" backgroundColor="#000000"/>
 						<mx:VBox id="ownControls" bottom="0" showEffect="Fade" hideEffect="Fade" visible="false" width="320" height="240" horizontalAlign="center" verticalAlign="top">
 							<mx:HBox width="95%" horizontalGap="0" right="0" paddingTop="10">
 								<mx:Label id="youLabel"  color="#FFFFFF" width="100%"/>
 								<mx:Label id="fromLabel" styleName="White"/>
-								<mx:Image source="jabbercam/flags/{countryCode.toLowerCase()}.png" visible="{countryCode != '' &amp;&amp; countryCode != null}" toolTip="{country}" />
+								<mx:Image source="jabbercam/media/images/flags/{countryCode.toLowerCase()}.png" visible="{countryCode != '' &amp;&amp; countryCode != null}" toolTip="{country}" />
 								<mx:Label id="microphoneLabel" fontWeight="bold" color="#ffffff"/>
 								<mx:HSlider id="micVolumeSlider" showDataTip="false" width="120" minimum="0" maximum="100" change="micVolumeChanged(event)"/>				
 							</mx:HBox>
@@ -149,6 +148,8 @@
 					click="onSocialButtonClick(this.lang.getSetting('facebookLink'))" buttonMode="true" />
 							<mx:Button skin="@Embed(source='../assets/twitter.png')" toolTip="{this.lang.twitterTooltip}"
 					click="onSocialButtonClick(this.lang.getSetting('twitterLink'))" buttonMode="true" />
+							<mx:Button skin="@Embed(source='../assets/buzz.png')" toolTip="{this.lang.buzzTooltip}"
+					click="onSocialButtonClick(this.lang.getSetting('buzzLink'))" buttonMode="true" />		
 							<mx:Button skin="@Embed(source='../assets/jabbercam.png')" toolTip="Start Your Own JabberCam Website! Get the Program and the Source Code. Click Here for more information."
 					click="onSocialButtonClick('http://www.videosoftware.pro')" buttonMode="true" />
 							</mx:HBox>
@@ -165,9 +166,10 @@
 				</mx:VBox>
 			</mx:VBox>		
 			<mx:HBox horizontalGap="0" height="100%" width="100%">
-				<mx:VBox height="491" width="100%" paddingTop="5">
+				<mx:VBox height="491" width="100%" paddingTop="2">
 					<mx:Canvas width="100%" height="100%">
-						<mx:TextArea width="100%" height="100%" id="taChat" editable="false" wordWrap="true" />
+						<mx:TextArea width="100%" height="100%" id="taChat" editable="false" wordWrap="true"  x="0" y="4"/>
+						<mx:CheckBox id="cbCameraOnOnly" selected="false" click="onCameraOnOnly()" right="120" top="10" />
 						<mx:Button label="SpeedDate" id="speedDate" click="onSpeedDateClick()" toggle="true" width="106" height="22" right="120" top="37" fontFamily="Arial" fontSize="9" />
 						<mx:Button label="SpeedChat" id="speedChat" click="onSpeedChatClick()" toggle="true" width="106" height="22" right="120" top="64" fontFamily="Arial" fontSize="9" />
 						<mx:Button label="Credits" click="onSocialButtonClick('http://www.videosoftware.pro')" width="106" height="22" right="120" top="91" fontFamily="Arial" fontSize="9" />
@@ -177,39 +179,27 @@
 						<mx:Button id="btnFilter" click="onFilter()" enabled="{ccCallState==CCCallEstablished}" width="93" height="22" right="20" top="37" fontFamily="Arial" fontSize="9" />
 						<mx:Button id="btnReport" click="onReport()" enabled="{ccCallState==CCCallEstablished}" width="93" height="22" right="20" top="64" fontFamily="Arial" fontSize="9" />
 						<mx:Button id="btnClear" click="onClearChat()" width="93" height="22" right="20" top="91" fontFamily="Arial" fontSize="9" />
-						<mx:Button id="btnStop" click="onStop()" enabled="false" width="93" height="22" right="20" top="118" fontFamily="Arial" fontSize="9" />
 						<mx:RadioButtonGroup id="background" />
-						<mx:HBox id="backgroundButtons" right="20" top="149" horizontalGap="2" paddingLeft="0" paddingTop="0" paddingRight="0">
-							<mx:RadioButton enabled="true" value="{lang.backgroundImage}" selected="true" color="#FFFFFF" group="{background}" />
-							<mx:RadioButton enabled="true" value="{lang.backgroundImage2}" color="#2A55FF" group="{background}" />
-							<mx:RadioButton enabled="true" value="{lang.backgroundImage3}" color="#AA2AFF" group="{background}" />
-							<mx:RadioButton enabled="true" value="{lang.backgroundImage4}" color="#FFFFFF" group="{background}" />
-							<mx:RadioButton enabled="true" value="{lang.backgroundImage5}" color="#2A55FF" group="{background}" />
-							<mx:RadioButton enabled="true" value="{lang.backgroundImage6}" color="#AA2AFF" group="{background}" />
-						</mx:HBox>
 						<mx:Button skin="@Embed(source='../assets/horizontal.png')" toolTip="Switch to Horizontal layout" click="loadHorizLayout();"  width="93" height="67" right="20" top="173" />
-						<mx:CheckBox id="cbCameraOnOnly" selected="false" click="onCameraOnOnly()" right="23" top="298" />
-						<mx:HBox left="10" top="10">
+						<mx:HBox left="10" top="14">
 							<mx:Label id="ccLabel" text="Connect me diretly to (User ID)" styleName="Blue"/>
 							<mx:TextInput id="ccUsername" alpha="0.7" width="76" borderStyle="solid" cornerRadius="4" paddingBottom="0" styleName="Blue"/>
 							<mx:Button label="Connect" click="findUserByName()" id="ccConnect" width="76" height="22" fontFamily="Arial" fontSize="9"/>
 						</mx:HBox>
-						<mx:Canvas width="216" height="80" right="10" top="323" backgroundColor="#3b5997"
-							cornerRadius="4" borderStyle="solid" borderThickness="1" borderColor="#ffffff">
-							<mx:CheckBox id="cbAutoFindNext" selected="false" click="onAutoFindNext()"
-								color="#FFFFFF" top="2" right="2"/>
-							
+						<mx:Canvas width="216" height="55" right="10" top="348" backgroundColor="#cccccc"
+							cornerRadius="4" borderStyle="solid" borderThickness="0" borderColor="#ffffff">
 							<mx:Label id="autoNextIntervalLabel" text="auto Next (sec)" fontSize="9" color="#FFFFFF"
-								left="5" top="2" />
+								left="5" top="2" alpha="0.5"/>
 							
 							<mx:HSlider id="autoDisconnect" labels="{['man', '5', '10', '30', '1min']}"
 								minimum="0" maximum="4" snapInterval="1" tickInterval="1" tickColor="#ffffff"
-								labelStyleName="sliderLabelStyle" liveDragging="false"
+								labelStyleName="sliderLabelStyle" liveDragging="false"  labelOffset="-6"
 								change="autoDisconnectChange()" bottom="2" left="2" right="2" showDataTip="false" />
 						</mx:Canvas>						
 					</mx:Canvas>
 					<mx:HBox width="100%" height="70">
-						<mx:VBox width="100%" height="69" cornerRadius="4" borderStyle="solid"
+						<mx:Button id="btnStop" click="onStop()" enabled="false" width="121" height="100%" fontFamily="Arial" fontSize="16"/>
+						<mx:VBox width="100%" height="69" cornerRadius="4" borderStyle="solid" borderColor="#B7BABC" borderThickness="4"
 							backgroundColor="#D7E0E7" backgroundAlpha="0.95" verticalGap="0">
 							<mx:Canvas width="100%" height="100%">
 								<mx:TextInput width="100%" height="100%" id="tiChat" enter="callLater(onSend);" 
@@ -237,6 +227,7 @@
 							<mx:Canvas width="121" height="69">
 									<mx:Button id="btnStart" click="onStart()" visible="{btnStart.enabled}" width="100%" height="100%" fontFamily="Arial" fontSize="16" />
 								<mx:VBox width="100%" height="100%" visible="{!btnStart.visible}" verticalGap="3">
+									<mx:CheckBox id="cbAutoFindNext" selected="false" click="onAutoFindNext()" color="#FFFFFF" horizontalGap="0"/>
 									<mx:Canvas width="100%" height="100%" backgroundAlpha="0" borderStyle="none">
 									<mx:Button height="100%" width="100%" id="btnStopAutoNextTimer" click="autoDisconnect.value=0; autoDisconnectChange()"
 										visible="{autoDisconnect.value>0 &amp;&amp; ccCallState == CCCallEstablished}" fontFamily="Arial" fontSize="16" />
@@ -250,15 +241,25 @@
 				</mx:VBox>
 			</mx:HBox>
 			
-			<mx:VBox verticalGap="10" paddingTop="5">
+			<mx:VBox verticalGap="10" paddingTop="5" height="100%">
 				<mx:Button skin="@Embed(source='../assets/myspace.png')" toolTip="{this.lang.myspaceTooltip}"
 					click="onSocialButtonClick(this.lang.getSetting('myspaceLink'))" buttonMode="true" />
 				<mx:Button skin="@Embed(source='../assets/facebook.png')" toolTip="{this.lang.facebookTooltip}"
 					click="onSocialButtonClick(this.lang.getSetting('facebookLink'))" buttonMode="true" />
 				<mx:Button skin="@Embed(source='../assets/twitter.png')" toolTip="{this.lang.twitterTooltip}"
 					click="onSocialButtonClick(this.lang.getSetting('twitterLink'))" buttonMode="true" />
+				<mx:Button skin="@Embed(source='../assets/buzz.png')" toolTip="{this.lang.buzzTooltip}"
+						   click="onSocialButtonClick(this.lang.getSetting('buzzLink'))" buttonMode="true" />
 				<mx:Button skin="@Embed(source='../assets/jabbercam.png')" toolTip="Start Your Own JabberCam Website! Get the Program and the Source Code. Click Here for more information."
 					click="onSocialButtonClick('http://www.videosoftware.pro')" buttonMode="true" />
+				<mx:VBox id="backgroundButtons" height="100%" verticalAlign="middle">
+					<mx:RadioButton enabled="true" value="{lang.backgroundImage}" selected="true" color="#FFFFFF" group="{background}" />
+					<mx:RadioButton enabled="true" value="{lang.backgroundImage2}" color="#2A55FF" group="{background}" />
+					<mx:RadioButton enabled="true" value="{lang.backgroundImage3}" color="#AA2AFF" group="{background}" />
+					<mx:RadioButton enabled="true" value="{lang.backgroundImage4}" color="#FFFFFF" group="{background}" />
+					<mx:RadioButton enabled="true" value="{lang.backgroundImage5}" color="#2A55FF" group="{background}" />
+					<mx:RadioButton enabled="true" value="{lang.backgroundImage6}" color="#AA2AFF" group="{background}" />
+				</mx:VBox>	
 			</mx:VBox>
 		</mx:HBox>	
 		

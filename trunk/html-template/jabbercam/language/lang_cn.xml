@@ -16,20 +16,21 @@
  *  Author: Our small team and fast growing online community at videosoftware.pro
  */
 -->
-<!--JabberCam English translation by videosoftware.pro-->
+<!--JabberCam Chinese translation by videosoftware.pro-->
 <!--Compatibility: v 3.3-->
 <!--Translated by: Bo-->
 <lang>
 	<settings>
-		<backgroundImage_1>jabbercam/images/BgImage1.jpg</backgroundImage_1>
-		<backgroundImage_2>jabbercam/images/BgImage2.jpg</backgroundImage_2>
-		<backgroundImage_3>jabbercam/images/BgImage3.jpg</backgroundImage_3>
-		<backgroundImage_4>jabbercam/images/BgImage4.jpg</backgroundImage_4>
-		<backgroundImage_5>jabbercam/images/BgImage5.jpg</backgroundImage_5>
-		<backgroundImage_6>jabbercam/images/BgImage6.jpg</backgroundImage_6>
+		<backgroundImage_1>jabbercam/media/images/BgImage1.jpg</backgroundImage_1>
+		<backgroundImage_2>jabbercam/media/images/BgImage2.jpg</backgroundImage_2>
+		<backgroundImage_3>jabbercam/media/images/BgImage3.jpg</backgroundImage_3>
+		<backgroundImage_4>jabbercam/media/images/BgImage4.jpg</backgroundImage_4>
+		<backgroundImage_5>jabbercam/media/images/BgImage5.jpg</backgroundImage_5>
+		<backgroundImage_6>jabbercam/media/images/BgImage6.jpg</backgroundImage_6>
 		<facebookLink>http://facebook.com/JabberCam</facebookLink>
 		<twitterLink>http://twitter.com/JabberCam</twitterLink>
 		<myspaceLink>http://myspace.com/JabberCam</myspaceLink>
+		<buzzLink>http://www.google.com/buzz/post?message=Chat%20Roulette%20Alternative!&url=http://www.jabbercam.com</buzzLink>
 		<getSourceCode image="get-the-source-code.png">http://www.videosoftware.pro</getSourceCode>
 		<!-- text|flag -->
 		<languageFilter>flag</languageFilter>
@@ -38,15 +39,21 @@
 		<defaultMacCamera><![CDATA[USB Video 视频]]></defaultMacCamera>
 		<noMicrophone><![CDATA[没有检测到麦克风.]]></noMicrophone>
 		<noCamera><![CDATA[没有检测到摄像头.]]></noCamera>
+
+		<myspaceButtonTooltip><![CDATA[Follow us on MySpace!]]></myspaceButtonTooltip>
+		<facebookButtonTooltip><![CDATA[Follow us on Facebook!]]></facebookButtonTooltip>
+		<twitterButtonTooltip><![CDATA[Follow us on Twitter!]]></twitterButtonTooltip>
+		<buzzButtonTooltip><![CDATA[Google Buzz!]]></buzzButtonTooltip>
+
 		<welcomeMessage>
-			<line><![CDATA[欢迎来到 <b>JaberCam</b>]]></line>
+			<line><![CDATA[欢迎来到 <b>JabberCam</b>]]></line>
 			<line><![CDATA[<font color='#555555'>(想要你自己的聊天网站? 所有源代码均可出售! 详情: http://www.videosoftware.pro)</font>]]></line>
 			<line><![CDATA[首先,在右上角选择你的性别.]]></line>
 			<line><![CDATA[接下来点 <font color='#0033ff'><b>GO</b></font> 按钮.]]></line>
 		</welcomeMessage>
 		<enteringCarouselMessage>
 			<line><![CDATA[正在进入传送带... 请耐心等待...]]></line>
-			<line><![CDATA[<font color='#555555'>JabberCam 导致adobe服务器流量过大 时间会稍长一些</font>]]></line>
+			<line><![CDATA[<font color='#555555'>JaberCam 导致adobe服务器流量过大 时间会稍长一些</font>]]></line>
 		</enteringCarouselMessage>
 		<unableToConnectMessage><![CDATA[无法连接 ]]></unableToConnectMessage>
 		<successMessage><![CDATA[成功!]]></successMessage>

@@ -518,7 +518,7 @@
 				}
 			}
 			
-			var snd : Sound = new Sound(new URLRequest("jabbercam/sounds/welcome.mp3"));
+			var snd : Sound = new Sound(new URLRequest("jabbercam/media/sounds/welcome.mp3"));
 			snd.play(0, 0, new SoundTransform(0.8));
 			
 			ccState = CCConnecting;
@@ -1103,7 +1103,7 @@
 			
 			
 			if(useSounds) {
-				var snd : Sound = new Sound(new URLRequest("jabbercam/sounds/instruction.mp3"));
+				var snd : Sound = new Sound(new URLRequest("jabbercam/media/sounds/instruction.mp3"));
 				snd.addEventListener(IOErrorEvent.IO_ERROR, ioError);
 				snd.play();
 			}
@@ -1263,7 +1263,7 @@
 			Excluder.reinclude(mOtherId);
 			
 			if(useSounds) {
-				var snd : Sound = new Sound(new URLRequest("jabbercam/sounds/connected.mp3"));
+				var snd : Sound = new Sound(new URLRequest("jabbercam/media/sounds/connected.mp3"));
 				snd.addEventListener(IOErrorEvent.IO_ERROR, ioError);
 				snd.play();
 			}
@@ -1957,7 +1957,7 @@
             autoDisconnectCountdownTimer.reset();	
             
             if(useSounds) {
-            	var snd : Sound = new Sound(new URLRequest("jabbercam/sounds/goodbye.mp3"));
+            	var snd : Sound = new Sound(new URLRequest("jabbercam/media/sounds/goodbye.mp3"));
             	snd.addEventListener(IOErrorEvent.IO_ERROR, ioError);
             	snd.play();
             }
@@ -2228,9 +2228,9 @@
 				
 				var snd : Sound;
 				if(text.search(/^\(buzz\)/) > -1) {
-					snd = new Sound(new URLRequest("jabbercam/sounds/buzz.mp3"));
+					snd = new Sound(new URLRequest("jabbercam/media/sounds/buzz.mp3"));
 				} else {
-					snd = new Sound(new URLRequest("jabbercam/sounds/connected.mp3"));
+					snd = new Sound(new URLRequest("jabbercam/media/sounds/connected.mp3"));
 				}
 				snd.addEventListener(IOErrorEvent.IO_ERROR, ioError);
 				
@@ -2274,7 +2274,7 @@
 				if(useSounds && msg.search(/^\(buzz\)/) > -1) {
 				
 					var snd : Sound;
-					snd = new Sound(new URLRequest("jabbercam/sounds/buzz.mp3"));
+					snd = new Sound(new URLRequest("jabbercam/media/sounds/buzz.mp3"));
 					
 					snd.addEventListener(IOErrorEvent.IO_ERROR, ioError);
 					
@@ -2396,7 +2396,7 @@
 				itemFactory = new ClassFactory(LangFilterFlagRenderer);
 				
 				for (i = 0; i < languageFilters.length; i++)
-				dp.push({flag:"jabbercam/flags/"+languageFilters[i].code+".png", code:languageFilters[i].code,
+				dp.push({flag:"jabbercam/media/images/flags/"+languageFilters[i].code+".png", code:languageFilters[i].code,
 					label:languageFilters[i].label});
 				
 			} else {

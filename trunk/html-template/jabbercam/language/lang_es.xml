@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-/**
+ /**
  * VIDEOSOFTWARE.PRO
  * Copyright 2010 VideoSoftware.PRO
  * All Rights Reserved.
@@ -15,21 +15,22 @@
  * 
  *  Author: Our small team and fast growing online community at videosoftware.pro
  */
--->
+ -->
 <!--JabberCam Spanish translation by videosoftware.pro-->
 <!--Compatibility: v 3.3-->
 <!--Translated by: Pablo Arc (camachat.com)-->
 <lang>
 	<settings>
-		<backgroundImage_1>jabbercam/images/BgImage1.jpg</backgroundImage_1>
-		<backgroundImage_2>jabbercam/images/BgImage2.jpg</backgroundImage_2>
-		<backgroundImage_3>jabbercam/images/BgImage3.jpg</backgroundImage_3>
-		<backgroundImage_4>jabbercam/images/BgImage4.jpg</backgroundImage_4>
-		<backgroundImage_5>jabbercam/images/BgImage5.jpg</backgroundImage_5>
-		<backgroundImage_6>jabbercam/images/BgImage6.jpg</backgroundImage_6>
+		<backgroundImage_1>jabbercam/media/images/BgImage1.jpg</backgroundImage_1>
+		<backgroundImage_2>jabbercam/media/images/BgImage2.jpg</backgroundImage_2>
+		<backgroundImage_3>jabbercam/media/images/BgImage3.jpg</backgroundImage_3>
+		<backgroundImage_4>jabbercam/media/images/BgImage4.jpg</backgroundImage_4>
+		<backgroundImage_5>jabbercam/media/images/BgImage5.jpg</backgroundImage_5>
+		<backgroundImage_6>jabbercam/media/images/BgImage6.jpg</backgroundImage_6>
 		<facebookLink>http://facebook.com/JabberCam</facebookLink>
 		<twitterLink>http://twitter.com/JabberCam</twitterLink>
 		<myspaceLink>http://myspace.com/JabberCam</myspaceLink>
+		<buzzLink>http://www.google.com/buzz/post?message=Chat%20Roulette%20Alternative!&url=http://www.jabbercam.com</buzzLink>
 		<getSourceCode image="get-the-source-code.png">http://www.videosoftware.pro</getSourceCode>
 		<!-- text|flag -->
 		<languageFilter>flag</languageFilter>
@@ -42,10 +43,11 @@
 		<myspaceButtonTooltip><![CDATA[Siguenos en MySpace!]]></myspaceButtonTooltip>
 		<facebookButtonTooltip><![CDATA[Siguenos en Facebook!]]></facebookButtonTooltip>
 		<twitterButtonTooltip><![CDATA[Siguenos en Twitter!]]></twitterButtonTooltip>
+		<buzzButtonTooltip><![CDATA[Google Buzz!]]></buzzButtonTooltip>
 		
 		<welcomeMessage>
-			<line><![CDATA[Bienvenido a <b>JabberCam</b>, la <b>mejor altenativa a random chat!</b> ]]></line>
-			<line><![CDATA[Empieza tu propia web de jabbercam! Descarga tu copia en www.videosoftware.pro]]></line>
+			<line><![CDATA[Bienvenido a <b>JabberCam</b>, la <b>mejor altenativa a ChatRoulette!</b> ]]></line>
+			<line><![CDATA[Empieza tu propia web de JabberCam! Descarga tu copia en www.videosoftware.pro]]></line>
 			<line><![CDATA[Selecciona tu sexo]]></line>
 			<line><![CDATA[y apreta a <b>START</b>]]></line>
 		</welcomeMessage>
@@ -61,10 +63,10 @@
 			<line><![CDATA[Apreta <b>NEXT</b> para buscar una nuevo asociado.]]></line>
 		</partnerDisconnectMessage>
 		<registerSuccessMessage><![CDATA[Apreta <b>NEXT</b> para buscar un nuevo asociado..]]></registerSuccessMessage>
-		<lookForPartnersMessage><![CDATA[ï¿½Quieres que JabberCam te encuentre asociados? Selecciona 'Auto ENCONTRAR siguiente'.]]></lookForPartnersMessage>
+		<lookForPartnersMessage><![CDATA[¿Quieres que JabberCam te encuentre asociados? Selecciona 'Auto ENCONTRAR siguiente'.]]></lookForPartnersMessage>
 		<updateSexSuccess><![CDATA[sexo cambiado]]></updateSexSuccess>
 		<updateAgeSuccess>
-			<line><![CDATA[Filtro de aï¿½os off.]]></line>
+			<line><![CDATA[Filtro de años off.]]></line>
 			<line><![CDATA[Tu edad es ]]></line>
 			<line><![CDATA[Tu edad es sobre ]]></line>
 		</updateAgeSuccess>
@@ -103,11 +105,11 @@
 
 		
 		<connectionSuccess>
-			<line><![CDATA[<b>Conectado. <font color='#6E9226'>[x]</font>, <font color='#6E9226'>[y]</font>.</b> Disfruta de la sesiï¿½n!]]></line>
+			<line><![CDATA[<b>Conectado. <font color='#6E9226'>[x]</font>, <font color='#6E9226'>[y]</font>.</b> Disfruta de la sesión!]]></line>
 			<line><![CDATA[Pulsa <b>NEXT</b> en cualquier momento para buscar un nuevo asociado.]]></line>
 		</connectionSuccess>
 		
-		<allPartnersBusyMessage><![CDATA[Todos los usuarios estan ocupados en una conversaciï¿½n. Pulsa <b>NEXT</b>, o selecciona 'Auto ENCONTRAR siguiente'.]]></allPartnersBusyMessage>
+		<allPartnersBusyMessage><![CDATA[Todos los usuarios estan ocupados en una conversación. Pulsa <b>NEXT</b>, o selecciona 'Auto ENCONTRAR siguiente'.]]></allPartnersBusyMessage>
 		
 		<youDisconnectedPartnerMessage><![CDATA[Estas <b>desconectado</b>. Pulsa <b>FIND/NEXT</b>!]]></youDisconnectedPartnerMessage>
 		
@@ -115,7 +117,7 @@
 		
 		<tryingToFindSomeoneMessage><![CDATA[Intentando encontrar alguien......]]></tryingToFindSomeoneMessage>
 		
-		<connectionTimeoutMessage><![CDATA[conexiï¿½n acabada]]></connectionTimeoutMessage>
+		<connectionTimeoutMessage><![CDATA[conexión acabada]]></connectionTimeoutMessage>
 		
 		<leaveChatMessage>
 			<line><![CDATA[Has salido de <b>JabberCam</b> y estas <b>desconectado</b>.]]></line>
@@ -129,7 +131,7 @@
 		<youText><![CDATA[Yo]]></youText>
 		
 		<!-- $x, $y are parameters that will be replaced by the actual ammount they represent -->
-		<filterSuccessMessage><![CDATA[No se conectarï¿½ con este usuario por $x minutos.]]></filterSuccessMessage>
+		<filterSuccessMessage><![CDATA[No se conectará con este usuario por $x minutos.]]></filterSuccessMessage>
 		<reporterReportSuccessMessage><![CDATA[Has enviado un reporte a $x.]]></reporterReportSuccessMessage>
 		<reportedReportSuccessMessage><![CDATA[Llevas $x reportes de $y.]]></reportedReportSuccessMessage>
 		<bannedMessage><![CDATA[Has sido baneado para $x minutos.]]></bannedMessage>
@@ -164,8 +166,8 @@
 		<reportLabel><![CDATA[Reportar]]></reportLabel>
 		<filterLabel><![CDATA[Filtrar]]></filterLabel>
 		<cameraOnLabel><![CDATA[Solo camera ON]]></cameraOnLabel>
-		<startButtonTooltip><![CDATA[Esto es una DEMOSTRACIï¿½N. Igual no puedes conectar si hay pocos usuarios.]]></startButtonTooltip>
-		<nextButtonTooltip><![CDATA[Esto es una DEMOSTRACIï¿½N. Igual no puedes conectar si hay pocos usuarios.]]></nextButtonTooltip>
+		<startButtonTooltip><![CDATA[Esto es una DEMOSTRACIÓN. Igual no puedes conectar si hay pocos usuarios.]]></startButtonTooltip>
+		<nextButtonTooltip><![CDATA[Esto es una DEMOSTRACIÓN. Igual no puedes conectar si hay pocos usuarios.]]></nextButtonTooltip>
 		<usernameTextInputLabel><![CDATA[Nick: ]]></usernameTextInputLabel>
 		<filterButtonTooltip><![CDATA[Filtrar este usuario]]></filterButtonTooltip>
 		<reportButtonTooltip><![CDATA[Reportar este usuario]]></reportButtonTooltip>

@@ -117,7 +117,7 @@ package jabbercam.lang
 			this.getSourceCodeLink = this.lang.settings.getSourceCode.toString();
 			
 //			Simple trick to execute bindings
-			this.myspaceTooltip = this.facebookTooltip = this.twitterTooltip = "bum";
+			this.myspaceTooltip = this.facebookTooltip = this.twitterTooltip = this.buzzTooltip = "bum";
 			
 			this.dispatchEvent(new Event(Event.COMPLETE));
 		}
@@ -156,6 +156,14 @@ package jabbercam.lang
 		[Bindable]
 		public function get twitterTooltip() : String {
 			return lang.statuses.twitterButtonTooltip.toString();
+		}
+		
+		public function set buzzTooltip(value : String) : void {
+			
+		}
+		[Bindable]
+		public function get buzzTooltip() : String {
+			return lang.statuses.buzzButtonTooltip.toString();
 		}
 		
 		public function getSimpleProperty(key : String) : String {
