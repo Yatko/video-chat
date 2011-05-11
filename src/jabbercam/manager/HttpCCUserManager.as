@@ -21,6 +21,7 @@ package jabbercam.manager
 	
 	import jabbercam.manager.events.IdManagerError;
 	import jabbercam.manager.events.IdManagerEvent;
+	import jabbercam.utils.Constant;
 	
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.events.ResultEvent;
@@ -85,8 +86,8 @@ package jabbercam.manager
 	            mActiveRequest = "register";
 	            mHttpService.send(request);
 	                
-	            // refresh registration with web service in every 20 seconds
-				mConnectionTimer = new Timer(1000 * 20 * 1);
+	            // refresh registration with web service in every X seconds
+				mConnectionTimer = new Timer(int(Constant.TIME_TO_LIVE*1000*2/5));
 				mConnectionTimer.addEventListener(TimerEvent.TIMER, onConnectionTimer);
 	            mConnectionTimer.start();
             }

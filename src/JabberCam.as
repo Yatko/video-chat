@@ -36,6 +36,7 @@
 		import jabbercam.manager.events.IdManagerError;
 		import jabbercam.manager.events.IdManagerEvent;
 		import jabbercam.manager.events.Red5ManagerEvent;
+		import jabbercam.utils.Constant;
 		import jabbercam.utils.Excluder;
 		
 		import mx.collections.ArrayCollection;
@@ -307,7 +308,7 @@
 				status(this.lang.getSimpleProperty("noMicrophone")+"\n");
 			}
 			
-			micVolumeSlider.value = 50;
+			micVolumeSlider.value = 30;
 			
 			var mic:Microphone = Microphone.getMicrophone(micIndex);
 			if (mic)
@@ -315,7 +316,7 @@
 				mic.gain = micVolumeSlider.value;
 			}
 			
-			speakerVolumeSlider.value = 0.75;
+			speakerVolumeSlider.value = 0.50;
 				
 			var cameras:Array = Camera.names;
 			if (cameras.length)
@@ -438,6 +439,8 @@
 				CustomFilter.customFilter1Labels = filter1Labels;
 				CustomFilter.customFilter1Values = filter1Values;
 			}
+			
+			Constant.TIME_TO_LIVE = parseInt(event.result.timeToLive.toString());
 			
 			if(event.result.hasOwnProperty("customFilter2")) {
 				CustomFilter.customFilter2Label = event.result.customFilter2.@label.toString();

@@ -46,6 +46,36 @@
 	    return false;
 	}
 	
+	/**
+	 * @return mixed
+	 */
+	function unregister() {
+		$id = $_GET['id'];
+			
+		$q = "DELETE sessions, filters, user_settings, user_prefs, chats FROM sessions ".
+			"LEFT JOIN filters ON sessions.id=filters.id LEFT JOIN user_settings ON sessions.id=user_settings.id ".
+			"LEFT JOIN user_prefs ON sessions.id=user_prefs.id LEFT JOIN chats ON sessions.id=chats.peer1 || ".
+			"sessions.id=chats.peer2 ".
+			"WHERE sessions.id='$id'";
+		
+		$result = mysql_query($q);
+		
+		return $result;
+	}
+	
+	/**
+	 * @return mixed
+	 */
+	function clean() {
+		$result = mysql_query("DELETE sessions, filters, user_settings, user_prefs, chats FROM sessions ".
+			"LEFT JOIN filters ON sessions.id=filters.id LEFT JOIN user_settings ON sessions.id=user_settings.id ".
+			"LEFT JOIN user_prefs ON sessions.id=user_prefs.id LEFT JOIN chats ON sessions.id=chats.peer1 || ".
+			"sessions.id=chats.peer2 ".
+			"WHERE type=0 && created_at < DATE_SUB(NOW(),INTERVAL $TIME_TO_LIVE SECOND);");
+		
+		return $result;
+	}
+	
 	$conn = mysql_connect($DB_HOST, $DB_USER, $DB_PASSWORD) or die ('Error connecting to mysql');
 	mysql_select_db($DB_DATABASE);
 	
@@ -102,15 +132,9 @@
 			
 		} else if(preg_match('/^unregister$/', $task)) {
 				
-			$id = $_GET['id'];
+			$result = unregister();
 			
-			$q = "DELETE sessions, filters, user_settings, user_prefs, chats FROM sessions ".
-				"LEFT JOIN filters ON sessions.id=filters.id LEFT JOIN user_settings ON sessions.id=user_settings.id ".
-				"LEFT JOIN user_prefs ON sessions.id=user_prefs.id LEFT JOIN chats ON sessions.id=chats.peer1 || ".
-				"sessions.id=chats.peer2 ".
-				"WHERE sessions.id='$id'";
-			
-			$result = mysql_query($q);
+			clean();
 			
 			echo '<unregister>'.($result?'true':'false').'</unregister>';
 				
@@ -158,6 +182,8 @@
 			} else {
 			
 				if(preg_match('/^register$/', $task)) {
+					
+					clean();
 					
 					$id = $_GET['id'];
 					
@@ -260,6 +286,8 @@
 						$excludeString .= "&& s.id!=\"$excludeId\" ";
 					}
 					
+					clean();
+					
 					$q = "SELECT * FROM sessions s WHERE s.type=0 && s.id!=\"$id\" && s.marked=0 ". 
 						"&& s.created_at > DATE_SUB(NOW(),INTERVAL $TIME_TO_LIVE SECOND) $excludeString && " .
 						"(SELECT ip FROM sessions WHERE id=\"$id\" LIMIT 1) NOT IN (SELECT ip FROM filters " .
@@ -297,6 +325,8 @@
 				
 					$id = $_GET['id'];
 					
+					clean();
+					
 					$q = "SELECT * FROM sessions s WHERE s.type=0 && s.id!=\"$id\" && s.marked=0 ". 
 						"&& s.created_at > DATE_SUB(NOW(),INTERVAL $TIME_TO_LIVE SECOND) && s.id=".
 						"(SELECT id FROM user_settings WHERE sett_name='uname' && sett_value='{$_GET['username']}' ".
@@ -319,7 +349,8 @@
 					}
 				
 				} else if(preg_match('/^count$/', $task)) {
-				
+					clean();
+					
 					$result = mysql_query("select count(*) num FROM sessions WHERE created_at > ".
 						"DATE_SUB(NOW(),INTERVAL $TIME_TO_LIVE SECOND) && marked=0 && type=0");
 					$result = mysql_fetch_assoc( $result );
