@@ -135,6 +135,8 @@ if(isset($_GET['setts'])) {
 	}
 	echo '</langFilters>';
 	
+	echo '<timeToLive>'.$TIME_TO_LIVE.'</timeToLive>';
+	
 	echo '<minimumConnectedTime>'.$MINIMUM_CONNECTED_TIME.'</minimumConnectedTime>';
 	echo '<speedChatConnectedTime>'.$SPEEDCHAT_CONNECTED_TIME.'</speedChatConnectedTime>';
 	echo '<speedChatMinimumConnectedTime>'.$SPEEDCHAT_MIMIMUM_CONNECTED_TIME.'</speedChatMinimumConnectedTime>';
