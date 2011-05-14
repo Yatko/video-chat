@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<fxpProperties abbreviated="false" authoringTool="Flex Builder" compiles="true" parentProject="f27dcf61-2446-41ef-b25c-29082c74d0cf" projectUUID="f27dcf61-2446-41ef-b25c-29082c74d0cf" sdkVersion="3.5.0" uuid="c75f58bd-0d59-40f9-9f57-22abf8e925c8" version="4">
+  <projects/>
+  <src/>
+  <swc>
+    <linked location="sdkPlaceHolder" path="sdkPlaceHolder" position="0" uuid="c75f58bd-0d59-40f9-9f57-22abf8e925c8"/>
+    <linked location="/Users/kalman/Documents/Yatko/PRJ/videosoftware.pro/DEV/VideoChat/4.4/libs" path="/libs" position="1" uuid="ab6c9aec-a7ed-4eb2-b971-e633598ce379"/>
+  </swc>
+  <misc/>
+  <theme/>
+</fxpProperties>
