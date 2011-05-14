@@ -47,7 +47,7 @@
 		
 		<welcomeMessage>
 			<line><![CDATA[Welcome to <b>JabberCam</b>, the <b>best random video chat</b>!]]></line>
-			<line><![CDATA[Start your own jabbercam website! Get your copy from www.videosoftware.pro]]></line>
+			<line><![CDATA[Start your own JabberCam website! Get your copy from www.videosoftware.pro]]></line>
 			<line><![CDATA[Select your sex]]></line>
 			<line><![CDATA[and press <b>START</b>]]></line>
 		</welcomeMessage>
@@ -111,6 +111,7 @@
 		</connectionSuccess>
 		
 		<allPartnersBusyMessage><![CDATA[All users are engaged in a conversation. Press <b>NEXT</b>, or check 'Auto FIND next'.]]></allPartnersBusyMessage>
+		<partnerBusyMessage><![CDATA[User is engaged in a conversation. Press <b>NEXT</b>, or check 'Auto FIND next'.]]></partnerBusyMessage>
 		
 		<youDisconnectedPartnerMessage><![CDATA[You <b>disconnected</b>. Hit <b>FIND/NEXT</b>!]]></youDisconnectedPartnerMessage>
 		
