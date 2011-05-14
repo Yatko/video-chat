@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * VIDEOSOFTWARE.PRO
+ * Copyright 2010 VideoSoftware.PRO
+ * All Rights Reserved.
+ *
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License
+ *  as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+ *  warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *  See the GNU General Public License for more details.
+ *  You should have received a copy of the GNU General Public License along with this program.
+ *  If not, see <http://www.gnu.org/licenses/>.
+ * 
+ *  Author: Our small team and fast growing online community at videosoftware.pro
+ */
+-->
+<!--JabberCam Czeh translation by videosoftware.pro-->
+<!--Compatibility: v 3.3-->
+<!--Translated by: Bo-->
+<lang>
+	<settings>
+		<backgroundImage_1>jabbercam/media/images/BgImage1.jpg</backgroundImage_1>
+		<backgroundImage_2>jabbercam/media/images/BgImage2.jpg</backgroundImage_2>
+		<backgroundImage_3>jabbercam/media/images/BgImage3.jpg</backgroundImage_3>
+		<backgroundImage_4>jabbercam/media/images/BgImage4.jpg</backgroundImage_4>
+		<backgroundImage_5>jabbercam/media/images/BgImage5.jpg</backgroundImage_5>
+		<backgroundImage_6>jabbercam/media/images/BgImage6.jpg</backgroundImage_6>
+		<facebookLink>http://facebook.com/JabberCam</facebookLink>
+		<twitterLink>http://twitter.com/JabberCam</twitterLink>
+		<myspaceLink>http://myspace.com/JabberCam</myspaceLink>
+		<buzzLink>http://www.google.com/buzz/post?message=Chat%20Roulette%20Alternative!&url=http://www.jabbercam.com</buzzLink>
+		<getSourceCode image="get-the-source-code.png">http://www.videosoftware.pro</getSourceCode>
+		<!-- text|flag -->
+		<languageFilter>flag</languageFilter>
+	</settings>
+	<statuses>
+		<defaultMacCamera><![CDATA[USB Video 视频]]></defaultMacCamera>
+		<noMicrophone><![CDATA[没有检测到麦克风.]]></noMicrophone>
+		<noCamera><![CDATA[没有检测到摄像头.]]></noCamera>
+
+		<myspaceButtonTooltip><![CDATA[Follow us on MySpace!]]></myspaceButtonTooltip>
+		<facebookButtonTooltip><![CDATA[Follow us on Facebook!]]></facebookButtonTooltip>
+		<twitterButtonTooltip><![CDATA[Follow us on Twitter!]]></twitterButtonTooltip>
+		<buzzButtonTooltip><![CDATA[Google Buzz!]]></buzzButtonTooltip>
+
+		<welcomeMessage>
+			<line><![CDATA[欢迎来到 <b>JabberCam</b>]]></line>
+			<line><![CDATA[<font color='#555555'>(想要你自己的聊天网站? 所有源代码均可出售! 详情: http://www.videosoftware.pro)</font>]]></line>
+			<line><![CDATA[首先,在右上角选择你的性别.]]></line>
+			<line><![CDATA[接下来点 <font color='#0033ff'><b>GO</b></font> 按钮.]]></line>
+		</welcomeMessage>
+		<enteringCarouselMessage>
+			<line><![CDATA[正在进入传送带... 请耐心等待...]]></line>
+			<line><![CDATA[<font color='#555555'>JabberCam 导致adobe服务器流量过大 时间会稍长一些</font>]]></line>
+		</enteringCarouselMessage>
+		<unableToConnectMessage><![CDATA[无法连接 ]]></unableToConnectMessage>
+		<successMessage><![CDATA[成功!]]></successMessage>
+		<yourIdLabel><![CDATA[你的 ID: ]]></yourIdLabel>
+		<partnerDisconnectMessage>
+			<line><![CDATA[陌生人 <font color='#ff9900'><b>断开了</b></font>.]]></line>
+			<line><![CDATA[点击 <font color='#0033ff'><b>寻找</b></font> 搜索新的陌生人.]]></line>
+		</partnerDisconnectMessage>
+		<registerSuccessMessage><![CDATA[接下来, 点击 <font color='#0033ff'><b>寻找</b></font> 搜索陌生人.]]></registerSuccessMessage>
+		<lookForPartnersMessage><![CDATA[如果你希望自动搜索陌生人,点选‘自动搜索’功能]]></lookForPartnersMessage>
+		<updateSexSuccess><![CDATA[你已经改变了性别.]]></updateSexSuccess>
+		<updateAgeSuccess>
+			<line><![CDATA[Age filter off.]]></line>
+			<line><![CDATA[Your age is ]]></line>
+			<line><![CDATA[Your age is over ]]></line>
+		</updateAgeSuccess>
+		<updateAgeLookupFilter>
+			<line><![CDATA[Looking for all ages.]]></line>
+			<line><![CDATA[Looking for ]]></line>
+		</updateAgeLookupFilter>
+		<usersOnlineLabel><![CDATA[ 个用户在线.]]></usersOnlineLabel>
+		<noUsersReadyMessage><![CDATA[没有人准备好.]]></noUsersReadyMessage>
+		<checkAutoFindMessage><![CDATA[你可以点选‘自动搜索’之后再点 <font color='#0033ff'><b>寻找</b></font>.]]></checkAutoFindMessage>
+		<connectingStatus><![CDATA[正在连接...]]></connectingStatus>
+		<otherIdLabel><![CDATA[其他ID: ]]></otherIdLabel>
+		
+		<nobodyFoundMessage><![CDATA[找不到任何人.]]></nobodyFoundMessage>
+		<nobodyFoundInTimeMessage><![CDATA[指定的时间里找不到任何人.]]></nobodyFoundInTimeMessage>
+		
+		<lookingForFemaleOnly><![CDATA[目前你的目标是 <b>女性</b>. 试试选‘所有人’?]]></lookingForFemaleOnly>
+		<lookingForMaleOnly><![CDATA[目前你的目标是 <b>男性</b>. 试试选‘所有人’?]]></lookingForMaleOnly>
+		<lookingForSpecificAgeOnly><![CDATA[You're looking for <b>specific age</b>; turning it off might help.]]></lookingForSpecificAgeOnly>
+		<switchAutoFindOffMessage><![CDATA[自动搜索已经关闭.]]></switchAutoFindOffMessage>
+		<spinRouletteMessage><![CDATA[点击 <font color='#0033ff'><b>寻找</b></font> 再次搜索.]]></spinRouletteMessage>
+		
+		<errorConnectingToBackend>
+			<line><![CDATA[找不到后台服务器,错误信息:.]]></line>
+			<line><![CDATA[请重新读取JabberCam.]]></line>
+		</errorConnectingToBackend>
+		
+		<callNotReadyStatus>CallNotReady</callNotReadyStatus>
+		<callReadyStatus>CallReady</callReadyStatus>
+		<callEstablishedStatus>CallEstablished</callEstablishedStatus>
+		<callingStatus>Calling</callingStatus>
+		
+		<yourPartnerLabel><![CDATA[<font color='#cc0000'><b>陌生人:</b></font> ]]></yourPartnerLabel>
+		<partnerNotFemaleError><![CDATA[不幸的是，陌生人不是 <b>女性</b>. 我们替你 <font color='#ff9900'><b>断开了</b></font>.]]></partnerNotFemaleError>
+		<partnerNotMaleError><![CDATA[不幸的是，陌生人不是 <b>male</b>. 我们替你 <font color='#ff9900'><b>>断开了</b></font> .]]></partnerNotMaleError>
+		
+		<connectionSuccess>
+			<line><![CDATA[<b>连接成功！ <font color='#6E9226'>[x]</font>, <font color='#6E9226'>[y]</font>.</b>]]></line>
+			<line><![CDATA[(点 <font color='#0033ff'><b>寻找</b></font> 就可以找下一个陌生人.)]]></line>
+		</connectionSuccess>
+		
+		<allPartnersBusyMessage><![CDATA[所有人都在聊天. 点击 <font color='#0033ff'><b>寻找</b></font> 或者开启自动搜索.]]></allPartnersBusyMessage>
+		
+		<youDisconnectedPartnerMessage><![CDATA[你 <font color='#ff9900'><b>断开了</b></font> 陌生人.]]></youDisconnectedPartnerMessage>
+		
+		<autoFindNextActive><![CDATA['自动搜索已经激活.]]></autoFindNextActive>
+		
+		<tryingToFindSomeoneMessage><![CDATA[正在搜索...]]></tryingToFindSomeoneMessage>
+		
+		<connectionTimeoutMessage><![CDATA[连接超时.]]></connectionTimeoutMessage>
+		
+		<leaveChatMessage>
+			<line><![CDATA[你从服务器断开了.]]></line>
+			<line><![CDATA[连接 <font color='#0033ff'><b>GO</b></font> 重新连接.]]></line>
+		</leaveChatMessage>
+		
+		<femaleSexChange><![CDATA[正在改变性别]]></femaleSexChange>
+		<maleSexChange><![CDATA[正在改变性别.]]></maleSexChange>
+		
+		<youText><![CDATA[你]]></youText>
+
+		<!-- $x, $y are parameters that will be replaced by the actual ammount they represent -->
+		<filterSuccessMessage><![CDATA[You won't be connected with this user for $x minutes.]]></filterSuccessMessage>
+		<reporterReportSuccessMessage><![CDATA[You did send the $x-th report.]]></reporterReportSuccessMessage>
+		<reportedReportSuccessMessage><![CDATA[This is your $x-th report of $y.]]></reportedReportSuccessMessage>
+		<bannedMessage><![CDATA[You are banned for $x minutes.]]></bannedMessage>
+		<blockedMessage><![CDATA[Your ip is blocked.]]></blockedMessage>
+
+		<waitingForCameraMessage><![CDATA[Waiting for camera .....]]></waitingForCameraMessage>
+		<openSettingsMessageLink><![CDATA[<font color='#ff0000'>Your camera is off, <a href="event:opensetts"><u>click here</u></a> to start your WebCam.</font>]]></openSettingsMessageLink>
+		
+		<partnerLabel><![CDATA[陌生人]]></partnerLabel>
+		<autoNextIntervalLabel><![CDATA[auto Next (sec)]]></autoNextIntervalLabel>
+		<youLabel><![CDATA[你]]></youLabel>
+		<meLabel><![CDATA[我是]]></meLabel>
+		<femaleLabel><![CDATA[女性]]></femaleLabel>
+		<maleLabel><![CDATA[男性]]></maleLabel>
+		<seekingLabel><![CDATA[寻找]]></seekingLabel>
+		<myLanguageLabel><![CDATA[Lang.]]></myLanguageLabel>
+		<partnerLanguageLabel><![CDATA[Lang.]]></partnerLanguageLabel>
+		<bothLabel><![CDATA[都可以]]></bothLabel>
+		<ladiesLabel><![CDATA[女性]]></ladiesLabel>
+		<gentsLabel><![CDATA[男性]]></gentsLabel>
+		<autoFindNextLabel><![CDATA[自动搜索]]></autoFindNextLabel>
+		<microphoneLabel><![CDATA[麦克风]]></microphoneLabel>
+		<volumeLabel><![CDATA[音量]]></volumeLabel>
+		<previewVideoLabel><![CDATA[预览视频]]></previewVideoLabel>
+		<findNextLabel><![CDATA[寻找]]></findNextLabel>
+		<startLabel><![CDATA[开始]]></startLabel>
+		<stopLabel><![CDATA[停止]]></stopLabel>
+		<clearLabel><![CDATA[清屏]]></clearLabel>
+		<sendLabel><![CDATA[发送]]></sendLabel>
+		<getTheSourceLabel><![CDATA[获得源代码!]]></getTheSourceLabel>
+		<betaLabel><![CDATA[测试版]]></betaLabel>
+		<reportLabel><![CDATA[Report]]></reportLabel>
+		<filterLabel><![CDATA[Filter]]></filterLabel>
+		<cameraOnLabel><![CDATA[Camera ON Only]]></cameraOnLabel>
+		<startButtonTooltip><![CDATA[This is a DEMO site. You may not be able to connect if there are only a few users online or the server is down.]]></startButtonTooltip>
+		<nextButtonTooltip><![CDATA[This is a DEMO site. You may not be able to connect if there are only a few users online or the server is down.]]></nextButtonTooltip>
+		<usernameTextInputLabel><![CDATA[Nickname: ]]></usernameTextInputLabel>
+		<filterButtonTooltip><![CDATA[Filter this user]]></filterButtonTooltip>
+		<reportButtonTooltip><![CDATA[Report this user]]></reportButtonTooltip>
+		<langFilterAllLabel><![CDATA[International]]></langFilterAllLabel>
+		<btnStopAutoNextLabel><![CDATA[STOP]]></btnStopAutoNextLabel>
+		<changeBackgroundButtonTooltip><![CDATA[Change Background]]></changeBackgroundButtonTooltip>
+		<connectMeDirectlyToLabel><![CDATA[Connect me directly to (User ID)]]></connectMeDirectlyToLabel>
+		<connectMeDirectlyToButtonLabel><![CDATA[Connect]]></connectMeDirectlyToButtonLabel>
+		<iamLabel><![CDATA[I am]]></iamLabel>
+		<fromLabel><![CDATA[from]]></fromLabel>
+	</statuses>
+</lang>
