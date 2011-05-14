@@ -160,6 +160,10 @@ package jabbercam.manager
  		 public function close() : void {
  		 	doClose();
  		 }
+		 
+		 public function stop() : void {
+			 doStop();
+		 }
  		 
  		 public function markUser(otherUserId : String) : void {
  		 	doMark(otherUserId);
@@ -239,6 +243,10 @@ package jabbercam.manager
  		 protected function doClose() : void {
  		 	
  		 }
+		 
+		 protected function doStop() : void {
+			 
+		 }
  		 
  		 protected function doUpdateSetting(id : String, settName : String, settValue : *) : void {
  		 	

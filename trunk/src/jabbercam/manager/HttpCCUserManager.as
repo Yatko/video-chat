@@ -23,6 +23,8 @@ package jabbercam.manager
 	import jabbercam.manager.events.IdManagerEvent;
 	import jabbercam.utils.Constant;
 	
+	import mx.messaging.messages.HTTPRequestMessage;
+	import mx.rpc.AsyncToken;
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.events.ResultEvent;
 	import mx.rpc.http.HTTPService;
@@ -41,6 +43,8 @@ package jabbercam.manager
 		private var mId:String;
 		private var mFilterSex:String;
 		private var mActiveRequest:String;
+		
+		private var _findUserReqId : String = null;
 		
 		override protected function doSetService(service:Object):void
 		{
@@ -158,6 +162,9 @@ package jabbercam.manager
  		{
  			if (mHttpService)
  			{
+				if(_findUserReqId)
+					mHttpService.cancel(_findUserReqId);
+				
  				var request:Object = new Object();
 				request.id = mId;
 				request.task = "findUser";
@@ -169,7 +176,9 @@ package jabbercam.manager
 				request.time = now.getTime();
 				mHttpService.cancel();
 				mActiveRequest = "lookup";
-				mHttpService.send(request);
+				var tok : AsyncToken = mHttpService.send(request);
+				_findUserReqId = (tok.message as HTTPRequestMessage).messageId;
+				
  			}
  			else
  			{
@@ -180,6 +189,9 @@ package jabbercam.manager
  		
  		override protected function doLookupByName(username : String) : void {
  			if(mHttpService) {
+				if(_findUserReqId)
+					mHttpService.cancel(_findUserReqId);
+				
  				var req : Object = new Object();
  				req.id = mId;
  				req.task = "findUserByName";
@@ -188,6 +200,9 @@ package jabbercam.manager
  				mHttpService.cancel();
  				mActiveRequest = "lookup";
  				mHttpService.send(req);
+				
+				var tok : AsyncToken = mHttpService.send(req);
+				_findUserReqId = (tok.message as HTTPRequestMessage).messageId;
  			}
  		}
  		
@@ -245,6 +260,12 @@ package jabbercam.manager
  				mConnectionTimer = null;
  			}
  		}
+		
+		override protected function doStop() : void {
+			if(_findUserReqId && mHttpService)
+				mHttpService.cancel(_findUserReqId);
+			_findUserReqId = null;
+		}
  		
  		override protected function doUpdateSetting(id : String, settName : String, settValue : *) : void {
  			if (mHttpService)
@@ -485,6 +506,8 @@ package jabbercam.manager
 					uvE.value = result.result.checkuseravailable.toString() == "true"?true:false;
 					
 					dispatchEvent(uvE);
+				} else if(result.result.hasOwnProperty('disconnect')) {
+					dispatchEvent(new IdManagerEvent(IdManagerEvent.DISCONNECT_RESPONSE, mId));
 				}
 			}
 			else

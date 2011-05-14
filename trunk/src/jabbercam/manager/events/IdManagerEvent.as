@@ -27,6 +27,7 @@ package jabbercam.manager.events
 		public static const PEER_BANNED : String = "peerBanned";
 		public static const REGISTER_SUCCESS : String = "registerSuccess";
 		public static const USERNAME_AVAILABLE_RESPONSE : String = "usernameAvailableResponse";
+		public static const DISCONNECT_RESPONSE : String = "disconnectResponse";
 		
 		public var id:String;
 		public var sex:String;
