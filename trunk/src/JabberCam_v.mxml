@@ -207,7 +207,7 @@
 								<mx:Button label="BUZZ!" verticalCenter="0" right="10" fontFamily="Arial" fontSize="10"
 									alpha="0.5" click="onBuzz()" />
 							</mx:Canvas>
-							<mx:Canvas paddingTop="0" backgroundColor="#cccccc" width="100%" height="15">
+							<mx:Canvas backgroundColor="#cccccc" width="100%" height="15">
 								<mx:HBox>
 									<mx:Label id="lblID" width="100" fontSize="8" truncateToFit="false"/>
 									<mx:Label id="lblOtherId" width="100" fontSize="8" truncateToFit="false"/>

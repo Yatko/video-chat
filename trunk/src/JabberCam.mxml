@@ -219,7 +219,7 @@
 				<!--END TEXT INPUT-->
 				<mx:HBox>
 					<!--SYSTEM INFO-->
-					<mx:Canvas width="259" height="15" mouseOver="InfoBox.visible=true" rollOut="InfoBox.visible=false" paddingTop="0">
+					<mx:Canvas width="259" height="15" mouseOver="InfoBox.visible=true" rollOut="InfoBox.visible=false">
 						<mx:HBox  width="259" height="15" id="InfoBox" styleName="InfoBox" visible="false">
 							<mx:Label text="CRC5.0RC4" styleName="InfoBoxLabel"/><!--VERSION-->
 							<mx:Label id="betaLabel" fontSize="6"/><!--BETA LABEL-->
