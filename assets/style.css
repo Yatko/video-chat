@@ -15,22 +15,355 @@
  */
 
 /* CSS file */
-/*TextInput {
-drop-shadow-color:#000;
+
+Application{
+	width: 670;
+	height: 469;
+	horizontalAlign: center;
+	verticalAlign: top;
+	top: 6;
+	paddingTop: 0;
+	paddingBottom: 0;
+	paddingLeft: 0;
+	paddingRight: 0;
+	color: #000000;
+	backgroundColor: #000000;
+}
+
+Button {
+	backgroundColor: #ff0000;
+	rollOverColor: #ff0000;
+	selectionColor: #ff0000;
+	color: #686C72;
+	textRollOverColor: #979797;
+	textAlign: center;
+	fontWeight: bold;
+	borderColor: #FFFFFF;
+	themeColor: #B7BABC;
+	textSelectedColor: #666666;
+}
+
+.MainContainer {
+	width: 670;
+	horizontalAlign: center;
+	verticalGap: 1;
+	paddingTop: 0;
+	paddingBottom: 0;
+	paddingLeft: 0;
+	paddingRight: 0;
+}
+
+.VideoWindows {
+	horizontalAlign: center;
+	paddingTop: 5;
+	paddingBottom: 5;
+	paddingLeft: 5;
+	paddingRight: 5;
+	backgroundColor: #000000;
+	borderColor: #B7BABC;
+	borderStyle: solid;
+	borderThickness: 4;
+	cornerRadius: 4;
+}
+
+.VideoDisplay {
+	width: 320;
+	height: 240; 
+}
+
+.adContainer {
+	backgroundColor: #000000;
+}
+
+.ad {
+	horizontalAlign: center;
+	verticalAlign: middle;
+}
+
+.VideoLabelL {
+	top: 5;
+	left: 5; 
+	color: #b7babc;
+	alpha: 0.5;
+}
+
+.VideoLabelR {
+	top: 5;
+	right: 5; 
+	color: #b7babc;
+	alpha: 0.5;
+}
+
+.VideoWindowControls {
+	backgroundColor: #000000;
+	backgroundAlpha: 0.7;
+	verticalAlign: bottom;
+	bottom: 0;
+	paddingTop: 5;
+	paddingBottom: 5;
+	paddingLeft: 5;
+	paddingRight: 5;
+	showEffect: Fade;
+	hideEffect: Fade;
+}
+
+.FilterLabel {
+}
+
+.VideoWindowFilterLabel {
+	color: #FFFFFF;
+	fontSize: 9;
+	showEffect: Fade;
+	hideEffect: Fade;
+}
+
+.sliderLabel {
+	bottom: 0;
+	color: #ffffff;
+	tickColor: #ffffff;
+	labelOffset: -6;
+	font-size: 8;
+	showEffect: Fade;
+	hideEffect: Fade;
+}
+
+.FilterButton {
+	color: #ffffff;
+	fontFamily: Arial, Helvetica;
+	fontSize: 9;
+}
+
+.FilterInput {
+	height: 16;
+	fontFamily: Arial;
+	fontSize: 9;
+}
+
+.VolumeControl {
+	horizontalAlign: center;
+	horizontalGap: 0;
+	color: #ffffff;
+}
+.VolumeControlLabel {
+	color: #ffffff;
+}
+
+.VolumeControlSlider {
+	width: 120;
+}
+
+.UserInfo {
+	color: #ffffff;
+	fontSize: 8;
+	alpha: 0.5;
+	backgroundColor: #ffffff;
+	backgroundAlpha: 0.1;
+	paddingTop: 2;
+	paddingBottom: 1;
+	paddingLeft: 4;
+	paddingRight: 4;
+	verticalGap: 0;
+	borderColor: #000000;
+	borderAlpha: 0.1;
+	borderStyle: solid;
+	borderThickness: 1;
+	cornerRadius: 4;
+}
+
+.White {
+	fontFamily: Arial, Helvetica;
+	fontSize: 11;
+	color: #ffffff;
+}
+
+/*CHAT AREA*/
+.ChatArea {
+	horizontalAlign: center;
+}
+
+.ChatTime {
+	color: #B7BABC;
+	font-size: 9;
+}
+
+.ChatUser {
+	color: #767C82;
+	font-size: 11;
+}
+
+.ChatSent {
+	color: #486DB8;
+	font-size: 12;
+	fontWeight: bold;
+}
+
+.ChatRcvd {
+	color: #3B5997;
+	font-size: 12;
+	fontWeight: bold;
+}
+
+TextArea {
+	backgroundAlpha: 0.95;
+	backgroundColor: #D7E0E7;
+	borderColor: #B7BABC;
+	borderThickness: 4;
+	cornerRadius: 4;
+	fontFamily: Arial, Helvetica;
+	fontSize: 11;
+	color: #767C82;
+	paddingTop: 6;
+	paddingBottom: 0;
+	paddingLeft: 10;
+	paddingRight: 100;
+}
+
+
+/*INPUT AREA*/
+.InputArea {
+	width:670;
+	horizontalAlign: center;
+	paddingTop: 6;
+	paddingBottom: 6;
+	paddingLeft: 6;
+	paddingRight: 6;
+	verticalGap: 0;
+	horizontalGap: 6;
+	backgroundColor: #D7E0E7;
+	backgroundAlpha: 0.95;
+	borderColor: #B7BABC;
+	borderStyle: solid;
+	borderThickness: 4;
+	cornerRadius: 4;
+}
+
+.BigButton {
+	fontFamily: Arial;
+	fontSize: 16;
+}
+
+.ChatInput {
+	showEffect: Fade;
+	hideEffect: Fade;
+	visible: false; 
+}
+
+.InfoBox {
+	backgroundColor: #B7BABC;
+	borderColor: #B7BABC;
+	borderStyle: solid;
+	cornerRadius: 4;
+	showEffect: Fade;
+	hideEffect: Fade; 
+}
+.InfoBoxLabel {
+	fontSize: 8;	
+}
+
+.SpeedButton {
+	backgroundColor: #ff0000;
+	rollOverColor: #ff0000;
+	selectionColor: #ff0000;
+	borderColor: #FFFFFF;
+	themeColor: #B7BABC;
+	textSelectedColor: #666666;
+	color: #686C72;
+	textRollOverColor: #979797;
+	paddingLeft: 2;
+	paddingRight: 2;
+	textAlign: center;
+	fontWeight: normal;
+	fontSize: 8;
+	showEffect: Fade;
+	hideEffect: Fade; 
+	visible: false;
+}
+
+
+
+
+
+.SettingsButton {
+	backgroundColor: #ff0000;
+	rollOverColor: #ff0000;
+	selectionColor: #ff0000;
+	color: #ffffff;
+	textRollOverColor: #ffffff;
+	textAlign: center;
+	fontWeight: normal;
+}
+
+TextInput {
+	borderStyle: solid;
+	cornerRadius: 4;
+	alpha: 0.5;
+}
+
+.SettingsPanels {
+	paddingTop: 8;
+	paddingBottom: 8;
+	paddingLeft: 8;
+	paddingRight: 8;
+	backgroundColor: #ffffff;
+	backgroundAlpha: 0.2;
+	borderStyle: solid;
+	borderColor: #ffffff;
+	borderThickness: 0;
+	cornerRadius: 4;
+}
+
+.Description {
+	color: #ffffff;
+}
+
+.Help {
+	backgroundAlpha: 0.5;
+	backgroundColor: #000000;
+	borderColor: #ffffff;
+	borderThickness: 0;
+	cornerRadius: 4;
+	fontFamily: Arial, Helvetica;
+	fontSize: 11;
+	color: #3B5997;
+	paddingTop: 0;
+	paddingBottom: 0;
+	paddingLeft: 2;
+	paddingRight: 2;
+}
+
+.ChatInput {
+	backgroundColor: #ffffff;
+	backgroundAlpha: 0.5;
+	borderColor: #B7BABC;
+	borderStyle: solid;
+	cornerRadius: 4;
+	themeColor: #FFFFFF;
+	borderThickness: 1;
+	focusAlpha: 0.4;
+	
+/*drop-shadow-color:#000;
 shadow-direction: 90;
 shadow-distance: 1px;
-drop-shadow-enabled:true;
-}*/
+drop-shadow-enabled:true;*/
+}
 
 .Blue {
 fontFamily: Arial, Helvetica;
-fontSize: 11;
+fontSize: 9;
 color: #3B5997;
 }
-.White {
-fontFamily: Arial, Helvetica;
-fontSize: 11;
-color: #ffffff;
+
+.Black {
+	backgroundColor: #ff0000;
+	rollOverColor: #ff0000;
+	selectionColor: #ff0000;
+	color: #686C72;
+	textRollOverColor: #979797;
+	textAlign: center;
+	fontWeight: bold;
+	borderColor: #FFFFFF;
+	themeColor: #000000;
+	textSelectedColor: #666666;
 }
 
 ScrollBar {
@@ -45,27 +378,9 @@ thumbDownSkin: Embed(source="../assets/ScrollBarThumb_down.png", scaleGridLeft="
 ComboBox {
 openDuration : 500;
 fontFamily: Arial, Helvetica;
-color: #3B5997;
+color: #000000;
 font-size: 9;
 font-weight: normal;
-}
-
-TextArea {
-backgroundAlpha: 0.95;
-backgroundColor: #D7E0E7;
-cornerRadius: 4;
-fontFamily: Arial, Helvetica;
-fontSize: 14;
-color: #3B5997;
-paddingTop: 50;
-paddingBottom: 10;
-paddingLeft: 10;
-paddingRight: 220;
-}
-
-.ChatTime {
-color: #666666;
-font-size: 9;
 }
 
 Label {
@@ -85,10 +400,4 @@ drop-shadow-enabled:true;
 	up-skin: ClassReference("jabbercam.skins.JabberCamButtonSkin");
 	down-skin: ClassReference("jabbercam.skins.JabberCamButtonSkin");
 	over-skin: ClassReference("jabbercam.skins.JabberCamButtonSkin");
-}
-
-.sliderLabelStyle {
-	color: #ffffff;
-	labelOffset: -6;
-	font-size: 8;
 }

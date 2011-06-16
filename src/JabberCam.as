@@ -41,6 +41,7 @@
 		
 		import mx.collections.ArrayCollection;
 		import mx.controls.listClasses.ListItemRenderer;
+		import mx.effects.Blur;
 		import mx.events.SliderEvent;
 		import mx.events.ValidationResultEvent;
 		import mx.formatters.DateFormatter;
@@ -59,6 +60,7 @@
 		
 		//
 		private var mId:String;
+		[Bindable]
 		private var mSex:String = "m";
 		private var mFilterSex:String ="b";
 		private var mOtherId:String;
@@ -169,6 +171,7 @@
 		private var curCamera : Camera;
 		private var firstTimeCheckCamera : Boolean = true;
 		
+		[Bindable]
 		private var partnerUsername : String = "Partner";
 		
 		private var useSounds : Boolean = true;
@@ -227,7 +230,23 @@
 
 		[Bindable]
 		private var loginScreenEnabled : Boolean = false;
+
+		[Bindable]
+		private var blurEffect : Boolean = true;
+
+		[Bindable]
+		private var blurEffectIntensity : Number;
+
+		[Bindable]
+		private var blurEffectDuration : Number;
+
+		[Bindable]
+		private var googleAppId : String;
+
+		[Bindable]
+		private var socialButtonsLoginScreen : Boolean;
 		
+		private var systemSoundsMuted : Boolean = false;
 		private function init() : void {
 			settingsLoader.send();
 			lang = new LanguageLoader();
@@ -308,15 +327,11 @@
 				status(this.lang.getSimpleProperty("noMicrophone")+"\n");
 			}
 			
-			micVolumeSlider.value = 30;
-			
 			var mic:Microphone = Microphone.getMicrophone(micIndex);
 			if (mic)
 			{
 				mic.gain = micVolumeSlider.value;
 			}
-			
-			speakerVolumeSlider.value = 0.50;
 				
 			var cameras:Array = Camera.names;
 			if (cameras.length)
@@ -458,6 +473,17 @@
 			loginScreenEnabled = event.result.loginScreenEnable.toString() == "true";
 			cameraRequired = event.result.cameraRequired.toString() == "true";
 			
+			speakerVolumeSlider.value = parseFloat(event.result.speakerVolume.toString());
+			micVolumeSlider.value = parseFloat(event.result.microphoneVolume.toString());
+			
+			blurEffect = event.result.blurEffect.toString() == "true";
+			blurEffectIntensity = parseFloat(event.result.blurEffectIntensity.toString());
+			blurEffectDuration = parseInt(event.result.blurEffectIntensity.toString());
+			
+			googleAppId = event.result.googleAppId.toString();
+			
+			socialButtonsLoginScreen = event.result.socialButtonsLoginScreen.toString() == "true";
+			
 			if(!this.appInitialized && this.appComplete && this.lang.ready)
 			this.initApp();
 		}
@@ -485,7 +511,7 @@
 						ccLabel.includeInLayout = ccConnect.includeInLayout = ccUsername.includeInLayout = false;
 					}
 					
-					if(cameraRequired && Camera.getCamera().muted) {
+					if(cameraRequired && (!Camera.getCamera() || Camera.getCamera().muted)) {
 						StartupAlert.showSettingsPanel();
 						btnStart.enabled = true;
 						
@@ -521,13 +547,15 @@
 				}
 			}
 			
-			var snd : Sound = new Sound(new URLRequest("jabbercam/media/sounds/welcome.mp3"));
-			snd.play(0, 0, new SoundTransform(0.8));
+			if(!systemSoundsMuted) {
+				var snd : Sound = new Sound(new URLRequest("jabbercam/media/sounds/welcome.mp3"));
+				snd.play(0, 0, new SoundTransform(0.8));
+			}
 			
 			ccState = CCConnecting;
 			btnStart.enabled = false;
 			} else {
-				if(Camera.getCamera().muted)
+				if(cameraRequired && (!Camera.getCamera() || Camera.getCamera().muted))
 				Security.showSettings(SecurityPanel.PRIVACY);
 				else {
 					connect();
@@ -597,9 +625,9 @@
                     	
                 case "NetStream.Connect.Success":
 //                    btnSend.enabled = true;
-                   if (mConnectionTimeoutTimer) {	
-              			mConnectionTimeoutTimer.stop();
-        				mConnectionTimeoutTimer = null;
+                   if (event.info.stream.farID == mOtherId && mConnectionTimeoutTimer) {	
+//              			mConnectionTimeoutTimer.stop();
+//        				mConnectionTimeoutTimer = null;
                    }
                 break;
                     
@@ -646,7 +674,7 @@
                	 	Excluder.excludeFor(event.info.stream.farID);
                     if (event.info.stream.farID == mOtherId)
                     {
-                    	partnerDisconnected();
+//                    	partnerDisconnected();
                     }
                     break;
              	}
@@ -676,8 +704,8 @@
         			netConnection.close();
         			callLater(netConnection.connect, [currentServerTried, "JabberCamApp"]);
         			btnNext.enabled = false;
-        			btnStop.enabled = false;
-        			ccState = CCConnecting;
+				speedChat.enabled = false;
+				ccState = CCConnecting;
         			
         			red5ConnectMainTimer.stop();
         			break;
@@ -979,10 +1007,12 @@
 				curCamera.removeEventListener(StatusEvent.STATUS, onCameraStatus);
 			}
 			curCamera = Camera.getCamera(cameraIndex.toString());
-			curCamera.addEventListener(StatusEvent.STATUS, onCameraStatus);
-			if(!curCamera.muted != cameraAllowed) {
-				cameraAllowed = !curCamera.muted;
-				cameraChangedStatus();
+			if(curCamera) {
+				curCamera.addEventListener(StatusEvent.STATUS, onCameraStatus);
+				if(!curCamera.muted != cameraAllowed) {
+					cameraAllowed = !curCamera.muted;
+					cameraChangedStatus();
+				}
 			}
 			
 			userManager.usersOnline();
@@ -1004,6 +1034,7 @@
 					trace("onPeerConnect ccCallState: "+ccCallState);
 					if ((ccCallState != CCCallEstablished) && (ccCallState != CCCallCalling)) // only accept incoming calls when no active call
 					{
+						userManager.stop();
 						gracefulDisconnect = false;										
 						mAutoFindActive = false;
 						btnNext.enabled = false;
@@ -1102,10 +1133,13 @@
 			
 			btnStop.enabled = true;		
 			btnNext.enabled = true;
+			tiChat.visible = true;
+			speedDate.visible = true;
+			speedChat.visible = true;
 			ccCallState = CCCallReady;
 			
 			
-			if(useSounds) {
+			if(useSounds && !systemSoundsMuted) {
 				var snd : Sound = new Sound(new URLRequest("jabbercam/media/sounds/instruction.mp3"));
 				snd.addEventListener(IOErrorEvent.IO_ERROR, ioError);
 				snd.play();
@@ -1126,7 +1160,7 @@
 		private function partnerUsernameReceived(username : String, ccode : String = "", country : String = "") : void {
 			partnerUsername = username;
 			partnerCCode = ccode;
-			partnerCountry = country;
+			partnerCountry = country != "" && country != null?country:"Somewhere";
 			waitForUsername = false;
 			
 			setConnectionSuccess();
@@ -1265,10 +1299,14 @@
 			
 			Excluder.reinclude(mOtherId);
 			
-			if(useSounds) {
+			if(useSounds && !systemSoundsMuted) {
 				var snd : Sound = new Sound(new URLRequest("jabbercam/media/sounds/connected.mp3"));
 				snd.addEventListener(IOErrorEvent.IO_ERROR, ioError);
 				snd.play();
+			}
+			
+			if(blurEffect) {
+				(blurEffectInstance as Blur).play();
 			}
 		}
 		
@@ -1287,6 +1325,8 @@
 				case "NetStream.Play.Failed":
 				Excluder.excludeFor(mOtherId);
 				
+				userManager.markUser(mOtherId);
+				
 				if(mConnectionTimeoutTimer) {
 					mConnectionTimeoutTimer.stop();
 					mConnectionTimeoutTimer = null;
@@ -1297,10 +1337,17 @@
 					findPartner();
 				} else
 				{ 
-					status(this.lang.getSimpleProperty("allPartnersBusyMessage"));
-					btnNext.enabled = true;
+				status(this.lang.getSimpleProperty("partnerBusyMessage"));
+					lblOtherId.text = "";
+					requestDisconnect();
 				}  
+				
 				break;
+				case "NetStream.Play.Start":
+					if(mConnectionTimeoutTimer) {
+						mConnectionTimeoutTimer.stop();
+						mConnectionTimeoutTimer = null;
+					}
 			}
 		}
 		
@@ -1327,8 +1374,9 @@
             		case "NetStream.Play.Start":
             			outgoingStream.send("sendSex", mSex);
             			outgoingStream.send("sendAge", age.value);
-            			if(myUsername.text != this.lang.getSimpleProperty("youText"))
-            			outgoingStream.send("sendUsername", myUsername.text, countryCode, country);
+//            			if(myUsername.text != this.lang.getSimpleProperty("youText"))
+            			outgoingStream.send("sendUsername", myUsername.text != this.lang.getSimpleProperty("youText")?
+							myUsername.text:"Anonymus", countryCode, country);
             			
             			outgoingStream.send("onPeerCameraAllowed", cameraAllowed);
             			break;
@@ -1336,8 +1384,9 @@
             			if(serverIsRed5) {
 	            			outgoingStream.send("sendSex", mSex);
 	            			outgoingStream.send("sendAge", age.value);
-	            			if(myUsername.text != this.lang.getSimpleProperty("youText"))
-	            			outgoingStream.send("sendUsername", myUsername.text, countryCode, country);	
+//	            			if(myUsername.text != this.lang.getSimpleProperty("youText"))
+	            			outgoingStream.send("sendUsername", myUsername.text != this.lang.getSimpleProperty("youText")?
+								myUsername.text:"Anonymus", countryCode, country);	
 	            			
 	            			outgoingStream.send("onPeerCameraAllowed", cameraAllowed);
             			}
@@ -1351,12 +1400,14 @@
         {
         	if (ccCallState == CCCallEstablished) {
         		clearTaChat();
-        		requestDisconnect();
+        		requestDisconnect(true);
 //        		if(!cbAutoFindNext.selected)
 //        		status(this.lang.getSimpleProperty("youDisconnectedPartnerMessage")+"\n");
         		
         		callLater(findPartner);
         	} else {
+//				ccCallState = CCCallCalling;
+				ccConnect.enabled = btnNext.enabled = false;
         		clearTaChat();
         		if (cbAutoFindNext.selected) {
         			status(this.lang.getSimpleProperty("autoFindNextActive"));
@@ -1391,12 +1442,14 @@
         {
         	if (ccCallState == CCCallEstablished) {
         		clearTaChat();
-        		requestDisconnect();
+        		requestDisconnect(true);
 //        		if(!cbAutoFindNext.selected)
 //        		status(this.lang.getSimpleProperty("youDisconnectedPartnerMessage")+"\n");
         		
         		callLater(findPartnerByName);
         	} else {
+//				ccCallState = CCCallCalling;
+				ccConnect.enabled = btnNext.enabled = false;
         		clearTaChat();
         		if (cbAutoFindNext.selected) {
         			status(this.lang.getSimpleProperty("autoFindNextActive"));
@@ -1496,6 +1549,7 @@
 					userManager.markUser(mOtherId);
 				} else {
 					CONNECTION_TIMEOUT_SECONDS *= 2;
+					trace('timeout');
 					connectToOther();
 				}
 			}
@@ -1532,6 +1586,15 @@
 			// caller subsrcibes to callee's listener stream 
 			if(!serverIsRed5) {
 				gracefulDisconnect = false;
+				if(controlStream) {
+					controlStream.removeEventListener(NetStatusEvent.NET_STATUS, controlHandler);
+					try {
+						controlStream.close();
+						controlStream = null;
+					} catch(e : Error) {
+						
+					}
+				}
 				controlStream = new NetStream(netConnection, mOtherId);
 				controlStream.addEventListener(NetStatusEvent.NET_STATUS, controlHandler);
 				controlStream.play("ChatRouletteClone");
@@ -1549,10 +1612,20 @@
 				outgoingStream.addEventListener(NetStatusEvent.NET_STATUS, outgoingStreamHandler);
 				outgoingStream.publish("media-requester");
 							
+				if(incomingStream) {
+					incomingStream.removeEventListener(NetStatusEvent.NET_STATUS, incomingStreamHandler);
+					try {
+						incomingStream.close();
+					} catch(e : Error) {
+						
+					}
+				}
 				var o:Object = new Object
 				o.onPeerConnect = function(caller:NetStream):Boolean // called on the requester side
 				{
-																		
+//					if(ccCallState == CCCallEstablished || ccCallState == CCCallCalling)
+//						return false;
+					
 					// caller subscribes to callee's media stream
 					incomingStream = new NetStream(netConnection, caller.farID);
 					incomingStream.addEventListener(NetStatusEvent.NET_STATUS, incomingStreamHandler);
@@ -1802,8 +1875,7 @@
 			}
 		}
 		
-		private function requestDisconnect() : void {
-			ccCallState = CCCallReady;
+		private function requestDisconnect(noFindPartner : Boolean = false, usernameFind : Boolean = false) : void {
 			
 			if(enableButtonNextTimer)
 			enableButtonNextTimer.stop();
@@ -1815,16 +1887,16 @@
 				
 			} finally {
 				if(!serverIsRed5)
-				callLater(requestDisconnect2);
+				callLater(requestDisconnect2,[noFindPartner,usernameFind]);
 				else
-				requestDisconnect2();
+				requestDisconnect2(noFindPartner,usernameFind);
 			}
 		}
 		
-		private function requestDisconnect2():void
+		private function requestDisconnect2(noFindPartner : Boolean=false,usernameFind: Boolean =false):void
 		{
 //			btnSend.enabled = false;
-			btnNext.enabled = true;
+//			btnNext.enabled = true;
 			
 			partnerUsername = this.lang.getSimpleProperty("yourPartnerLabel");
 			partnerCCode = "";
@@ -1837,10 +1909,30 @@
 			
 			userManager.disconnect();
 			
+			if(!serverIsRed5) {
+				userManager.addEventListener(IdManagerEvent.DISCONNECT_RESPONSE, function(ev : IdManagerEvent) : void {
+					userManager.removeEventListener(IdManagerEvent.DISCONNECT_RESPONSE, arguments.callee);
+					
+					
+					if(!noFindPartner && !userStop && cbAutoFindNext.selected) {
+						ccConnect.enabled = btnNext.enabled = false;
+						ccCallState = CCCallCalling;
+						if(usernameFind)
+							findPartnerByName();
+						else
+							findPartner();
+					} else {
+						ccConnect.enabled = btnNext.enabled = true;
+						ccCallState = CCCallReady;
+					}
+				});
+			}
+			
 			if (incomingStream)
 			{
 				incomingStream.close();
 				incomingStream.removeEventListener(NetStatusEvent.NET_STATUS, incomingStreamHandler);
+				incomingStream = null;
 			}
 			
 			if (outgoingStream)
@@ -1849,12 +1941,14 @@
 				outgoingStream.attachAudio(null);
 				outgoingStream.close();
 				outgoingStream.removeEventListener(NetStatusEvent.NET_STATUS, outgoingStreamHandler);
+				outgoingStream = null;
 			}
 			
 			if (controlStream)
 			{
 				controlStream.close();
 				controlStream.removeEventListener(NetStatusEvent.NET_STATUS, controlHandler);
+				controlStream = null;
 			}
 			
 			vidOther.attachCamera(null);
@@ -1870,9 +1964,19 @@
 				mLookupDelayTimer.reset();
 			}
 			
-			if(!userStop && cbAutoFindNext.selected) {
-				btnNext.enabled = false;
-				findPartner();
+			if(serverIsRed5) {
+				
+				if(!noFindPartner && !userStop && cbAutoFindNext.selected) {
+					ccConnect.enabled = btnNext.enabled = false;
+					ccCallState = CCCallCalling;
+					if(usernameFind)
+						findPartnerByName();
+					else
+						findPartner();
+				} else {
+					ccConnect.enabled = btnNext.enabled = true;
+					ccCallState = CCCallReady;
+				}
 			}
 		}
         
@@ -1945,6 +2049,9 @@
 			
 			
 			btnStop.enabled = false;
+			tiChat.visible = false;
+			speedDate.visible = false;
+			speedChat.visible = false;
 			btnStart.enabled = true;
 			btnNext.enabled = false;
 			lblUsersOnline.htmlText = "";
@@ -1959,7 +2066,7 @@
             if(autoDisconnectCountdownTimer)
             autoDisconnectCountdownTimer.reset();	
             
-            if(useSounds) {
+            if(useSounds && !systemSoundsMuted) {
             	var snd : Sound = new Sound(new URLRequest("jabbercam/media/sounds/goodbye.mp3"));
             	snd.addEventListener(IOErrorEvent.IO_ERROR, ioError);
             	snd.play();
@@ -2222,12 +2329,17 @@
 		
 		private function onMessageReceived(text:String):void
 		{
-			taChat.htmlText += (partnerUsername==lang.getSimpleProperty("yourPartnerLabel")?
-				partnerUsername:partnerUsername+": ") + filterMessage(text) + "\n";
+			var chatUserStyle : CSSStyleDeclaration = StyleManager.getStyleDeclaration(".ChatUser");
+			var chatRcvdStyle : CSSStyleDeclaration = StyleManager.getStyleDeclaration(".ChatRcvd");
+			
+			taChat.htmlText += "<font size=\""+chatUserStyle.getStyle('fontSize')+"\" color=\"#"+
+				StyleManager.getColorName(chatUserStyle.getStyle('color')).toString(16)+"\"><b>"+(partnerUsername==lang.getSimpleProperty("yourPartnerLabel")?
+				partnerUsername:partnerUsername+"</b></font>: <font size=\""+chatRcvdStyle.getStyle('fontSize')+"\" color=\"#"+
+					StyleManager.getColorName(chatRcvdStyle.getStyle('color')).toString(16)+"\">") + filterMessage(text) +"</font>\n";
 			taChat.validateNow();
 			taChat.verticalScrollPosition = taChat.textHeight;
 			
-			if(useSounds) {
+			if(useSounds && !systemSoundsMuted) {
 				
 				var snd : Sound;
 				if(text.search(/^\(buzz\)/) > -1) {
@@ -2247,7 +2359,7 @@
 				return;
 			}
 			
-			tiChat.text = "(buzz)";
+			tiChat.text = "<b>buzZ!</b>";
 			onSend();
 		}
 		
@@ -2266,15 +2378,21 @@
 			{
 				tiChat.text = "";
 				tiChat.htmlText = "";
-				taChat.htmlText += (myUsername.text==lang.getSimpleProperty('youText')?'<b>'+lang.getSimpleProperty("youText")+'</b>':
-					"<b>"+myUsername.text+"</b>")+": "+filterMessage(msg)+"\n";
+				
+				var chatUserStyle : CSSStyleDeclaration = StyleManager.getStyleDeclaration(".ChatUser");
+				var chatSentStyle : CSSStyleDeclaration = StyleManager.getStyleDeclaration(".ChatSent");
+				
+				taChat.htmlText += "<font size=\""+chatUserStyle.getStyle('fontSize')+"\" color=\"#"+
+					StyleManager.getColorName(chatUserStyle.getStyle('color')).toString(16)+"\">"+(myUsername.text==lang.getSimpleProperty('youText')?'<b>'+lang.getSimpleProperty("youText")+'</b>':
+					"<b>"+myUsername.text+"</b></font>")+": <font size=\""+chatSentStyle.getStyle('fontSize')+"\" color=\"#"+
+					StyleManager.getColorName(chatSentStyle.getStyle('color')).toString(16)+"\">"+filterMessage(msg)+"</font>\n";
 				taChat.validateNow();	
 				taChat.verticalScrollPosition = taChat.textHeight;
 				outgoingStream.send("onIm", msg);
 				userManager.saveChat(mId, mOtherId, msg);
 				tiChat.setFocus();
 				
-				if(useSounds && msg.search(/^\(buzz\)/) > -1) {
+				if(useSounds && !systemSoundsMuted && msg.search(/^<b>buzZ!<\/b>/) > -1) {
 				
 					var snd : Sound;
 					snd = new Sound(new URLRequest("jabbercam/media/sounds/buzz.mp3"));
@@ -2340,12 +2458,12 @@
 		}
 		
 		private function initLabels() : void {
-			partnerUsername = this.lang.getSimpleProperty("yourPartnerLabel");
+//			partnerUsername = this.lang.getSimpleProperty("yourPartnerLabel");
 			
 			this.partnerLabel.text = this.lang.getSimpleProperty('partnerLabel');
 			this.youLabel.text = this.lang.getSimpleProperty('youLabel');
 //			this.meLabel.text = this.lang.getSimpleProperty('meLabel');
-			this.myUsername.text = this.lang.getSimpleProperty('youText');
+//			this.myUsername.text = this.lang.getSimpleProperty('youText');
 			this.rbFemale.label = this.lang.getSimpleProperty('femaleLabel');
 			this.rbMale.label = this.lang.getSimpleProperty("maleLabel");
 			this.seekingLabel.text =  this.lang.getSimpleProperty('seekingLabel');
@@ -2353,14 +2471,14 @@
 			this.rbSexFemale.label = this.lang.getSimpleProperty('ladiesLabel');
 			this.rbSexMale.label =  this.lang.getSimpleProperty('gentsLabel');
 			this.cbAutoFindNext.label =  this.lang.getSimpleProperty('autoFindNextLabel');
-			this.microphoneLabel.text =  this.lang.getSimpleProperty('microphoneLabel');
-			this.volumeLabel.text = this.lang.getSimpleProperty('volumeLabel');
+			this.microphoneLabel.toolTip =  this.lang.getSimpleProperty('microphoneLabel');
+			this.volumeLabel.toolTip = this.lang.getSimpleProperty('volumeLabel');
 			this.btnPreview.label= this.lang.getSimpleProperty('previewVideoLabel');
 			this.btnNext.label=this.lang.getSimpleProperty('findNextLabel');
 			this.btnNext.toolTip=this.lang.getSimpleProperty('nextButtonTooltip');
 			this.btnStart.label=this.lang.getSimpleProperty('startLabel');
 			this.btnStart.toolTip=this.lang.getSimpleProperty('startButtonTooltip');
-			this.btnClear.label=this.lang.getSimpleProperty('clearLabel');
+			this.btnClear.toolTip=this.lang.getSimpleProperty('clearToolTip');
 			this.myLanguageLabel.text = this.lang.getSimpleProperty('myLanguageLabel');
 			this.partnerLanguageLabel.text = this.lang.getSimpleProperty('partnerLanguageLabel');
 			this.ccLabel.text = this.lang.getSimpleProperty('connectMeDirectlyToLabel');
@@ -2369,10 +2487,10 @@
 //			this.btnGetTheSource.label=this.lang.getSimpleProperty('getTheSourceLabel');
 			this.betaLabel.text=this.lang.getSimpleProperty('betaLabel');
 			this.btnStop.label=this.lang.getSimpleProperty('stopLabel');
-			this.btnFilter.label=this.lang.getSimpleProperty("filterLabel");
+//			this.btnFilter.label=this.lang.getSimpleProperty("filterLabel");
 			this.btnFilter.toolTip=this.lang.getSimpleProperty("filterButtonTooltip");
-			this.btnReport.label=this.lang.getSimpleProperty("reportLabel");
-			this.btnReport.toolTip=this.lang.getSimpleProperty("reportButtonTooltip");
+//			this.btnReport.label=this.lang.getSimpleProperty("reportLabel");
+			this.btnReportV.toolTip=this.lang.getSimpleProperty("reportButtonTooltip");
 			this.autoNextIntervalLabel.text = this.lang.getSimpleProperty('autoNextIntervalLabel');
 			this.cbCameraOnOnly.label = this.lang.getSimpleProperty("cameraOnLabel");
 //			this.usernameLabel.text = this.lang.getSimpleProperty("usernameTextInputLabel");
@@ -2506,15 +2624,16 @@
 			if(mOtherId != "" && mOtherId != null) {
 				userManager.report(mOtherId);
 				btnReport.enabled = false;
+				btnReportV.enabled = false;
 			}
 		}
-		
+
 		private function changeUsername() : void {
 			if(myUsername.text == lang.getSimpleProperty('youText'))
 			return;
 			
 			if(ccCallState == CCCallEstablished) 
-			outgoingStream.send("sendUsername", myUsername.text);
+			outgoingStream.send("sendUsername", myUsername.text, countryCode, country);
 		}
 		
 		private function beginLoadingAd() : void {

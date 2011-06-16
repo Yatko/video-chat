@@ -16,18 +16,15 @@
  */
 -->
 <?php
+
 /**
- * Main configuration file for CRC 4+
- * You may want to edit /jabbercam/language/lang_??.xml too
+ * Configuration file for CRC 5.0+
+ * You may want to edit /jabbercam/language/lang_??.ini
  * Help: http://www.videosoftware.pro/forum/FORUM-Documentation-Quickstart-and-How-To
  */
 
-
-// Database configuration for Red5, used to install database tables (for Red5 database configuration read INSTALL.txt)
-$RED5_DB_HOST = "localhost";		//database host (server)
-$RED5_DB_USER = "dbuser";			//database username
-$RED5_DB_PASSWORD = "dbpassword";	//database password
-$RED5_DB_DATABASE = "databasename";	//database name
+// Back-en location (exact location of functions.php on your domain | http://www.your-domain.com/[folder]/jabbercam/functions.php
+$WEB_SERVICE_URL = "WEB_SERVICE_URL/jabbercam/functions.php";	// http://www.your-domain.com/jabbercam/functions.php
 
 // Database configuration for Stratus
 $DB_HOST = "localhost";				//database host (server)
@@ -35,11 +32,15 @@ $DB_USER = "dbuser";				//database username
 $DB_PASSWORD = "dbpassword";		//database password
 $DB_DATABASE = "databasename";		//database name
 
-// Back-en location (exact location of functions.php on your domain | http://www.your-domain.com/[folder]/jabbercam/functions.php
-$WEB_SERVICE_URL = "WEB_SERVICE_URL/jabbercam/functions.php";	// http://www.your-domain.com/jabbercam/functions.php
+
+// Optional database configuration for Red5, used to install database tables (for Red5 database configuration read INSTALL.txt)
+$RED5_DB_HOST = "localhost";		//database host (server)
+$RED5_DB_USER = "dbuser";			//database username
+$RED5_DB_PASSWORD = "dbpassword";	//database password
+$RED5_DB_DATABASE = "databasename";	//database name
 
 // Flash media server settings (rtmfp or rtmp | values: Stratus or Red5)
-$SERVER_TYPE = 'Red5';				// 'Red5 or 'Stratus'
+$SERVER_TYPE = 'Stratus';				// 'Red5 or 'Stratus'
 
 if($SERVER_TYPE == 'Red5') {
 	$DB_HOST = $RED5_DB_HOST;
@@ -48,20 +49,28 @@ if($SERVER_TYPE == 'Red5') {
 	$DB_DATABASE = $RED5_DB_DATABASE;
 }
 
+// Stratus
+$DEVELOPER_KEY = "ADOBE_DEVELOPER_KEY";							// your Adobe Stratus developer key obtained from Adobe (read INSTALL.txt)
+
 // Red5
 $RED5_CONNECT_URL = 'rtmp://www.jabbercam.com/JabberCamApp';	// leave this free, temporary resource or use your own
 $RED5_CONNECT_URL_B1 = '';
 $RED5_CONNECT_URL_B2 = '';
 $RED5_CONNECT_MAIN_TIMEOUT = 30;								// minutes
 
-// Stratus
-$DEVELOPER_KEY = "ADOBE_DEVELOPER_KEY";							// your Adobe Stratus developer key obtained from Adobe (read INSTALL.txt)
+// Maintenance settings
+$REMOVE_SESSIONS_OLDER_THAN = '180';	// set the amount of time, minutes, sessions to be cleared by the ?task=cleanAllOlder function
 
+// Video ads on idle partner window
+$AD_FOLDER = './media/video/blankscreen/'; // set the directory where video ads (.swf videos) are placed
 
 // Login process settings (turn on/off mandatory username and camera | values: true or false)
 $LOGIN_SCREEN_ENABLE = true;		// 'true' or 'false'
 $CAMERA_REQUIRED = true;			// 'true' or 'false'
 
+// Volume settings
+$SPEAKER_VOLUME = 0.5; // [0-1]
+$MICROPHONE_VOLUME = 0.3; // [0-1]
 
 // User connection timing and user filtering
 $MINIMUM_CONNECTED_TIME = 1;	// the minimum time in seconds, two users must stay connected before they can press NEXT (global)
@@ -78,13 +87,8 @@ $SPEEDDATE_CONNECTED_TIME = 30;			// the default time for speeddate (if not set 
 $SPEEDDATE_MINIMUM_CONNECTED_TIME = 10;	// the minimum time a user must stay connected before he can disconnect when using SpeedDate
 
 
-// Maintenance settings
-$REMOVE_SESSIONS_OLDER_THAN = '180';	// set the amount of time, minutes, sessions to be cleared by the ?task=cleanAllOlder function
-
-
 // Feature and filter settings
 $LANGUAGES = array("en"=>"English", "es"=>"Spanish", "cn"=>"Chinese", "de"=>"German", "it"=>"Italian", "fr"=>"French", "tr"=>"Turkish", "cz"=>"Czech", "ro"=>"Romanian", "hu"=>"Hungarian");
-$AD_FOLDER = './media/video/blankscreen/'; // set the directory where video ads (.swf videos) are placed
 
 $AUTONEXT_VALUES = array("man"=>0, "5"=>5, "10"=>10, "30"=>30, "1min"=>60);
 $AGEFILTER_VALUES = array("Off", "16-25", "26-40", "41+");
@@ -98,6 +102,13 @@ $CUSTOM_FILTER_2_ENABLE = true;			// 'true' or 'false'
 $CUSTOM_FILTER_2_LABEL = "Looking for";	// any label (text) 
 $CUSTOM_FILTER_2 = array("dating"=>"Dating", "friends"=>"Make Friends", "look"=>"Just Look", "talk"=>"Just Talk");  // option list (text)
 
+$BLUR_EFFECT = true;			// true or false
+$BLUR_EFFECT_INTENSITY = 2;		
+$BLUR_EFFECT_DURATION = 5;		// seconds
+
+$GOOGLE_APP_ID = "GOOGLE_MAPS_APP_ID";
+
+$SOCIAL_BUTTONS_LOGIN_SCREEN = true; //
 /*
 ---------------------------------------------------------------------------------------------
 */
@@ -189,6 +200,17 @@ if(isset($_GET['setts'])) {
 	
 	echo '<loginScreenEnable>'.($LOGIN_SCREEN_ENABLE?'true':'false').'</loginScreenEnable>';
 	echo '<cameraRequired>'.($CAMERA_REQUIRED?'true':'false').'</cameraRequired>';
+	
+	echo '<speakerVolume>'.$SPEAKER_VOLUME.'</speakerVolume>';
+	echo '<microphoneVolume>'.$MICROPHONE_VOLUME.'</microphoneVolume>';
+	
+	echo '<blurEffect>'.($BLUR_EFFECT?'true':'false').'</blurEffect>';
+	echo '<blurEffectIntensity>'.$BLUR_EFFECT_INTENSITY.'</blurEffectIntensity>';
+	echo '<blurEffectDuration>'.$BLUR_EFFECT_DURATION.'</blurEffectDuration>';
+	
+	echo '<googleAppId>'.$GOOGLE_APP_ID.'</googleAppId>';
+	
+	echo '<socialButtonsLoginScreen>'.($SOCIAL_BUTTONS_LOGIN_SCREEN?'true':'false').'</socialButtonsLoginScreen>';
 	
 	echo '</settings>';
 }

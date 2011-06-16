@@ -26,7 +26,7 @@ package jabbercam.lang
 	[Event(name="complete", type="flash.events.Event")]
 	public class LanguageLoader extends EventDispatcher
 	{
-		private const languageFile : String = "jabbercam/language/lang_xx.xml";
+		private const languageFile : String = "jabbercam/language/lang_xx.ini";
 		
 		[Bindable]
 		public static var languages : Array = ["English", "Spanish", "Chinese", "Russian", "German", 
@@ -35,7 +35,7 @@ package jabbercam.lang
 		[Bindable]
 		public var codes : Array = ["en", "es", "ch", "ru", "de", "fr", "th", "tr", "cz", "bg", "ro", "hu"];
 		private var serviceLoader : HTTPService;
-		private var lang : XML;
+		private var lang : Object;
 		private var _langs : Object;
 		private var _currentLang : int = 0;
 		
@@ -70,7 +70,7 @@ package jabbercam.lang
 			super();
 			
 			serviceLoader = new HTTPService();
-			serviceLoader.resultFormat = HTTPService.RESULT_FORMAT_E4X;
+			serviceLoader.resultFormat = HTTPService.RESULT_FORMAT_TEXT;
 			serviceLoader.addEventListener(FaultEvent.FAULT, errorLoadingSettings);
 			serviceLoader.addEventListener(ResultEvent.RESULT, completeLoadingSettings);
 		}
@@ -100,21 +100,36 @@ package jabbercam.lang
 			loadLanguage(0);
 		}
 		
+		private function parseLang(text : String) : Object {
+			var lang : Object = {};
+			if(text != null) {
+				text.replace(/\r+|(?:\r\n)+|\n+/g, '\n');
+				
+				var matches : Array;
+				var reg : RegExp = /^\s*(\w+)\s*=\s*(.+)\s*$/mg;
+				while((matches = reg.exec(text)) != null) {
+					lang[matches[1]] = matches[2];
+				}
+			}
+			
+			return lang;
+		}
+		
 		private function completeLoadingSettings(ev : Object) : void {
-			this.lang = ev.result as XML;
+			this.lang = parseLang(ev.result as String);
 			this._langs[this.codes[this._currentLang]] = this.lang;
 			
 			this._ready = true;
 			
-			this.backgroundImage = this.lang.settings.backgroundImage_1.toString();
-			this.backgroundImage2 = this.lang.settings.backgroundImage_2.toString();
-			this.backgroundImage3 = this.lang.settings.backgroundImage_3.toString();
-			this.backgroundImage4 = this.lang.settings.backgroundImage_4.toString();
-			this.backgroundImage5 = this.lang.settings.backgroundImage_5.toString();
-			this.backgroundImage6 = this.lang.settings.backgroundImage_6.toString();
+			this.backgroundImage = this.lang.backgroundImage_1.toString();
+			this.backgroundImage2 = this.lang.backgroundImage_2.toString();
+			this.backgroundImage3 = this.lang.backgroundImage_3.toString();
+			this.backgroundImage4 = this.lang.backgroundImage_4.toString();
+			this.backgroundImage5 = this.lang.backgroundImage_5.toString();
+			this.backgroundImage6 = this.lang.backgroundImage_6.toString();
 			
-			this.getSourceCodeImage = this.lang.settings.getSourceCode.@image.toString();
-			this.getSourceCodeLink = this.lang.settings.getSourceCode.toString();
+			this.getSourceCodeImage = this.lang.getSourceCodeImage.toString();
+			this.getSourceCodeLink = this.lang.getSourceCode.toString();
 			
 //			Simple trick to execute bindings
 			this.myspaceTooltip = this.facebookTooltip = this.twitterTooltip = this.buzzTooltip = "bum";
@@ -139,7 +154,7 @@ package jabbercam.lang
 		}
 		[Bindable]
 		public function get myspaceTooltip() : String {
-			return lang.statuses.myspaceButtonTooltip.toString();
+			return lang.myspaceButtonTooltip.toString();
 		}
 		
 		public function set facebookTooltip(value : String) : void {
@@ -147,7 +162,7 @@ package jabbercam.lang
 		}
 		[Bindable]
 		public function get facebookTooltip() : String {
-			return lang.statuses.facebookButtonTooltip.toString();
+			return lang.facebookButtonTooltip.toString();
 		}
 		
 		public function set twitterTooltip(value : String) : void {
@@ -155,7 +170,7 @@ package jabbercam.lang
 		}
 		[Bindable]
 		public function get twitterTooltip() : String {
-			return lang.statuses.twitterButtonTooltip.toString();
+			return lang.twitterButtonTooltip.toString();
 		}
 		
 		public function set buzzTooltip(value : String) : void {
@@ -163,12 +178,12 @@ package jabbercam.lang
 		}
 		[Bindable]
 		public function get buzzTooltip() : String {
-			return lang.statuses.buzzButtonTooltip.toString();
+			return lang.buzzButtonTooltip.toString();
 		}
 		
 		public function getSimpleProperty(key : String) : String {
 			try {
-				return lang.statuses.child(key)[0].toString();
+				return lang[key].toString();
 			} catch(e : Error) {
 				return "";
 			}
@@ -178,7 +193,7 @@ package jabbercam.lang
 		
 		public function getCompoundProperty(key : String, index : int = 0) : String {
 			try {
-				return lang.statuses.child(key)[0].line[index].toString();
+				return lang[key+"_"+index].toString();
 			} catch(e : Error) {
 				return "";
 			}
@@ -188,7 +203,7 @@ package jabbercam.lang
 		
 		public function getSetting(key : String) : String {
 			try {
-				return lang.settings.child(key)[0].toString();
+				return lang[key].toString();
 			} catch(e : Error) {
 				return "";
 			}

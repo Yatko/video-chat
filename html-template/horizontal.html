@@ -49,8 +49,9 @@
 		// -->
 		</script>
 	</head>
-
+	
 	<body>
+
 		<div id="header">
 		Welcome to JabberCam, the Open Source Random Video Chat!
 		</div>
@@ -105,14 +106,15 @@
 						AC_FL_RunContent(
 							"src", "jabbercam/playerProductInstall",
 							"FlashVars", "MMredirectURL="+MMredirectURL+'&MMplayerType='+MMPlayerType+'&MMdoctitle='+MMdoctitle+"",
-							"width", "720",
-							"height", "489",
+							"width", "670",
+							"height", "469",
 							"align", "middle",
 							"id", "JabberCam",
 							"quality", "high",
 							"bgcolor", "#3B5997",
 							"name", "JabberCam",
 							"allowScriptAccess","sameDomain",
+							"allowFullScreen","true",
 							"type", "application/x-shockwave-flash",
 							"pluginspage", "http://www.adobe.com/go/getflashplayer"
 						);
@@ -121,14 +123,15 @@
 						// embed the Flash Content SWF when all tests are passed
 						AC_FL_RunContent(
 								"src", "JabberCam_h",
-								"width", "720",
-								"height", "489",
+								"width", "670",
+								"height", "469",
 								"align", "middle",
 								"id", "JabberCam",
 								"quality", "high",
 								"bgcolor", "#3B5997",
 								"name", "JabberCam",
 								"allowScriptAccess","sameDomain",
+								"allowFullScreen","true",
 								"type", "application/x-shockwave-flash",
 								"pluginspage", "http://www.adobe.com/go/getflashplayer"
 						);
@@ -142,19 +145,20 @@
 					</script>
 
 					<noscript>
-						<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" id="JabberCam" width="720" height="489"	codebase="http://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab">
+						<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" id="JabberCam" width="670" height="469"	codebase="http://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab">
 								<param name="movie" value="JabberCam_.swf" />
 								<param name="quality" value="high" />
 								<param name="bgcolor" value="#3B5997" />
 
 								<param name="allowScriptAccess" value="sameDomain" />
 								<embed src="JabberCam_.swf" quality="high" bgcolor="#000000"
-									width="720" height="489" name="JabberCam" align="middle"
+									width="670" height="469" name="JabberCam" align="middle"
 									play="true"
 									loop="false"
 
 									quality="high"
 									allowScriptAccess="sameDomain"
+									allowFullScreen="true"
 									type="application/x-shockwave-flash"
 									pluginspage="http://www.adobe.com/go/getflashplayer">
 								</embed>
@@ -183,6 +187,7 @@
 				</script>
 			</div>
 		</div>
-		
+	
+
 	</body>
 </html>
