@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>4.0</name>
-	<comment/>
+	<name>5.0</name>
+	<comment></comment>
 	<projects>
 	</projects>
 	<buildSpec>
@@ -15,5 +15,11 @@
 		<nature>com.adobe.flexbuilder.project.flexnature</nature>
 		<nature>com.adobe.flexbuilder.project.actionscriptnature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>bin-debug</name>
+			<type>2</type>
+			<location>/Users/kalman/Documents/Yatko/PRJ/videosoftware.pro/DEV/RVC/debug</location>
+		</link>
+	</linkedResources>
 </projectDescription>
-

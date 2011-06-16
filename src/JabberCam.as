@@ -1306,7 +1306,7 @@
 			}
 			
 			if(blurEffect) {
-				(blurEffectInstance as Blur).play();
+//				(blurEffectInstance as Blur).play();
 			}
 		}
 		
@@ -2490,7 +2490,7 @@
 //			this.btnFilter.label=this.lang.getSimpleProperty("filterLabel");
 			this.btnFilter.toolTip=this.lang.getSimpleProperty("filterButtonTooltip");
 //			this.btnReport.label=this.lang.getSimpleProperty("reportLabel");
-			this.btnReportV.toolTip=this.lang.getSimpleProperty("reportButtonTooltip");
+//			this.btnReportV.toolTip=this.lang.getSimpleProperty("reportButtonTooltip");
 			this.autoNextIntervalLabel.text = this.lang.getSimpleProperty('autoNextIntervalLabel');
 			this.cbCameraOnOnly.label = this.lang.getSimpleProperty("cameraOnLabel");
 //			this.usernameLabel.text = this.lang.getSimpleProperty("usernameTextInputLabel");
@@ -2624,7 +2624,7 @@
 			if(mOtherId != "" && mOtherId != null) {
 				userManager.report(mOtherId);
 				btnReport.enabled = false;
-				btnReportV.enabled = false;
+//				btnReportV.enabled = false;
 			}
 		}
 
