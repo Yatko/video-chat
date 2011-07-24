@@ -18,29 +18,97 @@
 <?php
 
 /**
- * Configuration file for CRC 5.0+
+ * Configuration file for RVC 5.0+
  * You may want to edit /jabbercam/language/lang_??.ini
  * Help: http://www.videosoftware.pro/forum/FORUM-Documentation-Quickstart-and-How-To
  */
 
-// Back-en location (exact location of functions.php on your domain | http://www.your-domain.com/[folder]/jabbercam/functions.php
-$WEB_SERVICE_URL = "WEB_SERVICE_URL/jabbercam/functions.php";	// http://www.your-domain.com/jabbercam/functions.php
+//SYSTEM SETTINGS
 
-// Database configuration for Stratus
-$DB_HOST = "localhost";				//database host (server)
-$DB_USER = "dbuser";				//database username
-$DB_PASSWORD = "dbpassword";		//database password
-$DB_DATABASE = "databasename";		//database name
+/* Back-en location (exact location of functions.php on your domain | http://www.your_domain.com/[folder]/jabbercam/functions.php */
+$WEB_SERVICE_URL = "WEB_SERVICE_URL/jabbercam/functions.php";		// http://www.your_domain.com/jabbercam/functions.php
+$GOOGLE_APP_ID = "GOOGLE_MAPS_APP_ID";								// required for Google maps (to remove, read forum)
+
+/* Optional database configuration for Red5, used to install database tables (for Red5 database configuration read forum) */
+$RED5_DB_HOST = "localhost";			//database host (server)
+$RED5_DB_USER = "dbuser";				//database username
+$RED5_DB_PASSWORD = "dbpassword";		//database password
+$RED5_DB_DATABASE = "databasename";		//database name
+/* Optional database configuration for Stratus, not needed if Red5 is used */
+$DB_HOST = "localhost";					//database host (server)
+$DB_USER = "dbuser";					//database username
+$DB_PASSWORD = "dbpassword";			//database password
+$DB_DATABASE = "databasename";			//database name
+
+/* Flash media server settings (rtmfp or rtmp | values: Stratus or Red5) */
+$SERVER_TYPE = 'Stratus';											// 'Red5 or 'Stratus'
+/* if Stratus */
+$DEVELOPER_KEY = "ADOBE_CIRRUS_KEY";								// your Adobe Cirrus (Stratus) developer key obtained from Adobe (read forum)
+/* if Red5 */
+$RED5_CONNECT_URL = 'rtmp://www.videosoftware.pro/JabberCamApp';	// use your own rtmp, this temporary resource may be down 
+$RED5_CONNECT_URL_B1 = '';											// backup server #1
+$RED5_CONNECT_URL_B2 = '';											// backup server #2
+$RED5_CONNECT_MAIN_TIMEOUT = 30;									// minutes
 
 
-// Optional database configuration for Red5, used to install database tables (for Red5 database configuration read INSTALL.txt)
-$RED5_DB_HOST = "localhost";		//database host (server)
-$RED5_DB_USER = "dbuser";			//database username
-$RED5_DB_PASSWORD = "dbpassword";	//database password
-$RED5_DB_DATABASE = "databasename";	//database name
+// LOGIN PROCESS SETTINGS (turn on/off mandatory camera and username | values: true or false)
+$CAMERA_REQUIRED = true;				// 'true' or 'false'
+$LOGIN_SCREEN_ENABLE = true;			// 'true' or 'false' (you may use login.php instead RVC 5.1+)
+$SOCIAL_BUTTONS_LOGIN_SCREEN = true;	// 'true' or 'false'
 
-// Flash media server settings (rtmfp or rtmp | values: Stratus or Red5)
-$SERVER_TYPE = 'Stratus';				// 'Red5 or 'Stratus'
+
+// CONNECTION SETTINGS
+/* User connection timing */
+$MINIMUM_CONNECTED_TIME = 2;			// the minimum time in seconds, two users must stay connected before they can press NEXT (global)
+$TIME_TO_LIVE = 10; 					// set the delay, seconds (close the session if the server doesn't receive a response for XX seconds)
+/* SpeedChat and SpeedDate connection timing settings */
+$SPEEDCHAT_CONNECTED_TIME = 5;			// the default time for speedchat (if not set different by the client, using the Flash slider)
+$SPEEDCHAT_MIMIMUM_CONNECTED_TIME = 3;	// the minimum time a user must stay connected before he can disconnect when using SpeedChat
+$SPEEDDATE_CONNECTED_TIME = 30;			// the default time for speeddate (if not set different by the client, using the Flash slider)
+$SPEEDDATE_MINIMUM_CONNECTED_TIME = 10;	// the minimum time a user must stay connected before he can disconnect when using SpeedDate
+/* User filtering and ban*/
+$FILTER_TIMEOUT = 30;					// set the filter button, minutes (do not connect to filtered user for XX minutes)
+$NUM_REPORTS_TO_BAN = 3;				// set the report button (number of reports needed for a user to be banned)
+$BAN_TIMEOUT = 180;						// set the report button, minutes (ban reported user for XX minutes)
+/* Maintenance settings */
+$REMOVE_SESSIONS_OLDER_THAN = '180';	// set the amount of time, minutes, sessions to be cleared by the ?task=cleanAllOlder function
+
+
+// UI SETTINGS
+/* Language settings */
+$LANGUAGES = array("en"=>"English", "es"=>"Spanish", "cn"=>"Chinese", "de"=>"German", "it"=>"Italian", "fr"=>"French", "tr"=>"Turkish", "cz"=>"Czech", "ro"=>"Romanian", "hu"=>"Hungarian");
+/* Timed video blur effect */
+$BLUR_EFFECT = false;					// true or false (on|off)
+$BLUR_EFFECT_INTENSITY = 30;			// initial intensity of video blur
+$BLUR_EFFECT_DURATION = 5;				// seconds
+/* Volume settings */
+$SPEAKER_VOLUME = 0.5;					// [0-1]
+$MICROPHONE_VOLUME = 0.3;				// [0-1]
+/* Ad settings */
+$AD_FOLDER = './media/video/blankscreen/';	// for video ads, directory where .swf videos are located
+$ADS_FREQUENCY=60;							// for text ads (/jabbercam/media/text). Seconds, 0 for off
+
+
+// FEATURE AND FILTER SETTINGS
+/* Auto NEXT Settings */
+$AUTONEXT_VALUES = array("man"=>0, "5"=>5, "10"=>10, "30"=>30, "1min"=>60);
+/* Age filter settings */
+$AGEFILTER_VALUES = array("Off", "16-25", "26-40", "41+");
+/* Language (country) filter settings */
+$LANG_FILTERS = array("en"=>"English", "es"=>"Spanish", "cn"=>"Chinese", "ru"=>"Russian", "de"=>"German", "it"=>"Italian", "fr"=>"French", "th"=>"Thai", "tr"=>"Turkish", "cz"=>"Czech", "bg"=>"Bulgarian", "ro"=>"Romanian", "hu"=>"Hungarian");
+/* Custom filter #1 settings */
+$CUSTOM_FILTER_1_ENABLE = true;			// 'true' or 'false'
+$CUSTOM_FILTER_1_LABEL = "Location";	// any label (text)
+$CUSTOM_FILTER_1 = array("paris"=>"Paris", "london"=>"London", "sanghai"=>"Sanghai", "rome"=>"Rome", "moscow"=>"Moscow", "tokyo"=>"Tokyo", "anyother"=>"Any Other");	// option list (text)
+/* Custom filter #2 settings */
+$CUSTOM_FILTER_2_ENABLE = true;			// 'true' or 'false'
+$CUSTOM_FILTER_2_LABEL = "Looking for";	// any label (text) 
+$CUSTOM_FILTER_2 = array("dating"=>"Dating", "friends"=>"Make Friends", "look"=>"Just Look", "talk"=>"Just Talk");	// option list (text)
+
+
+/*
+---------------------------------------------------------------------------------------------
+*/
 
 if($SERVER_TYPE == 'Red5') {
 	$DB_HOST = $RED5_DB_HOST;
@@ -48,70 +116,6 @@ if($SERVER_TYPE == 'Red5') {
 	$DB_PASSWORD = $RED5_DB_PASSWORD;
 	$DB_DATABASE = $RED5_DB_DATABASE;
 }
-
-// Stratus
-$DEVELOPER_KEY = "ADOBE_DEVELOPER_KEY";							// your Adobe Stratus developer key obtained from Adobe (read INSTALL.txt)
-
-// Red5
-$RED5_CONNECT_URL = 'rtmp://www.jabbercam.com/JabberCamApp';	// leave this free, temporary resource or use your own
-$RED5_CONNECT_URL_B1 = '';
-$RED5_CONNECT_URL_B2 = '';
-$RED5_CONNECT_MAIN_TIMEOUT = 30;								// minutes
-
-// Maintenance settings
-$REMOVE_SESSIONS_OLDER_THAN = '180';	// set the amount of time, minutes, sessions to be cleared by the ?task=cleanAllOlder function
-
-// Video ads on idle partner window
-$AD_FOLDER = './media/video/blankscreen/'; // set the directory where video ads (.swf videos) are placed
-
-// Login process settings (turn on/off mandatory username and camera | values: true or false)
-$LOGIN_SCREEN_ENABLE = true;		// 'true' or 'false'
-$CAMERA_REQUIRED = true;			// 'true' or 'false'
-
-// Volume settings
-$SPEAKER_VOLUME = 0.5; // [0-1]
-$MICROPHONE_VOLUME = 0.3; // [0-1]
-
-// User connection timing and user filtering
-$MINIMUM_CONNECTED_TIME = 1;	// the minimum time in seconds, two users must stay connected before they can press NEXT (global)
-$TIME_TO_LIVE = 50; 			// set the delay, seconds (close the session if the server doesn't receive a response for XX seconds)
-
-$FILTER_TIMEOUT = 15;			// set the filter button, minutes (do not connect to filtered user for XX minutes)
-$BAN_TIMEOUT = 45;				// set the report button, minutes (ban reported user for XX minutes)
-$NUM_REPORTS_TO_BAN = 5;		// set the report button (number of reports needed for a user to be banned)
-
-// SpeedChat and SpeedDate connection timing settings 
-$SPEEDCHAT_CONNECTED_TIME = 5;			// the default time for speedchat (if not set different by the client, using the Flash slider)
-$SPEEDCHAT_MIMIMUM_CONNECTED_TIME = 3;	// the minimum time a user must stay connected before he can disconnect when using SpeedChat
-$SPEEDDATE_CONNECTED_TIME = 30;			// the default time for speeddate (if not set different by the client, using the Flash slider)
-$SPEEDDATE_MINIMUM_CONNECTED_TIME = 10;	// the minimum time a user must stay connected before he can disconnect when using SpeedDate
-
-
-// Feature and filter settings
-$LANGUAGES = array("en"=>"English", "es"=>"Spanish", "cn"=>"Chinese", "de"=>"German", "it"=>"Italian", "fr"=>"French", "tr"=>"Turkish", "cz"=>"Czech", "ro"=>"Romanian", "hu"=>"Hungarian");
-
-$AUTONEXT_VALUES = array("man"=>0, "5"=>5, "10"=>10, "30"=>30, "1min"=>60);
-$AGEFILTER_VALUES = array("Off", "16-25", "26-40", "41+");
-$LANG_FILTERS = array("en"=>"English", "es"=>"Spanish", "cn"=>"Chinese", "ru"=>"Russian", "de"=>"German", "it"=>"Italian", "fr"=>"French", "th"=>"Thai", "tr"=>"Turkish", "cz"=>"Czech", "bg"=>"Bulgarian", "ro"=>"Romanian", "hu"=>"Hungarian");
-
-$CUSTOM_FILTER_1_ENABLE = true;			// 'true' or 'false'
-$CUSTOM_FILTER_1_LABEL = "Location";	// any label (text)
-$CUSTOM_FILTER_1 = array("paris"=>"Paris", "london"=>"London", "sanghai"=>"Sanghai", "rome"=>"Rome", "moscow"=>"Moscow", "tokyo"=>"Tokyo", "anyother"=>"Any Other"); // option list (text)
-
-$CUSTOM_FILTER_2_ENABLE = true;			// 'true' or 'false'
-$CUSTOM_FILTER_2_LABEL = "Looking for";	// any label (text) 
-$CUSTOM_FILTER_2 = array("dating"=>"Dating", "friends"=>"Make Friends", "look"=>"Just Look", "talk"=>"Just Talk");  // option list (text)
-
-$BLUR_EFFECT = true;			// true or false
-$BLUR_EFFECT_INTENSITY = 2;		
-$BLUR_EFFECT_DURATION = 5;		// seconds
-
-$GOOGLE_APP_ID = "GOOGLE_MAPS_APP_ID";
-
-$SOCIAL_BUTTONS_LOGIN_SCREEN = true; //
-/*
----------------------------------------------------------------------------------------------
-*/
 
 if(isset($_GET['setts'])) {
 	header('Content-type: text/xml');
@@ -211,6 +215,8 @@ if(isset($_GET['setts'])) {
 	echo '<googleAppId>'.$GOOGLE_APP_ID.'</googleAppId>';
 	
 	echo '<socialButtonsLoginScreen>'.($SOCIAL_BUTTONS_LOGIN_SCREEN?'true':'false').'</socialButtonsLoginScreen>';
+	
+	echo '<adsFrequency>'.$ADS_FREQUENCY.'</adsFrequency>';
 	
 	echo '</settings>';
 }

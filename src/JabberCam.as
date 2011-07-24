@@ -18,6 +18,7 @@
 
 		import flash.events.StatusEvent;
 		import flash.events.TextEvent;
+		import flash.external.ExternalInterface;
 		import flash.media.Camera;
 		import flash.media.Sound;
 		import flash.media.SoundTransform;
@@ -31,8 +32,10 @@
 		import jabbercam.lang.CustomFilter;
 		import jabbercam.lang.LanguageLoader;
 		import jabbercam.manager.AbstractCCUserManager;
+		import jabbercam.manager.AdsManager;
 		import jabbercam.manager.HttpCCUserManager;
 		import jabbercam.manager.Red5CCUserManager;
+		import jabbercam.manager.events.AdEvent;
 		import jabbercam.manager.events.IdManagerError;
 		import jabbercam.manager.events.IdManagerEvent;
 		import jabbercam.manager.events.Red5ManagerEvent;
@@ -144,7 +147,7 @@
 		private var defaultMacCamera:String = "USB Video Class Video";
 		
 		[Bindable]
-		private var lang : LanguageLoader;
+		public var lang : LanguageLoader;
 		private var appComplete : Boolean = false;
 		private var appInitialized : Boolean = false;
 		
@@ -244,9 +247,18 @@
 		private var googleAppId : String;
 
 		[Bindable]
-		private var socialButtonsLoginScreen : Boolean;
+		public var socialButtonsLoginScreen : Boolean;
 		
 		private var systemSoundsMuted : Boolean = false;
+
+		private var adsFrequency : int = 0;
+
+		private var adManager : AdsManager;
+
+		private var autoConnect : Boolean = false;
+		private var autoConnectPartnerName : String = "";
+		private var autoConnectUserName : String = "";
+
 		private function init() : void {
 			settingsLoader.send();
 			lang = new LanguageLoader();
@@ -260,6 +272,35 @@
 			badwordsLoader.addEventListener(ResultEvent.RESULT, onBadWordsLoaded);
 			badwordsLoader.addEventListener(FaultEvent.FAULT, onBadWordsFault);
 			badwordsLoader.send();
+			
+			if(ExternalInterface.available) {
+				var url : String = ExternalInterface.call("function(){" +
+					"return window.location.href;" +
+					"}");
+				
+				var pname : String = "";
+				try {
+					pname = url.match(/pname=(\w{3,})/)[1];
+				} catch(e : Error) {
+					pname = "";
+				}
+				var uname : String = "";
+				try {
+					uname = url.match(/uname=(\w{3,})/)[1];
+				} catch(e : Error) {
+					uname = "";
+				}
+				var uconnect : Boolean;
+				try {
+					uconnect = url.match(/uconnect=(\w{4})/)[1] == "true";
+				} catch(e : Error) {
+					uconnect = false;
+				}
+				
+				autoConnect = uconnect;
+				autoConnectPartnerName = pname;
+				autoConnectUserName = uname;
+			}
 		}
 		
 		private function onBadWordsFault(event : FaultEvent) : void {
@@ -483,6 +524,8 @@
 			googleAppId = event.result.googleAppId.toString();
 			
 			socialButtonsLoginScreen = event.result.socialButtonsLoginScreen.toString() == "true";
+			
+			adsFrequency = parseInt(event.result.adsFrequency.toString(),10);
 			
 			if(!this.appInitialized && this.appComplete && this.lang.ready)
 			this.initApp();
@@ -1015,6 +1058,11 @@
 				}
 			}
 			
+			if(adsFrequency > 0) {
+				adManager = new AdsManager(adsFrequency);
+				adManager.addEventListener(AdEvent.DISPLAY_AD, onDisplayAd);
+			}
+			
 			userManager.usersOnline();
 			mUsersOnlineTimer = new Timer(1000 * 10);
 			mUsersOnlineTimer.addEventListener(TimerEvent.TIMER, onUsersOnlineTimer);
@@ -1143,6 +1191,12 @@
 				var snd : Sound = new Sound(new URLRequest("jabbercam/media/sounds/instruction.mp3"));
 				snd.addEventListener(IOErrorEvent.IO_ERROR, ioError);
 				snd.play();
+			}
+			
+			ccUsername.text = autoConnectPartnerName;
+			myUsername.text = autoConnectUserName;
+			if(autoConnect) {
+				findPartnerByName();
 			}
 		}
 		
@@ -1306,7 +1360,7 @@
 			}
 			
 			if(blurEffect) {
-//				(blurEffectInstance as Blur).play();
+				(blurEffectInstance as Blur).play();
 			}
 		}
 		
@@ -1375,7 +1429,8 @@
             			outgoingStream.send("sendSex", mSex);
             			outgoingStream.send("sendAge", age.value);
 //            			if(myUsername.text != this.lang.getSimpleProperty("youText"))
-            			outgoingStream.send("sendUsername", myUsername.text != this.lang.getSimpleProperty("youText")?
+            			outgoingStream.send("sendUsername", myUsername.text != "" && 
+								myUsername.text != this.lang.getSimpleProperty("youText")?
 							myUsername.text:"Anonymus", countryCode, country);
             			
             			outgoingStream.send("onPeerCameraAllowed", cameraAllowed);
@@ -1385,7 +1440,8 @@
 	            			outgoingStream.send("sendSex", mSex);
 	            			outgoingStream.send("sendAge", age.value);
 //	            			if(myUsername.text != this.lang.getSimpleProperty("youText"))
-	            			outgoingStream.send("sendUsername", myUsername.text != this.lang.getSimpleProperty("youText")?
+	            			outgoingStream.send("sendUsername", myUsername.text != "" && 
+								myUsername.text != this.lang.getSimpleProperty("youText")?
 								myUsername.text:"Anonymus", countryCode, country);	
 	            			
 	            			outgoingStream.send("onPeerCameraAllowed", cameraAllowed);
@@ -1909,6 +1965,8 @@
 			
 			userManager.disconnect();
 			
+			peerCameraAllowed = false;
+			
 			if(!serverIsRed5) {
 				userManager.addEventListener(IdManagerEvent.DISCONNECT_RESPONSE, function(ev : IdManagerEvent) : void {
 					userManager.removeEventListener(IdManagerEvent.DISCONNECT_RESPONSE, arguments.callee);
@@ -2146,6 +2204,10 @@
 					
 				}
 			}
+		}
+
+		private function onDisplayAd(event : AdEvent) : void {
+			status('\n'+event.adString+'\n\n');
 		}
 		
 		private function enableButtonNext(event : TimerEvent) : void {
@@ -2422,7 +2484,7 @@
 			});
 		}
 		
-		private function onSocialButtonClick(url : String) : void {
+		public function onSocialButtonClick(url : String) : void {
 			try {
 				navigateToURL(new URLRequest(url), "_blank");
 			} catch(e : Error) {
@@ -2490,7 +2552,7 @@
 //			this.btnFilter.label=this.lang.getSimpleProperty("filterLabel");
 			this.btnFilter.toolTip=this.lang.getSimpleProperty("filterButtonTooltip");
 //			this.btnReport.label=this.lang.getSimpleProperty("reportLabel");
-//			this.btnReportV.toolTip=this.lang.getSimpleProperty("reportButtonTooltip");
+			this.btnReportV.toolTip=this.lang.getSimpleProperty("reportButtonTooltip");
 			this.autoNextIntervalLabel.text = this.lang.getSimpleProperty('autoNextIntervalLabel');
 			this.cbCameraOnOnly.label = this.lang.getSimpleProperty("cameraOnLabel");
 //			this.usernameLabel.text = this.lang.getSimpleProperty("usernameTextInputLabel");
@@ -2624,7 +2686,7 @@
 			if(mOtherId != "" && mOtherId != null) {
 				userManager.report(mOtherId);
 				btnReport.enabled = false;
-//				btnReportV.enabled = false;
+				btnReportV.enabled = false;
 			}
 		}
 

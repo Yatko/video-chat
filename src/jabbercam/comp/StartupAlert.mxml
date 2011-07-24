@@ -16,7 +16,7 @@
 *  Author: Our small team and fast growing online community at videosoftware.pro
 */
 -->
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" width="387" height="222"
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" width="387" height="252"
 	title="Name (or nickname) and Web Camera is required to get started"
 	verticalAlign="top" horizontalAlign="center" backgroundColor="#3B5997" color="#3B5997">
 	<mx:Metadata>
@@ -24,7 +24,7 @@
 	</mx:Metadata>
 	
 	<mx:StringValidator id="validator" source="{username}" property="text" trigger="{submit}" triggerEvent="click" required="true"
-		requiredFieldError="Enter your Name or Nickname!" minLength="4" tooShortError="The name must be at least 4 characters long"
+		requiredFieldError="Enter your Name or Nickname!" minLength="3" tooShortError="The name must be at least 3 characters long"
 		valid="checkCamera()" />
 	<mx:Form defaultButton="{submit}" paddingTop="10">
 		<mx:FormItem>
@@ -43,6 +43,13 @@
 	
 	<mx:Text text="Just enter a (nick)name in the box than click &quot;ENTER&quot; to get started. You may click &quot;Open Settings&quot; and set &quot;Allow&quot; and &quot;Remember&quot; before entering the chat." width="306" height="45" color="#B0BAD0" textAlign="center" paddingTop="0"/>
 	<mx:LinkButton label="Open Settings" color="#B0BAD0" click="Security.showSettings(SecurityPanel.PRIVACY)"  themeColor="#3B5997"/>
+	<mx:HBox visible="{Application.application.socialButtonsLoginScreen}">
+		<mx:Button skin="@Embed(source='../assets/facebook.png')" toolTip="{Application.application.lang.facebookTooltip}" click="Application.application.onSocialButtonClick(Application.application.lang.getSetting('facebookLink'))" buttonMode="true" right="10" top="40"/>
+		<mx:Button skin="@Embed(source='../assets/googlebuzz.png')" toolTip="{Application.application.lang.buzzTooltip}" click="Application.application.onSocialButtonClick(Application.application.lang.getSetting('buzzLink'))" buttonMode="true" right="10" top="65"/>
+		<mx:Button skin="@Embed(source='../assets/twitter.png')" toolTip="{Application.application.lang.twitterTooltip}" click="Application.application.onSocialButtonClick(Application.application.lang.getSetting('twitterLink'))" buttonMode="true" right="10" top="90"/>
+		<mx:Button skin="@Embed(source='../assets/myspace.png')" toolTip="{Application.application.lang.myspaceTooltip}" click="Application.application.onSocialButtonClick(Application.application.lang.getSetting('myspaceLink'))" buttonMode="true" right="10" top="115"/>
+		<mx:Button skin="@Embed(source='../assets/jabbercam.png')" toolTip="Start your own video chat website! Get the program and the source code. Click here for more information." click="Application.application.onSocialButtonClick('http://videosoftware.pro/index.php/products/rvc/')" buttonMode="true" right="10" top="140"/>
+	</mx:HBox>
 	<mx:Script>
 		<![CDATA[
 			import jabbercam.manager.AbstractCCUserManager;
@@ -51,6 +58,7 @@
 			import jabbercam.manager.events.IdManagerError;
 			import jabbercam.manager.events.IdManagerEvent;
 			
+			import mx.core.Application;
 			import mx.events.ValidationResultEvent;
 			import mx.managers.CursorManager;
 			import mx.rpc.CallResponder;
