@@ -103,7 +103,7 @@ package jabbercam.lang
 		private function parseLang(text : String) : Object {
 			var lang : Object = {};
 			if(text != null) {
-				text.replace(/\r+|(?:\r\n)+|\n+/g, '\n');
+				text = text.replace(/\r+|(?:\r\n)+|\n+/g, '\n');
 				
 				var matches : Array;
 				var reg : RegExp = /^\s*(\w+)\s*=\s*(.+)\s*$/mg;
