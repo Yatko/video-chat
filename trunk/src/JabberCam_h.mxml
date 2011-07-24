@@ -82,6 +82,8 @@
 								<!--END VIDEO AD-->
 						
 					<mx:Label id="partnerLabel" styleName="VideoLabelL"/>
+					<mx:Label text="Waiting for video signal..." visible="{!peerCameraAllowed}"
+							  styleName="VideoLabelL" top="20" left="5" alpha="0.5"/>
 					<!--PARTNER CONTROLS-->
 					<mx:VBox width="100%" height="100%" id="partnerControls" styleName="VideoWindowControls" visible="false">
 						<!--AUTO NEXT (SEC)-->
@@ -116,7 +118,7 @@
 							</mx:HBox>
 							<mx:HBox>
 								<mx:Label text="From: {partnerCountry}" alpha="0.5"></mx:Label>
-								<mx:Label text="Language: {langFilter.selectedItem.label}" alpha="0.5"></mx:Label>
+								<!--<mx:Label text="Language: {langFilter.selectedItem.label}" alpha="0.5"></mx:Label>-->
 							</mx:HBox>
 						</mx:VBox>
 						<!--END USER INFO (PARTNER)-->
@@ -175,7 +177,7 @@
 					<mx:Button skin="@Embed(source='../assets/googlebuzz.png')" toolTip="{this.lang.buzzTooltip}" click="onSocialButtonClick(this.lang.getSetting('buzzLink'))" buttonMode="true" right="10" top="65"/>
 					<mx:Button skin="@Embed(source='../assets/twitter.png')" toolTip="{this.lang.twitterTooltip}" click="onSocialButtonClick(this.lang.getSetting('twitterLink'))" buttonMode="true" right="10" top="90"/>
 					<mx:Button skin="@Embed(source='../assets/myspace.png')" toolTip="{this.lang.myspaceTooltip}" click="onSocialButtonClick(this.lang.getSetting('myspaceLink'))" buttonMode="true" right="10" top="115"/>
-					<mx:Button skin="@Embed(source='../assets/jabbercam.png')" toolTip="Start Your Own JabberCam Website! Get the Program and the Source Code. Click Here for more information." click="onSocialButtonClick('http://www.videosoftware.pro')" buttonMode="true" right="10" top="140"/>
+					<mx:Button skin="@Embed(source='../assets/jabbercam.png')" toolTip="Start your own video chat website! Get the program and the source code. Click Here for more information." click="onSocialButtonClick('http://videosoftware.pro/index.php/products/rvc/')" buttonMode="true" right="10" top="140"/>
 					<!--END SOCIAL BUTTONS-->
 				</mx:Canvas>
 			</mx:VBox>
@@ -195,7 +197,7 @@
 					<mx:Button width="16" height="20" skin="@Embed(source='../assets/mute.png')" rollOver="zoomInMute.play()" rollOut="zoomOutMute.play()" toolTip="Mute sounds" id="btnMute" click="btnMute_clickHandler(event)" right="83" bottom="11"/>
 					<mx:Button width="16" height="20" skin="@Embed(source='../assets/clear.png')" rollOver="zoomInClear.play()" rollOut="zoomOutClear.play()" toolTip="Clear messages" id="btnClear" click="onClearChat()"  right="63" bottom="11" />
 					<mx:Button width="16" height="20" skin="@Embed(source='../assets/help.png')" rollOver="zoomInHelp.play()" rollOut="zoomOutHelp.play()" toolTip="Help" id="btnHelp" click="onSocialButtonClick('http://www.jabbercam.com/help')" right="43" bottom="11"/>
-					<mx:Button width="16" height="20" skin="@Embed(source='../assets/about.png')" rollOver="zoomInAbout.play()" rollOut="zoomOutAbout.play()" toolTip="About" id="btnAbout" click="onSocialButtonClick('http://www.videosoftware.pro')" right="23" bottom="11"/>
+					<mx:Button width="16" height="20" skin="@Embed(source='../assets/about.png')" rollOver="zoomInAbout.play()" rollOut="zoomOutAbout.play()" toolTip="About" id="btnAbout" click="onSocialButtonClick('http://videosoftware.pro/index.php/products/rvc/')" right="23" bottom="11"/>
 				</mx:HBox>
 			</mx:Canvas>
 		</mx:HBox>
@@ -221,7 +223,7 @@
 					<!--SYSTEM INFO-->
 					<mx:Canvas width="259" height="15" mouseOver="InfoBox.visible=true" rollOut="InfoBox.visible=false">
 						<mx:HBox  width="259" height="15" id="InfoBox" styleName="InfoBox" visible="false">
-							<mx:Label text="CRC5.0RC4" styleName="InfoBoxLabel"/><!--VERSION-->
+							<mx:Label text="RVC5.1" styleName="InfoBoxLabel"/><!--VERSION-->
 							<mx:Label id="betaLabel" fontSize="6"/><!--BETA LABEL-->
 							<mx:Label id="lblUsersOnline" styleName="InfoBoxLabel"/><!--USERS ONLINE NO-->
 							<mx:Label id="lblOnlineIndicator" styleName="InfoBoxLabel"/><!--USERS ONLINE LABEL-->
@@ -319,6 +321,10 @@
 										protected function btnMute_clickHandler(event:MouseEvent):void
 										{
 											systemSoundsMuted = !systemSoundsMuted;
+											if(systemSoundsMuted)
+												status(lang.getSimpleProperty('systemSoundsMuted')+"\n");
+											else
+												status(lang.getSimpleProperty('systemSoundsOn')+'\n');
 										}
 
 									]]>
