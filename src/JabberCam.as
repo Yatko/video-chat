@@ -52,6 +52,7 @@
 		import mx.rpc.events.FaultEvent;
 		import mx.rpc.events.ResultEvent;
 		import mx.rpc.http.mxml.HTTPService;
+		import mx.utils.StringUtil;
 		
 			
 		[Bindable]
@@ -74,7 +75,7 @@
 		
 		private var CONNECTION_TIMEOUT_SECONDS : int = 1;
 		private var CONNECTION_TIMEOUT_START : int = 1;
-		private var CONNECTION_TIMEOUT_MAX : int = 4;
+		private var CONNECTION_TIMEOUT_MAX : int = 3;
 		
 		//
 		private var mUsersOnlineTimer:Timer;
@@ -144,7 +145,7 @@
 		private var srtt:Array = new Array(30);
 		[Bindable] private var srttDisplay:ArrayCollection = new ArrayCollection();
 			
-		private var defaultMacCamera:String = "USB Video Class Video";
+		private var defaultCamera:String = "USB Video Class Video";
 		
 		[Bindable]
 		public var lang : LanguageLoader;
@@ -393,7 +394,7 @@
 			{
 				for (cameraIndex = 0; cameraIndex < cameras.length; cameraIndex++)
 				{
-					if (cameras[cameraIndex] == defaultMacCamera)
+					if (cameras[cameraIndex] == defaultCamera)
 					{
 						break;
 					}
@@ -404,8 +405,8 @@
 			
 			status(this.lang.getCompoundProperty("welcomeMessage", 0)+"\n");
 			status(this.lang.getCompoundProperty("welcomeMessage", 1)+"\n"); 
-			status(this.lang.getCompoundProperty("welcomeMessage", 2)+"\n");
-			status(this.lang.getCompoundProperty("welcomeMessage", 3)+"\n\n");
+//			status(this.lang.getCompoundProperty("welcomeMessage", 2)+"\n");
+//			status(this.lang.getCompoundProperty("welcomeMessage", 3)+"\n");
 			
 			onStart();
 		}
@@ -413,7 +414,7 @@
 		private function initLanguage(event : Event) : void {
 			this.initLabels();
 			
-			this.defaultMacCamera = this.lang.getSimpleProperty("defaultMacCamera");
+			this.defaultCamera = this.lang.getSimpleProperty("defaultCamera");
 			
 			if(!this.appInitialized && this.appComplete && this.settingsLoader.lastResult)
 			this.initApp();
@@ -547,7 +548,7 @@
 						startup.removeEventListener(ValidationResultEvent.VALID, arguments.callee);
 						PopUpManager.removePopUp(startup);
 						
-						myUsername.text = startup.username.text;
+						myUsername.text = startup.username.text.charAt(0).toUpperCase()+startup.username.text.substring(1);
 					} else {
 						myUsername.editable = true;
 						ccLabel.visible = ccConnect.visible = ccUsername.visible = false;
@@ -636,8 +637,8 @@
 				netConnection.connect(connectUrl, "JabberCamApp");
 			}
 					
-			status(this.lang.getCompoundProperty("enteringCarouselMessage", 0)+"\n");
-			status(this.lang.getCompoundProperty("enteringCarouselMessage", 1).replace(/\[x\]/, 
+			status(this.lang.getCompoundProperty("enteringMessage", 0)+"\n");
+			status(this.lang.getCompoundProperty("enteringMessage", 1).replace(/\[x\]/, 
 				serverName));
 		}
 		
@@ -817,7 +818,7 @@
             userManager.addEventListener(IdManagerEvent.REPORT_SUCCESS, idManagerEvent);
             
             ccState = CCConnected;
-        	status(this.lang.getSimpleProperty("successMessage")+"\n\n");
+        	status(this.lang.getSimpleProperty("successMessage")+"\n");
         	
         	lblID.text = this.lang.getSimpleProperty("yourIdLabel")+mId;
              
@@ -859,7 +860,7 @@
 				gracefulDisconnect = false;
 				
 				status(this.lang.getCompoundProperty("partnerDisconnectMessage", 0)+"\n");
-            	status(this.lang.getCompoundProperty("partnerDisconnectMessage", 1)+"\n\n");
+            	status(this.lang.getCompoundProperty("partnerDisconnectMessage", 1)+"\n");
 				requestDisconnect();
    			}
 		}
@@ -870,7 +871,7 @@
 			{
 				if (ccState != CCRegistered) {
 					status(this.lang.getSimpleProperty("registerSuccessMessage")+"\n");
-					if (!cbAutoFindNext.selected) status(this.lang.getSimpleProperty("lookForPartnersMessage")+"\n\n");
+					if (!cbAutoFindNext.selected) status(this.lang.getSimpleProperty("checkSpeedChatMessage")+"\n");
 					ccState = CCRegistered;
 					countryCode = (e as IdManagerEvent).ccode;
 					country = (e as IdManagerEvent).country;
@@ -905,7 +906,7 @@
 			{
 				var u:IdManagerEvent = e as IdManagerEvent;
 				mUsersOnline = u.id;
-				lblUsersOnline.htmlText = "<font color='#ffffff'><b>"+mUsersOnline+"</b></font>"+this.lang.getSimpleProperty("usersOnlineLabel");
+				lblUsersOnline.htmlText = "<font color='#ffffff'><b>"+mUsersOnline+" </b></font>"+this.lang.getSimpleProperty("usersOnlineLabel");
 				if (mAutoFindActive) {
 					findPartner();
 				}
@@ -1001,7 +1002,7 @@
 						
 						mLookupDelayTimer.start();
 					} else
-					status(this.lang.getSimpleProperty("spinRouletteMessage"));
+					status(this.lang.getSimpleProperty("spinAgainMessage"));
 				} else {
 					
 					if(error.description == "banned") {
@@ -1182,6 +1183,7 @@
 			btnStop.enabled = true;		
 			btnNext.enabled = true;
 			tiChat.visible = true;
+			autoNextSec.visible = true;
 			speedDate.visible = true;
 			speedChat.visible = true;
 			ccCallState = CCCallReady;
@@ -1194,7 +1196,8 @@
 			}
 			
 			ccUsername.text = autoConnectPartnerName;
-			myUsername.text = autoConnectUserName;
+			if(autoConnectUserName && autoConnectUserName.length > 0)
+				myUsername.text = autoConnectUserName;
 			if(autoConnect) {
 				findPartnerByName();
 			}
@@ -1205,7 +1208,7 @@
 				var msg : String =  lang.getCompoundProperty("connectionSuccess", 0).replace(/\[x\]/,
 					partnerUsername).replace(/\[y\]/, partnerCountry)+"\n";
 				status(msg);
-				status(lang.getCompoundProperty("connectionSuccess", 1)+"\n\n");
+				status(lang.getCompoundProperty("connectionSuccess", 1)+"\n");
 				
 				connectionStatusSet = true;
 			}
@@ -1337,6 +1340,8 @@
 			} else
 			btnNext.enabled = true;
 			
+			speedDate.enabled = speedChat.enabled = true;
+			
 			if (mLookupTimeoutTimer) {
 				mLookupTimeoutTimer.stop();
 				mLookupTimeoutTimer = null;
@@ -1360,7 +1365,7 @@
 			}
 			
 			if(blurEffect) {
-//				(blurEffectInstance as Blur).play();
+				(blurEffectInstance as Blur).play();
 			}
 		}
 		
@@ -1428,9 +1433,9 @@
             		case "NetStream.Play.Start":
             			outgoingStream.send("sendSex", mSex);
             			outgoingStream.send("sendAge", age.value);
-//            			if(myUsername.text != this.lang.getSimpleProperty("youText"))
+//            			if(myUsername.text != this.lang.getSimpleProperty("chatMeLabel"))
             			outgoingStream.send("sendUsername", myUsername.text != "" && 
-								myUsername.text != this.lang.getSimpleProperty("youText")?
+								myUsername.text != this.lang.getSimpleProperty("chatMeLabel")?
 							myUsername.text:"Anonymus", countryCode, country);
             			
             			outgoingStream.send("onPeerCameraAllowed", cameraAllowed);
@@ -1439,9 +1444,9 @@
             			if(serverIsRed5) {
 	            			outgoingStream.send("sendSex", mSex);
 	            			outgoingStream.send("sendAge", age.value);
-//	            			if(myUsername.text != this.lang.getSimpleProperty("youText"))
+//	            			if(myUsername.text != this.lang.getSimpleProperty("chatMeLabel"))
 	            			outgoingStream.send("sendUsername", myUsername.text != "" && 
-								myUsername.text != this.lang.getSimpleProperty("youText")?
+								myUsername.text != this.lang.getSimpleProperty("chatMeLabel")?
 								myUsername.text:"Anonymus", countryCode, country);	
 	            			
 	            			outgoingStream.send("onPeerCameraAllowed", cameraAllowed);
@@ -1954,7 +1959,7 @@
 //			btnSend.enabled = false;
 //			btnNext.enabled = true;
 			
-			partnerUsername = this.lang.getSimpleProperty("yourPartnerLabel");
+			partnerUsername = this.lang.getSimpleProperty("chatPartnerLabel");
 			partnerCCode = "";
 			partnerCountry = "";
 			
@@ -2108,6 +2113,7 @@
 			
 			btnStop.enabled = false;
 			tiChat.visible = false;
+			autoNextSec.visible = false;
 			speedDate.visible = false;
 			speedChat.visible = false;
 			btnStart.enabled = true;
@@ -2207,7 +2213,7 @@
 		}
 
 		private function onDisplayAd(event : AdEvent) : void {
-			status('\n'+event.adString+'\n\n');
+			status(event.adString);
 		}
 		
 		private function enableButtonNext(event : TimerEvent) : void {
@@ -2395,7 +2401,7 @@
 			var chatRcvdStyle : CSSStyleDeclaration = StyleManager.getStyleDeclaration(".ChatRcvd");
 			
 			taChat.htmlText += "<font size=\""+chatUserStyle.getStyle('fontSize')+"\" color=\"#"+
-				StyleManager.getColorName(chatUserStyle.getStyle('color')).toString(16)+"\"><b>"+(partnerUsername==lang.getSimpleProperty("yourPartnerLabel")?
+				StyleManager.getColorName(chatUserStyle.getStyle('color')).toString(16)+"\"><b>"+(partnerUsername==lang.getSimpleProperty("chatPartnerLabel")?
 				partnerUsername:partnerUsername+"</b></font>: <font size=\""+chatRcvdStyle.getStyle('fontSize')+"\" color=\"#"+
 					StyleManager.getColorName(chatRcvdStyle.getStyle('color')).toString(16)+"\">") + filterMessage(text) +"</font>\n";
 			taChat.validateNow();
@@ -2445,7 +2451,7 @@
 				var chatSentStyle : CSSStyleDeclaration = StyleManager.getStyleDeclaration(".ChatSent");
 				
 				taChat.htmlText += "<font size=\""+chatUserStyle.getStyle('fontSize')+"\" color=\"#"+
-					StyleManager.getColorName(chatUserStyle.getStyle('color')).toString(16)+"\">"+(myUsername.text==lang.getSimpleProperty('youText')?'<b>'+lang.getSimpleProperty("youText")+'</b>':
+					StyleManager.getColorName(chatUserStyle.getStyle('color')).toString(16)+"\">"+(myUsername.text==lang.getSimpleProperty('chatMeLabel')?'<b>'+lang.getSimpleProperty("chatMeLabel")+'</b>':
 					"<b>"+myUsername.text+"</b></font>")+": <font size=\""+chatSentStyle.getStyle('fontSize')+"\" color=\"#"+
 					StyleManager.getColorName(chatSentStyle.getStyle('color')).toString(16)+"\">"+filterMessage(msg)+"</font>\n";
 				taChat.validateNow();	
@@ -2492,10 +2498,10 @@
 			}
 		}
 		
-		private function onGetYourOwn():void
+/*		private function onGetYourOwn():void
 		{
 			onSocialButtonClick(lang.getSourceCodeLink);
-		}
+		} */
 		
 		private function clearTaChat():void
 		{
@@ -2520,15 +2526,15 @@
 		}
 		
 		private function initLabels() : void {
-//			partnerUsername = this.lang.getSimpleProperty("yourPartnerLabel");
+//			partnerUsername = this.lang.getSimpleProperty("chatPartnerLabel");
 			
 			this.partnerLabel.text = this.lang.getSimpleProperty('partnerLabel');
-			this.youLabel.text = this.lang.getSimpleProperty('youLabel');
+			this.meLabel.text = this.lang.getSimpleProperty('meLabel');
 //			this.meLabel.text = this.lang.getSimpleProperty('meLabel');
-//			this.myUsername.text = this.lang.getSimpleProperty('youText');
+//			this.myUsername.text = this.lang.getSimpleProperty('chatMeLabel');
 			this.rbFemale.label = this.lang.getSimpleProperty('femaleLabel');
 			this.rbMale.label = this.lang.getSimpleProperty("maleLabel");
-			this.seekingLabel.text =  this.lang.getSimpleProperty('seekingLabel');
+//			this.seekingLabel.text =  this.lang.getSimpleProperty('seekingLabel');
 //			this.rbSexBoth.label = this.lang.getSimpleProperty('bothLabel');
 			this.rbSexFemale.label = this.lang.getSimpleProperty('ladiesLabel');
 			this.rbSexMale.label =  this.lang.getSimpleProperty('gentsLabel');
@@ -2552,15 +2558,17 @@
 //			this.btnFilter.label=this.lang.getSimpleProperty("filterLabel");
 			this.btnFilter.toolTip=this.lang.getSimpleProperty("filterButtonTooltip");
 //			this.btnReport.label=this.lang.getSimpleProperty("reportLabel");
-//			this.btnReportV.toolTip=this.lang.getSimpleProperty("reportButtonTooltip");
+			this.btnReportV.toolTip=this.lang.getSimpleProperty("reportButtonTooltip");
 			this.autoNextIntervalLabel.text = this.lang.getSimpleProperty('autoNextIntervalLabel');
 			this.cbCameraOnOnly.label = this.lang.getSimpleProperty("cameraOnLabel");
-//			this.usernameLabel.text = this.lang.getSimpleProperty("usernameTextInputLabel");
+//			this.usernameLabel.text = this.lang.getSimpleProperty("usernachatMeLabelInputLabel");
 			
 			this.btnStopAutoNextTimer.label = lang.getSimpleProperty("btnStopAutoNextLabel");
 			this.backgroundButtons.toolTip = lang.getSimpleProperty("changeBackgroundButtonTooltip");
-			this.iamLabel.text = lang.getSimpleProperty('iamLabel');
+//			this.iamLabel.text = lang.getSimpleProperty('iamLabel');
 			this.fromLabel.text = lang.getSimpleProperty('fromLabel');
+			this.iamPanel.title = lang.getSimpleProperty('iamLabel');
+			this.seekingPanel.title = lang.getSimpleProperty('seekingLabel');
 			
 			initLanguageSettFilter();
 		}
@@ -2686,14 +2694,15 @@
 			if(mOtherId != "" && mOtherId != null) {
 				userManager.report(mOtherId);
 				btnReport.enabled = false;
-//				btnReportV.enabled = false;
+				btnReportV.enabled = false;
 			}
 		}
 
 		private function changeUsername() : void {
-			if(myUsername.text == lang.getSimpleProperty('youText'))
+			if(myUsername.text == lang.getSimpleProperty('chatMeLabel'))
 			return;
 			
+			myUsername.text = myUsername.text.substr(0,1).toUpperCase()+myUsername.text.substr(1);
 			if(ccCallState == CCCallEstablished) 
 			outgoingStream.send("sendUsername", myUsername.text, countryCode, country);
 		}

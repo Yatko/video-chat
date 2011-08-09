@@ -59,7 +59,7 @@ package jabbercam.manager
 			lines = text.split('\n');
 			
 			if(lines && lines.length > 0) {
-				_adsTimer = new Timer(_frequency);
+				_adsTimer = new Timer(_frequency*1000);
 				_adsTimer.addEventListener(TimerEvent.TIMER, newAd);
 				_adsTimer.start();
 			}
