@@ -18,7 +18,7 @@
 
 Application{
 	width: 670;
-	height: 469;
+	height: 488;
 	horizontalAlign: center;
 	verticalAlign: top;
 	top: 6;
@@ -28,6 +28,75 @@ Application{
 	paddingRight: 0;
 	color: #000000;
 	backgroundColor: #000000;
+}
+
+.MainContainerH {
+	width: 670;
+	horizontalAlign: center;
+	verticalGap: 1;
+	paddingTop: 0;
+	paddingBottom: 0;
+	paddingLeft: 0;
+	paddingRight: 0;
+}
+
+.MainContainerV {
+	width: 670;
+	horizontalAlign: center;
+	verticalGap: 0;
+	horizontalGap: 0;
+	paddingTop: 0;
+	paddingBottom: 0;
+	paddingLeft: 0;
+	paddingRight: 0;
+	borderColor: #B7BABC;
+	borderStyle: solid;
+	borderThickness: 4;
+	cornerRadius: 4;
+}
+
+.VideoWindowsH {
+	horizontalAlign: center;
+	paddingTop: 5;
+	paddingBottom: 5;
+	paddingLeft: 5;
+	paddingRight: 5;
+	backgroundColor: #000000;
+	borderColor: #B7BABC;
+	borderStyle: solid;
+	borderThickness: 4;
+	cornerRadius: 4;
+}
+
+.VideoWindowsV {
+	horizontalAlign: center;
+	verticalGap: 0;
+	horizontalGap: 0;
+	paddingTop: 0;
+	paddingBottom: 0;
+	paddingLeft: 0;
+	paddingRight: 0;
+	backgroundColor: #000000;
+	borderColor: #B7BABC;
+	borderStyle: solid;
+	borderThickness: 0;
+	cornerRadius: 4;
+}
+
+.TextWindowsV {
+	width: 334;
+	horizontalAlign: center;
+	paddingTop: 0;
+	paddingBottom: 0;
+	paddingLeft: 0;
+	paddingRight: 0;
+	horizontalGap: 0;
+	verticalGap: 0;
+}
+
+.VideoDisplay {
+	width: 320;
+	height: 240; 
 }
 
 Button {
@@ -43,33 +112,7 @@ Button {
 	textSelectedColor: #666666;
 }
 
-.MainContainer {
-	width: 670;
-	horizontalAlign: center;
-	verticalGap: 1;
-	paddingTop: 0;
-	paddingBottom: 0;
-	paddingLeft: 0;
-	paddingRight: 0;
-}
 
-.VideoWindows {
-	horizontalAlign: center;
-	paddingTop: 5;
-	paddingBottom: 5;
-	paddingLeft: 5;
-	paddingRight: 5;
-	backgroundColor: #000000;
-	borderColor: #B7BABC;
-	borderStyle: solid;
-	borderThickness: 4;
-	cornerRadius: 4;
-}
-
-.VideoDisplay {
-	width: 320;
-	height: 240; 
-}
 
 .adContainer {
 	backgroundColor: #000000;
@@ -204,13 +247,19 @@ Button {
 }
 
 TextArea {
+	borderStyle: none;
+	borderThickness: 0;
+}
+
+.TextAreaH {
 	backgroundAlpha: 0.95;
 	backgroundColor: #D7E0E7;
 	borderColor: #B7BABC;
+	borderStyle: solid;
 	borderThickness: 4;
 	cornerRadius: 4;
 	fontFamily: Arial, Helvetica;
-	fontSize: 11;
+	fontSize: 10;
 	color: #767C82;
 	paddingTop: 6;
 	paddingBottom: 0;
@@ -218,10 +267,22 @@ TextArea {
 	paddingRight: 100;
 }
 
+.TextAreaV {
+	backgroundAlpha: 0.95;
+	backgroundColor: #D7E0E7;
+	fontFamily: Arial, Helvetica;
+	fontSize: 10;
+	color: #767C82;
+	paddingTop: 11;
+	paddingBottom: 21;
+	paddingLeft: 2;
+	paddingRight: 2;
+	borderStyle: none;
+	borderThickness: 0;
+}
 
 /*INPUT AREA*/
-.InputArea {
-	width:670;
+.InputAreaH {
 	horizontalAlign: center;
 	paddingTop: 6;
 	paddingBottom: 6;
@@ -237,27 +298,38 @@ TextArea {
 	cornerRadius: 4;
 }
 
+.InputAreaV {
+	horizontalAlign: center;
+	paddingTop: 6;
+	paddingBottom: 6;
+	paddingLeft: 6;
+	paddingRight: 6;
+	verticalGap: 6;
+	horizontalGap: 6;
+	backgroundColor: #D7E0E7;
+	backgroundAlpha: 0.95;
+}
+
 .BigButton {
 	fontFamily: Arial;
 	fontSize: 16;
 }
 
-.ChatInput {
-	showEffect: Fade;
-	hideEffect: Fade;
-	visible: false; 
-}
-
 .InfoBox {
 	backgroundColor: #B7BABC;
-	borderColor: #B7BABC;
-	borderStyle: solid;
-	cornerRadius: 4;
-	showEffect: Fade;
-	hideEffect: Fade; 
 }
 .InfoBoxLabel {
-	fontSize: 8;	
+	fontSize: 6;	
+}
+
+.autoNextSec {
+	bottom: 0;
+	color: #B7BABC;
+	tickColor: #B7BABC;
+	labelOffset: -6;
+	font-size: 8;
+	showEffect: Fade;
+	hideEffect: Fade;
 }
 
 .SpeedButton {
@@ -272,16 +344,13 @@ TextArea {
 	paddingLeft: 2;
 	paddingRight: 2;
 	textAlign: center;
+	fontFamily: Arial;
+	fontSize: 10;
 	fontWeight: normal;
-	fontSize: 8;
 	showEffect: Fade;
 	hideEffect: Fade; 
 	visible: false;
 }
-
-
-
-
 
 .SettingsButton {
 	backgroundColor: #ff0000;
@@ -294,22 +363,24 @@ TextArea {
 }
 
 TextInput {
-	borderStyle: solid;
+	color: #3B5997;
+	fontFamily: Arial, Helvetica;
+	fontSize: 14;
+	fontWeight: bold;
+	borderStyle: none;
+	borderThickness: 0;
 	cornerRadius: 4;
 	alpha: 0.5;
 }
 
 .SettingsPanels {
-	paddingTop: 8;
-	paddingBottom: 8;
-	paddingLeft: 8;
-	paddingRight: 8;
 	backgroundColor: #ffffff;
-	backgroundAlpha: 0.2;
-	borderStyle: solid;
-	borderColor: #ffffff;
+	backgroundAlpha: 0;
+	paddingTop: 2;
+	paddingRight: 6;
+	paddingBottom: 4;
+	paddingLeft: 6;
 	borderThickness: 0;
-	cornerRadius: 4;
 }
 
 .Description {
@@ -340,6 +411,9 @@ TextInput {
 	themeColor: #FFFFFF;
 	borderThickness: 1;
 	focusAlpha: 0.4;
+	showEffect: Fade;
+	hideEffect: Fade;
+	visible: false; 
 	
 /*drop-shadow-color:#000;
 shadow-direction: 90;
