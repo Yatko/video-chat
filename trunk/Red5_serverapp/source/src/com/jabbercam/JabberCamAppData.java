@@ -51,7 +51,7 @@ public class JabberCamAppData {
 			this.conn = ds.getConnection();
 		} catch(SQLException ex) {
 			this.conn = null;
-//			log.error("Error at ChatrouletteAppData::reconnect", ex);
+//			log.error("Error at JabberCamAppData::reconnect", ex);
 		}
 	}
 	
@@ -75,12 +75,12 @@ public class JabberCamAppData {
 		try {
 			res = st.executeQuery(stmt);
 		} catch(SQLException ex1) {
-//			log.error("Error at ChatrouletteAppData::executeQuery", ex1);
+//			log.error("Error at JabberCamAppData::executeQuery", ex1);
 			if(st != null)
 				try {
 					st.close();
 				} catch(SQLException ex) {
-//					log.error("Error at ChatrouletteAppData::executeQuery", ex);
+//					log.error("Error at JabberCamAppData::executeQuery", ex);
 				}
 			return null;
 		}
@@ -110,12 +110,12 @@ public class JabberCamAppData {
 			res = st.getUpdateCount();
 			st.close();
 		} catch(SQLException ex1) {
-//			log.error("Error at ChatrouletteAppData::executeUpdate", ex1);
+//			log.error("Error at JabberCamAppData::executeUpdate", ex1);
 			if(st != null)
 				try {
 					st.close();
 				} catch(SQLException ex) {
-//					log.error("Error at ChatrouletteAppData::executeUpdate", ex);
+//					log.error("Error at JabberCamAppData::executeUpdate", ex);
 				}
 			res = 0;
 		}

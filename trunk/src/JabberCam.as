@@ -1,6 +1,6 @@
 /**
  * VIDEOSOFTWARE.PRO
- * Copyright 2010 VideoSoftware.PRO
+ * Copyright 2011 VideoSoftware.PRO
  * All Rights Reserved.
  *
  * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License
@@ -53,7 +53,15 @@
 		import mx.rpc.events.ResultEvent;
 		import mx.rpc.http.mxml.HTTPService;
 		import mx.utils.StringUtil;
-		
+
+		[Bindable] public var revRVC:String = "5.9.312.09";
+		[Bindable] public var videoWidth:int = 320; 	//320, 312, 247, 219, (202) 
+		[Bindable] public var videoHeight:int = 240;	//240, 234, 185, 165, (152)
+		[Bindable] public var chatWidth:int = 2 * videoWidth + 26;
+		[Bindable] public var chatHeight:int = videoHeight - 101;
+		[Bindable] public var inputWidth:int = chatWidth - 283;
+		[Bindable] public var sliderWidth:int = inputWidth - 188;
+		[Bindable] public var settingsTop:int = (videoHeight - 165)/2;
 			
 		[Bindable]
 		public var connectUrl:String;
@@ -358,6 +366,9 @@
 			
 			ccState = CCNotConnected;
 			ccCallState = CCCallNotReady;
+			
+			status(this.lang.getCompoundProperty("welcomeMessage", 0)+"\n");
+			status(this.lang.getCompoundProperty("welcomeMessage", 1)+"\n"); 
 					
 			var mics:Array = Microphone.names;
 			if (mics)
@@ -403,8 +414,7 @@
 			
 			
 			
-			status(this.lang.getCompoundProperty("welcomeMessage", 0)+"\n");
-			status(this.lang.getCompoundProperty("welcomeMessage", 1)+"\n"); 
+			
 //			status(this.lang.getCompoundProperty("welcomeMessage", 2)+"\n");
 //			status(this.lang.getCompoundProperty("welcomeMessage", 3)+"\n");
 			
@@ -551,6 +561,7 @@
 						myUsername.text = startup.username.text.charAt(0).toUpperCase()+startup.username.text.substring(1);
 					} else {
 						myUsername.editable = true;
+						myUsername.text = StartupAlert.generateRandomUsername();
 						ccLabel.visible = ccConnect.visible = ccUsername.visible = false;
 						ccLabel.includeInLayout = ccConnect.includeInLayout = ccUsername.includeInLayout = false;
 					}
@@ -621,7 +632,7 @@
 		// connecting
 		private function connect():void
 		{
-			clearTaChat();
+//			clearTaChat();
 				
 			netConnection = new NetConnection();
 			netConnection.addEventListener(NetStatusEvent.NET_STATUS, netConnectionHandler);
@@ -1075,7 +1086,7 @@
 			if(!serverIsRed5) {
 				listenerStream = new NetStream(netConnection, NetStream.DIRECT_CONNECTIONS);
 				listenerStream.addEventListener(NetStatusEvent.NET_STATUS, listenerHandler);
-				listenerStream.publish("ChatRouletteClone");
+				listenerStream.publish("RVC");
 							
 				var c:Object = new Object();
 				c.onPeerConnect = function(caller:Object):Boolean // called on the responder side
@@ -1103,8 +1114,8 @@
 						incomingStream.receiveVideo(true);
 						
 						remoteVideo = new Video();
-						remoteVideo.width = 320;
-						remoteVideo.height = 240;
+						remoteVideo.width = videoWidth;
+						remoteVideo.height = videoHeight;
 						remoteVideo.attachNetStream(incomingStream);
 						vidOther.addChild(remoteVideo);
 						
@@ -1182,6 +1193,7 @@
 			
 			btnStop.enabled = true;		
 			btnNext.enabled = true;
+//			btnNext.visible = true;
 			tiChat.visible = true;
 			autoNextSec.visible = true;
 			speedDate.visible = true;
@@ -1246,8 +1258,8 @@
 				
 				if(!remoteVideo) {
 					remoteVideo = new Video();
-					remoteVideo.width = 320;
-					remoteVideo.height = 240;
+					remoteVideo.width = videoWidth;
+					remoteVideo.height = videoHeight;
 					vidOther.addChild(remoteVideo);
 				}
 				
@@ -1658,7 +1670,7 @@
 				}
 				controlStream = new NetStream(netConnection, mOtherId);
 				controlStream.addEventListener(NetStatusEvent.NET_STATUS, controlHandler);
-				controlStream.play("ChatRouletteClone");
+				controlStream.play("RVC");
 							
 				// caller publishes media stream
 				if(outgoingStream) {
@@ -1721,8 +1733,8 @@
 					
 					if(!remoteVideo) {
 						remoteVideo = new Video();
-						remoteVideo.width = 320;
-						remoteVideo.height = 240;
+						remoteVideo.width = videoWidth;
+						remoteVideo.height = videoHeight;
 						vidOther.addChild(remoteVideo);
 					}
 					
@@ -1752,7 +1764,7 @@
 				outgoingStream.publish(mId);
 				
 				(userManager as Red5CCUserManager).connectToPeer(mOtherId);
-				
+                                
 				incomingStream = new NetStream(netConnection);
 				incomingStream.addEventListener(NetStatusEvent.NET_STATUS, incomingStreamHandler);
 				incomingStream.play(mOtherId);
@@ -1781,8 +1793,8 @@
 				
 				if(!remoteVideo) {
 					remoteVideo = new Video();
-					remoteVideo.width = 320;
-					remoteVideo.height = 240;
+					remoteVideo.width = videoWidth;
+					remoteVideo.height = videoHeight;
 					vidOther.addChild(remoteVideo);
 				}
 				
@@ -1919,7 +1931,10 @@
 					curCamera.removeEventListener(StatusEvent.STATUS, onCameraStatus);
 					curCamera.addEventListener(StatusEvent.STATUS, onCameraStatus);
 					
+					curCamera.setQuality(0, videoQuality.value);
+					
 					vidMe.attachCamera(curCamera);
+					
 					if (outgoingStream)
 					{
 						outgoingStream.attachCamera(curCamera);
@@ -2373,8 +2388,8 @@
 				
 			} else if(camera) {
 				
-				camera.setQuality(16384, 0);
-				camera.setMode(160, 120, 15);
+				camera.setQuality(0, videoQuality.value);
+				camera.setMode(320, 240, 15);
 				
 				if(ccCallState == CCCallEstablished)
 				vidMe.attachCamera(camera);
@@ -2410,7 +2425,7 @@
 			if(useSounds && !systemSoundsMuted) {
 				
 				var snd : Sound;
-				if(text.search(/^\(buzz\)/) > -1) {
+				if(text.search(/buzz!/i) > -1) {
 					snd = new Sound(new URLRequest("jabbercam/media/sounds/buzz.mp3"));
 				} else {
 					snd = new Sound(new URLRequest("jabbercam/media/sounds/connected.mp3"));
@@ -2427,7 +2442,7 @@
 				return;
 			}
 			
-			tiChat.text = "<b>buzZ!</b>";
+			tiChat.text = "<b>buzz!</b>";
 			onSend();
 		}
 		
@@ -2460,7 +2475,7 @@
 				userManager.saveChat(mId, mOtherId, msg);
 				tiChat.setFocus();
 				
-				if(useSounds && !systemSoundsMuted && msg.search(/^<b>buzZ!<\/b>/) > -1) {
+				if(useSounds && !systemSoundsMuted && msg.search(/buzz!/i) > -1) {
 				
 					var snd : Sound;
 					snd = new Sound(new URLRequest("jabbercam/media/sounds/buzz.mp3"));
@@ -2480,7 +2495,7 @@
 				var starsString : String = "";
 				
 				var matchIndex : int = 0;
-				while(!args[++matchIndex]);
+				while(!args[++matchIndex])
 				
 				if(args.length > matchIndex+1)
 				for(var i : int = 0; i < args[matchIndex+1].length; i++)
@@ -2526,8 +2541,8 @@
 		}
 		
 		private function initLabels() : void {
-//			partnerUsername = this.lang.getSimpleProperty("chatPartnerLabel");
-			
+
+//			partnerUsername = this.lang.getSimpleProperty("chatPartnerLabel");			
 			this.partnerLabel.text = this.lang.getSimpleProperty('partnerLabel');
 			this.meLabel.text = this.lang.getSimpleProperty('meLabel');
 //			this.meLabel.text = this.lang.getSimpleProperty('meLabel');
@@ -2541,7 +2556,7 @@
 			this.cbAutoFindNext.label =  this.lang.getSimpleProperty('autoFindNextLabel');
 			this.microphoneLabel.toolTip =  this.lang.getSimpleProperty('microphoneLabel');
 			this.volumeLabel.toolTip = this.lang.getSimpleProperty('volumeLabel');
-			this.btnPreview.label= this.lang.getSimpleProperty('previewVideoLabel');
+			this.btnPreview.toolTip= this.lang.getSimpleProperty('previewVideoTooltip');
 			this.btnNext.label=this.lang.getSimpleProperty('findNextLabel');
 			this.btnNext.toolTip=this.lang.getSimpleProperty('nextButtonTooltip');
 			this.btnStart.label=this.lang.getSimpleProperty('startLabel');
@@ -2561,14 +2576,15 @@
 			this.btnReportV.toolTip=this.lang.getSimpleProperty("reportButtonTooltip");
 			this.autoNextIntervalLabel.text = this.lang.getSimpleProperty('autoNextIntervalLabel');
 			this.cbCameraOnOnly.label = this.lang.getSimpleProperty("cameraOnLabel");
-//			this.usernameLabel.text = this.lang.getSimpleProperty("usernachatMeLabelInputLabel");
-			
+//			this.usernameLabel.text = this.lang.getSimpleProperty("usernachatMeLabelInputLabel");			
 			this.btnStopAutoNextTimer.label = lang.getSimpleProperty("btnStopAutoNextLabel");
 			this.backgroundButtons.toolTip = lang.getSimpleProperty("changeBackgroundButtonTooltip");
 //			this.iamLabel.text = lang.getSimpleProperty('iamLabel');
 			this.fromLabel.text = lang.getSimpleProperty('fromLabel');
 			this.iamPanel.title = lang.getSimpleProperty('iamLabel');
-			this.seekingPanel.title = lang.getSimpleProperty('seekingLabel');
+			this.seekingPanel.title = lang.getSimpleProperty('seekingLabel');			
+			this.btnAd.label=this.lang.getSimpleProperty('adButtonLabel');			
+			this.btnFilter.toolTip=this.lang.getSimpleProperty("filterButtonTooltip");
 			
 			initLanguageSettFilter();
 		}
@@ -2614,7 +2630,7 @@
 		
 		/* private function taChatVScrollBarAdded(scrollBar : VScrollBar) : void {
 			btnClear.x = 602;
-			var self : ChatRouletteClone = this;
+			var self : RVC = this;
 			scrollBar.addEventListener(FlexEvent.HIDE, function(ev : FlexEvent):void{
 				self.btnClear.x=619;
 			});

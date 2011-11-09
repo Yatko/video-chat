@@ -2,7 +2,7 @@
 <!--
 /**
  * VIDEOSOFTWARE.PRO
- * Copyright 2010 VideoSoftware.PRO
+ * Copyright 2011 VideoSoftware.PRO
  * All Rights Reserved.
  *
  * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License
@@ -17,76 +17,89 @@
  */
 -->
 <mx:Application xmlns:mx="http://www.adobe.com/2006/mxml"
-				layout="absolute"
-				applicationComplete="this.appComplete = true; initApp()" 
-				initialize="init()" 
 				xmlns:local="jabbercam.comp.*"
-				keyUp="checkKeyPressed(event)"
-				backgroundImage="{background.selectedValue}" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+				applicationComplete="this.appComplete = true; initApp()"
+				backgroundImage="{background.selectedValue}" horizontalScrollPolicy="off"
+				initialize="init()" keyUp="checkKeyPressed(event)" layout="absolute"
+				verticalScrollPolicy="off"
+				backgroundGradientAlphas="0,0" backgroundAlpha="0.0">
 	
-	<mx:HTTPService id="settingsLoader" resultFormat="e4x" result="getSettings(event)" showBusyCursor="true"
-				url="jabbercam/config.php?setts" fault="trace('fault: ',event.message)" />
+				<mx:HTTPService id="settingsLoader" resultFormat="e4x" result="getSettings(event)" showBusyCursor="true"
+								url="jabbercam/config.php?setts" fault="trace('fault: ',event.message)" />
 	
-	<mx:Style source="../assets/style.css"></mx:Style>
-	
-	<mx:Script source="JabberCam.as">
-	</mx:Script>
-	
-	<!--RESIZE BUTTONS-->
-	
-	<mx:Resize widthFrom="{btnReport.width}" widthTo="17" heightFrom="{btnReport.height}" heightTo="22" target="{btnReport}" id="zoomInReport" />
-	<mx:Resize widthFrom="{btnReport.width}" widthTo="16" heightFrom="{btnReport.height}" heightTo="20" target="{btnReport}" id="zoomOutReport" />
-	
-	<mx:Resize widthFrom="{btnMute.width}" widthTo="17" heightFrom="{btnMute.height}" heightTo="22" target="{btnMute}" id="zoomInMute" />
-	<mx:Resize widthFrom="{btnMute.width}" widthTo="16" heightFrom="{btnMute.height}" heightTo="20" target="{btnMute}" id="zoomOutMute" />
-	
-	<mx:Resize widthFrom="{btnClear.width}" widthTo="17" heightFrom="{btnClear.height}" heightTo="22" target="{btnClear}" id="zoomInClear" />
-	<mx:Resize widthFrom="{btnClear.width}" widthTo="16" heightFrom="{btnClear.height}" heightTo="20" target="{btnClear}" id="zoomOutClear" />
-	
-	<mx:Resize widthFrom="{btnHelp.width}" widthTo="17" heightFrom="{btnHelp.height}" heightTo="22" target="{btnHelp}" id="zoomInHelp" />
-	<mx:Resize widthFrom="{btnHelp.width}" widthTo="16" heightFrom="{btnHelp.height}" heightTo="20" target="{btnHelp}" id="zoomOutHelp" />
-	
-	<mx:Resize widthFrom="{btnAbout.width}" widthTo="17" heightFrom="{btnAbout.height}" heightTo="22" target="{btnAbout}" id="zoomInAbout" />
-	<mx:Resize widthFrom="{btnAbout.width}" widthTo="16" heightFrom="{btnAbout.height}" heightTo="20" target="{btnAbout}" id="zoomOutAbout" />
-	
-	<!--END RESIZE BUTTONS-->
-	
-	<mx:Boolean id="lockOwnControls">false</mx:Boolean>
-	<mx:Boolean id="canHideOwnControls">true</mx:Boolean>
-	<mx:Boolean id="lockPartnerControls">false</mx:Boolean>
-	<mx:Boolean id="canHidePartnerControls">true</mx:Boolean>
-	
-	<mx:Blur target="{vidOther}" blurXFrom="{blurEffectIntensity}" blurYFrom="{blurEffectIntensity}"
-			 blurXTo="0" blurYTo="0" duration="{blurEffectDuration*1000}" id="blurEffectInstance" />
+				<mx:Style source="../assets/style.css"></mx:Style>
+				<mx:Script source="JabberCam.as">
+				</mx:Script>
+				<!-- <mx:Script>
+					<![CDATA[
+						[Bindable] public var revRVC:String = "5.9.312";
+						[Bindable] public var videoWidth:int = 320; 	//320, 312, 247, 219, (202) 
+						[Bindable] public var videoHeight:int = 240;	//240, 234, 185, 165, (152)
+						[Bindable] public var chatWidth:int = 2 * videoWidth + 26;
+						[Bindable] public var chatHeight:int = videoHeight - 101;
+						[Bindable] public var inputWidth:int = chatWidth - 283;
+						[Bindable] public var sliderWidth:int = inputWidth - 188;
+					]]>
+				</mx:Script> -->
+				
+						
+						<!--RESIZE BUTTONS-->
+						<mx:Resize widthFrom="{btnReport.width}" widthTo="17" heightFrom="{btnReport.height}" heightTo="22" target="{btnReport}" id="zoomInReport" />
+						<mx:Resize widthFrom="{btnReport.width}" widthTo="16" heightFrom="{btnReport.height}" heightTo="20" target="{btnReport}" id="zoomOutReport" />
+						
+						<mx:Resize widthFrom="{btnMute.width}" widthTo="17" heightFrom="{btnMute.height}" heightTo="22" target="{btnMute}" id="zoomInMute" />
+						<mx:Resize widthFrom="{btnMute.width}" widthTo="16" heightFrom="{btnMute.height}" heightTo="20" target="{btnMute}" id="zoomOutMute" />
+						
+						<mx:Resize widthFrom="{btnClear.width}" widthTo="17" heightFrom="{btnClear.height}" heightTo="22" target="{btnClear}" id="zoomInClear" />
+						<mx:Resize widthFrom="{btnClear.width}" widthTo="16" heightFrom="{btnClear.height}" heightTo="20" target="{btnClear}" id="zoomOutClear" />
+						
+						<mx:Resize widthFrom="{btnHelp.width}" widthTo="17" heightFrom="{btnHelp.height}" heightTo="22" target="{btnHelp}" id="zoomInHelp" />
+						<mx:Resize widthFrom="{btnHelp.width}" widthTo="16" heightFrom="{btnHelp.height}" heightTo="20" target="{btnHelp}" id="zoomOutHelp" />
+						
+						<mx:Resize widthFrom="{btnAbout.width}" widthTo="17" heightFrom="{btnAbout.height}" heightTo="22" target="{btnAbout}" id="zoomInAbout" />
+						<mx:Resize widthFrom="{btnAbout.width}" widthTo="16" heightFrom="{btnAbout.height}" heightTo="20" target="{btnAbout}" id="zoomOutAbout" />
+						<!--END RESIZE BUTTONS-->
+						
+						<!--CONTROLS ALPHA-->
+						<mx:Boolean id="lockOwnControls">false</mx:Boolean>
+						<mx:Boolean id="canHideOwnControls">true</mx:Boolean>
+						<mx:Boolean id="lockPartnerControls">false</mx:Boolean>
+						<mx:Boolean id="canHidePartnerControls">true</mx:Boolean>
+						<!--END CONTROLS ALPHA-->
+						
+						<!--VIDEO BLUR-->
+						<mx:Blur target="{vidOther}" blurXFrom="{blurEffectIntensity}" blurYFrom="{blurEffectIntensity}"
+								 blurXTo="0" blurYTo="0" duration="{blurEffectDuration*1000}" id="blurEffectInstance" />
+						<!--END VIDEO BLUR-->
 	
 	<!--MAIN CONTAINER-->
 	<mx:VBox id="MainContainer" styleName="MainContainerH" horizontalScrollPolicy="off" verticalScrollPolicy="off">
 		
 		
 		<!-- ****************** Video Windows ****************** -->
-		<mx:HBox width="670" id="VideoWindows" styleName="VideoWindowsH" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+		<mx:HBox id="VideoWindows" styleName="VideoWindowsH" horizontalScrollPolicy="off" verticalScrollPolicy="off">
 			
 			<!-- ****** PARTNER VIDEO ****** -->	
 			<mx:VBox verticalGap="0">
 				<mx:Canvas id="partnerContainer" width="100%" height="100%" mouseOver="canHidePartnerControls=false; partnerControls.visible=true;"
-							rollOut="canHidePartnerControls=true; if(!lockPartnerControls){partnerControls.visible=false;}">
+						   rollOut="canHidePartnerControls=true; if(!lockPartnerControls){partnerControls.visible=false;}">
 					<!--VIDEO DISPLAY-->
-					<mx:VideoDisplay width="320" height="240" id="vidOther" styleName="VideoDisplay"/>
-								
-								<!--VIDEO AD-->
-								<mx:Canvas width="100%" height="100%" id="adContainer" styleName="adContainer"
-										   visible="{!peerCameraAllowed || ccCallState != CCCallEstablished}"
-										   includeInLayout="{adContainer.visible}">
-									<mx:Image id="ad" styleName="ad" source="{currentAd}" open="beginLoadingAd()" complete="completeLoadingAd()"/>
-								</mx:Canvas>
-								<!--END VIDEO AD-->
-						
+					<mx:VideoDisplay width="{videoWidth}" height="{videoHeight}" id="vidOther" styleName="VideoDisplay"/>
+					
+					<!--VIDEO AD-->
+					<mx:Canvas width="100%" height="100%" id="adContainer" styleName="adContainer"
+							   visible="{!peerCameraAllowed || ccCallState != CCCallEstablished}"
+							   includeInLayout="{adContainer.visible}">
+						<mx:Image id="ad" styleName="ad" source="{currentAd}" open="beginLoadingAd()" complete="completeLoadingAd()"/>
+					</mx:Canvas>
+					<!--END VIDEO AD-->
+					
 					<mx:Label id="partnerLabel" styleName="VideoLabelL"/>
 					<mx:Label text="Waiting for video signal..." visible="{!peerCameraAllowed}"
 							  styleName="VideoLabelL" top="20" left="5" alpha="0.5"/>
 					<!--PARTNER CONTROLS-->
 					<mx:VBox width="100%" height="100%" id="partnerControls" styleName="VideoWindowControls" visible="false">
-						<mx:HBox width="100%" horizontalAlign="center">
+						<mx:HBox width="100%" height="50" horizontalAlign="center" verticalAlign="top" verticalGap="0">
 							<!--FILTER USER-->
 							<mx:Button width="40" height="50" id="btnFilter" styleName="FilterButton" skin="@Embed(source='../assets/filter.png')" click="onFilter()" enabled="{ccCallState==CCCallEstablished}"/>
 							<!--END FILTER USER--><!--REPORT USER-->
@@ -97,7 +110,7 @@
 						<mx:HBox width="100%" styleName="VolumeControl">
 							<mx:Image width="16" height="20" id="volumeLabel" source="@Embed(source='../assets/speaker.png')"></mx:Image>
 							<!--<mx:Label id="volumeLabel" styleName="VolumeControlLabel"/>-->
-							<mx:HSlider id="speakerVolumeSlider" styleName="VolumeControlSlider" showDataTip="false" change="speakerVolumeChanged(event)" toolTip="Speaker volume" minimum="0" maximum="1"/>			
+							<mx:HSlider id="speakerVolumeSlider" styleName="VolumeControlSlider" showDataTip="false" change="speakerVolumeChanged(event)" toolTip="Speaker volume" minimum="0" maximum="1"/>
 							<!--END SPEAKER VOLUME-->
 							<!--VIEW FULL SCREEN-->
 							<mx:Button width="16" height="20" id="btnFullScreen" toolTip="Full screen" skin="@Embed(source='../assets/fullscreen.png')"
@@ -130,23 +143,34 @@
 				<mx:Canvas width="100%" height="100%" mouseOver="canHideOwnControls = false; ownControls.visible=true"
 						   rollOut="canHideOwnControls=true; if(!lockOwnControls)ownControls.visible=false">
 					<!--VIDEO DISPLAY-->
-					<mx:VideoDisplay width="320" height="240" id="vidMe" styleName="VideoDisplay"/>
+					<mx:VideoDisplay width="{videoWidth}" height="{videoHeight}" id="vidMe" styleName="VideoDisplay"/>
 					<mx:Label id="meLabel" styleName="VideoLabelR"/>	
 					<!--MY CONTROLS-->
 					<mx:VBox width="100%" height="100%" id="ownControls" styleName="VideoWindowControls" visible="false">
-						<!--PREVIEW VIDEO-->
-						<mx:HBox width="100%" horizontalAlign="center">
-							<mx:Button click="onPreview()" id="btnPreview" styleName="FilterButton" icon="@Embed(source='../assets/myVideo.png')" toggle="true"/>
-							<mx:Button skin="@Embed(source='../assets/facebook.png')" toolTip="{this.lang.facebookTooltip}" click="onSocialButtonClick(this.lang.getSetting('facebookLink'))" buttonMode="true"/>
-						</mx:HBox>
-						<!--END PREVIEW VIDEO-->
-						<!--MIC VOLUME-->
+						<!--USERNAME-->
+						<mx:VBox width="100%" height="50" horizontalAlign="center" verticalAlign="top" verticalGap="0">
+							<mx:VBox horizontalAlign="left" verticalGap="0">
+								<mx:Label text="Change username" fontSize="12" fontWeight="bold" color="#ffffff" alpha="0.6"/>
+								<mx:HBox>
+									<mx:TextInput cornerRadius="3" width="126" height="21" backgroundColor="#ffffff" backgroundAlpha=".3" editable="false" id="myUsername" styleName="myUsername" enter="changeUsername()"/>
+									<mx:Button skin="@Embed(source='../assets/facebook.png')" toolTip="{this.lang.facebookTooltip}" click="onSocialButtonClick(this.lang.getSetting('facebookLink'))" buttonMode="true"/>
+								</mx:HBox>
+							</mx:VBox>
+						</mx:VBox>
+						<!--END USERNAME-->
+						
+						
 						<mx:HBox width="100%" styleName="VolumeControl">
+							<!--MIC VOLUME-->
 							<mx:Image width="16" height="20" id="microphoneLabel" source="@Embed(source='../assets/microphone.png')"></mx:Image>
 							<!--<mx:Label id="microphoneLabel" styleName="VolumeControlLabel"/>-->
 							<mx:HSlider id="micVolumeSlider" styleName="VolumeControlSlider" showDataTip="false" change="micVolumeChanged(event)" toolTip="Microphone level" minimum="0" maximum="1"/>
+							<!--END MIC VOLUME-->
+							<!--PREVIEW VIDEO-->
+							<mx:Button width="16" height="20" id="btnPreview" toolTip="Preview My Video" skin="@Embed(source='../assets/webcam.png')" click="onPreview()" toggle="true"/>
+							<!--END PREVIEW VIDEO-->
 						</mx:HBox>
-						<!--END MIC VOLUME-->
+						
 						<!--USER INFO (ME)-->
 						<mx:VBox width="100%" id="MyInfo" styleName="UserInfo">
 							<mx:HBox>
@@ -176,16 +200,19 @@
 		
 		
 		<!-- ****************** Chat Area ****************** -->
-		<mx:HBox width="670" id="ChatArea" styleName="ChatArea">
+		<mx:HBox width="{chatWidth}" id="ChatArea" styleName="ChatArea">
 			<mx:Canvas width="100%">
-				<mx:TextArea width="100%" height="139" id="taChat" editable="false" wordWrap="true" styleName="TextAreaH"/>
+				<mx:TextArea width="100%" height="{chatHeight}" id="taChat" editable="false" wordWrap="true" styleName="TextAreaH"/>
 				
-				<mx:HBox horizontalGap="4" right="23" bottom="8" verticalAlign="middle" height="25">
+				<mx:Button top="9" right="12" id="btnAd" toolTip="{this.lang.btnAdTooltip}" click="onSocialButtonClick(this.lang.getSetting('adButtonLink'))" buttonMode="true" visible="{(chatHeight > 70) ? true : false}"/>
+				<mx:HBox horizontalGap="4" right="12" bottom="3" verticalAlign="middle" height="25">
 					<mx:Button width="16" height="20" skin="@Embed(source='../assets/report.png')" rollOver="zoomInReport.play()" rollOut="zoomOutReport.play()" toolTip="Report this user" id="btnReport" click="onReport()" enabled="{ccCallState==CCCallEstablished}" right="103" bottom="11" />
 					<mx:Button width="16" height="20" skin="@Embed(source='../assets/mute.png')" rollOver="zoomInMute.play()" rollOut="zoomOutMute.play()" toolTip="Mute sounds" id="btnMute" click="btnMute_clickHandler(event)" right="83" bottom="11"/>
 					<mx:Button width="16" height="20" skin="@Embed(source='../assets/clear.png')" rollOver="zoomInClear.play()" rollOut="zoomOutClear.play()" toolTip="Clear messages" id="btnClear" click="onClearChat()"  right="63" bottom="11" />
-					<mx:Button width="16" height="20" skin="@Embed(source='../assets/help.png')" rollOver="zoomInHelp.play()" rollOut="zoomOutHelp.play()" toolTip="Help" id="btnHelp" click="onSocialButtonClick('http://www.jabbercam.com/help')" right="43" bottom="11"/>
-					<mx:Button width="16" height="20" skin="@Embed(source='../assets/about.png')" rollOver="zoomInAbout.play()" rollOut="zoomOutAbout.play()" toolTip="About" id="btnAbout" click="onSocialButtonClick('http://www.videosoftware.pro/index.php/products/rvc/')" right="23" bottom="11"/>
+			<!--	<mx:Button width="16" height="20" skin="@Embed(source='../assets/help.png')" rollOver="zoomInHelp.play()" rollOut="zoomOutHelp.play()" toolTip="Help" id="btnHelp" click="onSocialButtonClick('http://www.jabbercam.com/help')" right="43" bottom="11"/> -->
+					<mx:Button width="16" height="20" skin="@Embed(source='../assets/help.png')" rollOver="zoomInHelp.play()" rollOut="zoomOutHelp.play()" id="btnHelp" toolTip="{this.lang.btnHelpTooltip}" click="onSocialButtonClick(this.lang.getSetting('helpLink'))" right="43" bottom="11"/>
+			<!--	<mx:Button width="16" height="20" skin="@Embed(source='../assets/about.png')" rollOver="zoomInAbout.play()" rollOut="zoomOutAbout.play()" toolTip="About" id="btnAbout" click="onSocialButtonClick('http://www.videosoftware.pro/products/rvc')" right="23" bottom="11"/> -->
+					<mx:Button width="16" height="20" skin="@Embed(source='../assets/about.png')" rollOver="zoomInAbout.play()" rollOut="zoomOutAbout.play()" id="btnAbout" toolTip="{this.lang.btnAboutTooltip}" click="onSocialButtonClick(this.lang.getSetting('aboutLink'))" right="23" bottom="11"/>
 				</mx:HBox>
 			</mx:Canvas>
 		</mx:HBox>
@@ -193,14 +220,14 @@
 		
 		
 		<!-- ****************** Input Area ****************** -->
-		<mx:HBox width="670" height="89" id="InputArea" styleName="InputAreaH">
+		<mx:HBox width="{chatWidth}" height="89" id="InputArea" styleName="InputAreaH">
 			
 			<!-- ****** STOP BUTTON ******-->
 			<mx:Button width="121" height="100%" id="btnStop" styleName="BigButton" click="onStop()" enabled="false"/>
 			<!-- ****** END STOP BUTTON ****** -->
 			
 			<!-- ****** INPUT ****** -->
-			<mx:VBox width="100%" height="100%">
+			<mx:VBox width="{inputWidth}" height="100%">
 				<!--TEXT INPUT-->
 				<mx:Canvas width="100%" height="100%">
 					<mx:TextInput width="100%" height="100%" styleName="ChatInput" id="tiChat" enter="callLater(onSend);" visible="false"/>
@@ -209,7 +236,7 @@
 				<!--END TEXT INPUT-->
 				<mx:HBox>
 					<!--AUTO NEXT (SEC)-->
-					<mx:Canvas width="208" height="25" id="autoNextSec" visible="false" styleName="autoNextSec">
+					<mx:Canvas width="{sliderWidth}" height="25" id="autoNextSec" visible="false" styleName="autoNextSec">
 						<mx:Label y="191" x="-1" text="auto Next (sec)" id="autoNextIntervalLabel" styleName="VideoWindowFilterLabel"/>
 						<mx:HSlider width="100%" id="autoDisconnect" labelStyleName="sliderLabel" labels="{AutoDisconnect.labels}" minimum="0" maximum="4"
 									snapInterval="1" tickInterval="1" liveDragging="false" change="autoDisconnectChange()" showDataTip="false"/>
@@ -234,7 +261,7 @@
 			<!--END SEND BUTTON-->
 			
 			<!--START/NEXT BUTTON-->
-			<mx:VBox verticalGap="0" width="121" height="100%">
+			<mx:VBox verticalGap="0" width="131" height="100%">
 				<mx:Canvas width="100%" height="100%">
 					<!--START BUTTON-->
 					<mx:Button width="100%" height="100%" id="btnStart" styleName="BigButton" click="onStart()" visible="{btnStart.enabled}"/>
@@ -267,104 +294,79 @@
 	<!--END MAIN CONTAINER-->
 	
 	
+	
+	
+	
 	<!-- //////////////////////////////////the slide down Settings Panel////////////////////////////////// -->
-	
 	<!-- ****************** SETTINGS PANEL ****************** -->	
-								<mx:Script>
-									<![CDATA[
-										import mx.effects.easing.*;
-										private function toggleSettingsBtn(e:MouseEvent):void{
-											if(e.currentTarget.label== 'Settings') {
-												SettingsPanelOut.play();
-											} else { 
-												SettingsPanelIn.play();
-												HelpPanelIn.play();
-												MapPanelIn.play();
-											}
-										}
-
-										protected function btnFullScreen_clickHandler(event:MouseEvent):void
-										{
-											stage.removeEventListener(FullScreenEvent.FULL_SCREEN,onFullscreen);
-											stage.addEventListener(FullScreenEvent.FULL_SCREEN,onFullscreen);
-											try {
-												stage.fullScreenSourceRect = vidOther.getBounds(stage);
-												stage.displayState = StageDisplayState.FULL_SCREEN;
-											} catch(e : Error) {
-												
-											}
-										}
-
-										private function onFullscreen(ev : FullScreenEvent) : void {
-											if(ev.fullScreen) {
-												SettingsButton.visible = HelpButton.visible = MapButton.visible = false;
-												partnerContainer.mouseEnabled = partnerContainer.mouseChildren = false;
-											} else {
-												SettingsButton.visible = HelpButton.visible = MapButton.visible = true;
-												partnerContainer.mouseEnabled = partnerContainer.mouseChildren =  true;
-											}
-										}
-
-										protected function btnMute_clickHandler(event:MouseEvent):void
-										{
-											systemSoundsMuted = !systemSoundsMuted;
-											if(systemSoundsMuted)
-												status(lang.getSimpleProperty('systemSoundsMuted')+"\n");
-											else
-												status(lang.getSimpleProperty('systemSoundsOn')+'\n');
-										}
-
-									]]>
-								</mx:Script>
+	<mx:Script>
+		<![CDATA[
+			import mx.effects.easing.*;
+			private function toggleSettingsBtn(e:MouseEvent):void{
+				if(e.currentTarget.label== 'Settings') {
+					SettingsPanelOut.play();
+				} else { 
+					SettingsPanelIn.play();
+					AdvancedSettingsPanelIn.play();
+					HelpPanelIn.play();
+					MapPanelIn.play();
+				}
+			}
+			
+			protected function btnFullScreen_clickHandler(event:MouseEvent):void
+			{
+				stage.removeEventListener(FullScreenEvent.FULL_SCREEN,onFullscreen);
+				stage.addEventListener(FullScreenEvent.FULL_SCREEN,onFullscreen);
+				try {
+					stage.fullScreenSourceRect = vidOther.getBounds(stage);
+					stage.displayState = StageDisplayState.FULL_SCREEN;
+				} catch(e : Error) {
+					
+				}
+			}
+			
+			private function onFullscreen(ev : FullScreenEvent) : void {
+				if(ev.fullScreen) {
+					SettingsButton.visible = AdvancedSettingsButton.visible = HelpButton.visible = MapButton.visible = false;
+					partnerContainer.mouseEnabled = partnerContainer.mouseChildren = false;
+				} else {
+					SettingsButton.visible = AdvancedSettingsButton.visible = HelpButton.visible = MapButton.visible = true;
+					partnerContainer.mouseEnabled = partnerContainer.mouseChildren =  true;
+				}
+			}
+			
+			protected function btnMute_clickHandler(event:MouseEvent):void
+			{
+				systemSoundsMuted = !systemSoundsMuted;
+				if(systemSoundsMuted)
+					status(lang.getSimpleProperty('systemSoundsMuted')+"\n");
+				else
+					status(lang.getSimpleProperty('systemSoundsOn')+'\n');
+			}
+			
+			
+			protected function videoQuality_changeHandler(event:SliderEvent):void
+			{
+				if(curCamera)
+					curCamera.setQuality(0, videoQuality.value);
+			}
+			
+		]]>
+	</mx:Script>
 	
-	<mx:Move id="SettingsPanelOut" target="{SettingsPanel}" yTo="0" effectEnd="SettingsButton.label='Close'" duration="1500" easingFunction="Bounce.easeOut"/>        
-	<mx:Move id="SettingsPanelIn" target="{SettingsPanel}" yTo="-400" effectEnd="SettingsButton.label='Settings'" duration="1000" easingFunction="Bounce.easeIn"/>
-		
-	<mx:Canvas id="SettingsPanel" width="662" height="420" y="-400" horizontalCenter="0">
+	<mx:Move id="SettingsPanelOut" target="{SettingsPanel}" yTo="{settingsTop}" effectEnd="SettingsButton.label='Close'" duration="1500" easingFunction="Bounce.easeOut"/>        
+	<mx:Move id="SettingsPanelIn" target="{SettingsPanel}" yTo="-335" effectEnd="SettingsButton.label='Settings'" duration="1000" easingFunction="Bounce.easeIn"/>
+	
+	<mx:Canvas id="SettingsPanel" width="456" height="355" y="-335" horizontalCenter="0">
 		<!--SETTINGS PANEL CONTAINER-->
-			<mx:VBox width="662" height="391" top="4" verticalAlign="top" horizontalAlign="center"  backgroundColor="#000000" backgroundAlpha="0.8" paddingTop="10" paddingBottom="0" paddingLeft="10" paddingRight="10" verticalGap="1">
-				
-				<!-- ****** SYSTEM SETTINGS ****** -->
-				<mx:Panel title="System settings" backgroundAlpha="0.35" width="100%" verticalGap="0" headerHeight="20">
-				<mx:HBox styleName="SettingsPanels">	
-					
-					<!--LANGUAGE SELECTOR-->
-					<mx:ComboBox width="93" id="language" dataProvider="{LanguageLoader.languages}"
-								 selectedIndex="0" change="changeLanguage(event)" open="lockOwnControls=true"
-								 close="lockOwnControls=false;if(canHideOwnControls)ownControls.visible=false" fontFamily="Arial" fontSize="9"/>
-					
-					<!--WEBCAMERA SELECTOR-->
-					<mx:ComboBox width="149" open="lockOwnControls=true" close="lockOwnControls=false;
-								 if(canHideOwnControls)ownControls.visible = false" id="cameraSelection"
-																					dataProvider="{cameraNames}" change="cameraChanged(event)"/>
-					<!--MICROPHONE SELECTOR-->
-					<mx:ComboBox width="149" open="lockOwnControls=true" close="lockOwnControls=false;
-								 if(canHideOwnControls)ownControls.visible = false" id="micSelection" 
-																					dataProvider="{micNames}" change="micChanged(event)"/>
-					<!--FLASH BACKGROUND-->
-					<mx:HBox id="backgroundButtons" height="100%" verticalAlign="middle" verticalGap="0" horizontalGap="1">
-						<mx:RadioButtonGroup id="background" />
-						<mx:RadioButton enabled="true" value="{lang.backgroundImage}" selected="true" color="#FFFFFF" group="{background}" />
-						<mx:RadioButton enabled="true" value="{lang.backgroundImage2}" color="#2A55FF" group="{background}" />
-						<mx:RadioButton enabled="true" value="{lang.backgroundImage3}" color="#AA2AFF" group="{background}" />
-						<mx:RadioButton enabled="true" value="{lang.backgroundImage4}" color="#FFFFFF" group="{background}" />
-						<mx:RadioButton enabled="true" value="{lang.backgroundImage5}" color="#2A55FF" group="{background}" />
-						<mx:RadioButton enabled="true" value="{lang.backgroundImage6}" color="#AA2AFF" group="{background}" />
-					</mx:HBox>
-					
-					<!--VERTICAL LAYOUT-->
-					<mx:Button label="VERTICAL" click="loadVerticalLayout()"  width="83" height="22" styleName="Blue"/>
-				</mx:HBox>
-				</mx:Panel>
-				<!-- ****** END SYSTEM SETTINGS ****** -->
-				
-				<!-- ****** I AM SETTINGS ****** -->
-				<mx:Panel id="iamPanel" backgroundAlpha="0.35" width="100%" verticalGap="0" headerHeight="20">
-				<mx:HBox styleName="SettingsPanels" width="100%" height="40" horizontalScrollPolicy="off" verticalScrollPolicy="off">
-					<mx:HBox width="96">
-						<mx:TextInput editable="false" id="myUsername" enter="changeUsername()" alpha="0.7" width="63" borderStyle="solid" cornerRadius="4" fontSize="9"/>
-					</mx:HBox>
-					<mx:HBox width="166">
+		<mx:VBox width="456" height="330" top="4" verticalAlign="top" horizontalAlign="center" backgroundColor="#404040" backgroundAlpha="0.9" paddingTop="10" paddingBottom="0" paddingLeft="10" paddingRight="10" verticalGap="1" borderStyle="solid" borderThickness="1" borderColor="#B7BABC" cornerRadius="4">
+			
+			
+			
+			<!-- ****** I AM SETTINGS ****** -->
+			<mx:Panel id="iamPanel" backgroundAlpha="0.35" width="100%" headerHeight="20" verticalGap="0" roundedBottomCorners="true">
+				<mx:HBox styleName="SettingsPanels" width="100%" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+					<mx:HBox width="168" verticalGap="0">
 						<mx:RadioButtonGroup id="rgMySex"/>
 						<mx:RadioButton id="rbFemale" groupName="rgMySex" click="onSexFemale()" enabled="true" color="#FFFFFF"/>
 						<mx:RadioButton id="rbMale" groupName="rgMySex" click="onSexMale()" enabled="true" color="#FFFFFF"/>
@@ -373,8 +375,10 @@
 					<mx:ComboBox id="langSetting" change="langSettingChange()" open="lockOwnControls=true"
 								 dataProvider="{langFilterValues}" selectedIndex="0" 
 								 close="lockOwnControls=false;if(canHideOwnControls)ownControls.visible=false"/>
+				</mx:HBox>
+				<mx:HBox styleName="SettingsPanels" width="100%">
 					<mx:Label id="myAgeSelectorLabel" styleName="White" text="of age"/>
-					<local:AgeSelector id="age" labelStyleName="sliderLabel" change="onAgeChange()" liveDragging="false" showDataTip="false" width="120" height="50"/>	
+					<local:AgeSelector id="age" change="onAgeChange()" width="260"/>	
 				</mx:HBox>
 				<mx:HBox styleName="SettingsPanels" width="100%">
 					<mx:HBox visible="{CustomFilter.customFilter1Values != null &amp;&amp; CustomFilter.customFilter1Values.length &gt; 0}"
@@ -383,19 +387,19 @@
 						<mx:ComboBox id="customFilter1Setting" change="customFilter1SettingChange()" dataProvider="{CustomFilter.customFilter1Labels}" selectedIndex="0" />
 					</mx:HBox>
 					<mx:HBox visible="{CustomFilter.customFilter2Values != null &amp;&amp; CustomFilter.customFilter2Values.length &gt; 0}"
-								 id="customFilter2C">
+							 id="customFilter2C">
 						<mx:Label color="#FFFFFF" text="{CustomFilter.customFilter2Label}" />
 						<mx:ComboBox id="customFilter2Setting" change="customFilter2SettingChange()" dataProvider="{CustomFilter.customFilter2Labels}" selectedIndex="0" />
 					</mx:HBox>
 				</mx:HBox>
-				</mx:Panel>
-				<!-- ****** END I AM SETTINGS ******-->
-				
-				<!-- ****** LOOKING FOR SETTINGS******-->
-				<mx:Panel id="seekingPanel" backgroundAlpha="0.34" width="100%" verticalGap="0" headerHeight="20">
-				<mx:HBox styleName="SettingsPanels" label="Looking For" width="100%" height="40" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+			</mx:Panel>
+			<!-- ****** END I AM SETTINGS ******-->
+			
+			<!-- ****** LOOKING FOR SETTINGS******-->
+			<mx:Panel id="seekingPanel" backgroundAlpha="0.34" width="100%" verticalGap="0" headerHeight="20" roundedBottomCorners="true">
+				<mx:HBox styleName="SettingsPanels" label="Looking For" width="100%" horizontalScrollPolicy="off" verticalScrollPolicy="off">
 					
-					<mx:HBox width="166">
+					<mx:HBox width="168">
 						<mx:CheckBox id="rbSexFemale" change="checkSexFilter()" enabled="true" color="#FFFFFF"/>
 						<mx:CheckBox id="rbSexMale" change="checkSexFilter()" enabled="true" color="#FFFFFF"/>
 					</mx:HBox>
@@ -404,260 +408,291 @@
 								 open="lockPartnerControls=true"
 								 close="lockPartnerControls=false; if(canHidePartnerControls)partnerControls.visible=false"
 								 dataProvider="{langFilterValues}" text="Lang" />
+				</mx:HBox>
+				<mx:HBox styleName="SettingsPanels" width="100%">
 					<mx:Label id="partnerAgeSelectorLabel" styleName="White" text="of age"/>
-					<local:AgeSelector id="lookupAge"  labelStyleName="sliderLabel" change="lookupAgeChange()" liveDragging="false" showDataTip="false" width="120" height="50"/>
+					<local:AgeSelector id="lookupAge" change="lookupAgeChange()" width="260"/>
 				</mx:HBox>
 				<mx:HBox styleName="SettingsPanels" width="100%">	
 					<mx:HBox visible="{CustomFilter.customFilter1Values != null &amp;&amp; CustomFilter.customFilter1Values.length &gt; 0}"
-									 id="customFilter1PC">
+							 id="customFilter1PC">
 						<mx:Label color="#FFFFFF" text="{CustomFilter.customFilter1Label}" />
 						<mx:ComboBox id="customFilter1Pref" change="customFilter1PrefChange()" dataProvider="{CustomFilter.customFilter1Labels}" selectedIndex="0" />
 					</mx:HBox>
 					<mx:HBox visible="{CustomFilter.customFilter2Values != null &amp;&amp; CustomFilter.customFilter2Values.length &gt; 0}"
-									 id="customFilter2PC">
+							 id="customFilter2PC">
 						<mx:Label color="#FFFFFF" text="{CustomFilter.customFilter2Label}" />
 						<mx:ComboBox id="customFilter2Pref" change="customFilter2PrefChange()" dataProvider="{CustomFilter.customFilter2Labels}" selectedIndex="0" />
 					</mx:HBox>
-					<mx:CheckBox id="cbCameraOnOnly" selected="false" click="onCameraOnOnly()" color="#ffffff"/>
 				</mx:HBox>
-				</mx:Panel>
-				<!-- ****** END LOOKING FOR SETTINGS ****** -->
-				
-				<!-- ****** OPERATION MODE SETTINGS ****** -->
-				<mx:Panel title="Connection" backgroundAlpha="0.34" width="100%" verticalGap="0" headerHeight="20">
-				<mx:HBox styleName="SettingsPanels" width="100%">	
-					<!--CONNECT TO USER-->
-					<mx:HBox>
-						<mx:Label text="Connect me diretly to (User ID)" id="ccLabel" styleName="FilterButton"/>
-						<mx:TextInput width="63" id="ccUsername" styleName="FilterInput" alpha="0.7" borderStyle="solid" cornerRadius="4" fontSize="10"/>
-						<mx:Button label="Connect" id="ccConnect" click="findUserByName()" styleName="FilterButton"/>
-					</mx:HBox>
-					<!--END CONNECT TO USER-->
-					
-					<!--AUTO FIND NEXT-->
-					<mx:CheckBox id="cbAutoFindNext" selected="false" click="onAutoFindNext()" color="#FFFFFF" horizontalGap="0"/>
-					<!--END AUTO FIND NEXT-->
-					
-					<!--USER IDs-->
-					<mx:VBox width="100" height="26" verticalGap="0" paddingTop="0" paddingBottom="0">
-						<mx:Label id="lblID" width="100" fontSize="8" truncateToFit="false"/>
-						<mx:Label id="lblOtherId" width="100" fontSize="8" truncateToFit="false"/>
-					</mx:VBox>
-					<!--END USER IDs-->
-					
-				</mx:HBox>
-				</mx:Panel>
-				<!-- ****** END OPERATION MODE SETTINGS ****** -->
-				
-				<!-- ****** SYSTEM DATA ****** -->
-				<mx:HBox width="100%" textAlign="right">
-						<mx:Button skin="@Embed(source='../assets/videosoftware.pro.png')" click="onSocialButtonClick('http://www.videosoftware.pro')" buttonMode="true" right="0" alpha="0.5"/>
-						<mx:Label text="RVC5.3" styleName="InfoBoxLabel"/><!--VERSION-->
-						<mx:Label id="betaLabel" fontSize="6"/><!--BETA LABEL-->
-					<!--USERS ONLINE-->
-						<mx:Label id="lblUsersOnline" styleName="InfoBoxLabel"/><!--USERS ONLINE NO-->
-						<mx:Label id="lblOnlineIndicator" styleName="InfoBoxLabel"/><!--USERS ONLINE LABEL-->
-						<mx:Label id="lblCcCallState" styleName="InfoBoxLabel" color="#DDDDDD"/><!--CALL STATE-->
-					<!--END USERS ONLINE-->
-				</mx:HBox>
-				<!-- ****** END SYSTEM DATA ****** -->
-				<!--SOCIAL BUTTONS-->
-				<mx:HBox width="100%" horizontalAlign="right" id="socials" alpha="{ownControls.visible?Math.max(0.1,ownControls.alpha):0.7}">
-					<mx:Button skin="@Embed(source='../assets/facebook.png')" toolTip="{this.lang.facebookTooltip}" click="onSocialButtonClick(this.lang.getSetting('facebookLink'))" buttonMode="true"/>
-					<mx:Button skin="@Embed(source='../assets/googlebuzz.png')" toolTip="{this.lang.buzzTooltip}" click="onSocialButtonClick(this.lang.getSetting('buzzLink'))" buttonMode="true"/>
-					<mx:Button skin="@Embed(source='../assets/twitter.png')" toolTip="{this.lang.twitterTooltip}" click="onSocialButtonClick(this.lang.getSetting('twitterLink'))" buttonMode="true"/>
-					<mx:Button skin="@Embed(source='../assets/myspace.png')" toolTip="{this.lang.myspaceTooltip}" click="onSocialButtonClick(this.lang.getSetting('myspaceLink'))" buttonMode="true"/>
-					<mx:Button skin="@Embed(source='../assets/jabbercam.png')" toolTip="Start your own JabberCam website! Get the software and the source code. Click here for more information." click="onSocialButtonClick('http://www.videosoftware.pro/index.php/products/rvc/')" buttonMode="true"/>
-				</mx:HBox>
-				<!--END SOCIAL BUTTONS-->
-			</mx:VBox>
+			</mx:Panel>
+			<!-- ****** END LOOKING FOR SETTINGS ****** -->
+			<!-- ****** SYSTEM DATA ****** -->
+			<mx:Canvas width="100%">
+		<!--	<mx:Button skin="@Embed(source='../assets/videosoftware.pro.png')" click="onSocialButtonClick('http://www.videosoftware.pro')" buttonMode="true" right="0" top="4" alpha="0.5"/> -->
+				<mx:Button skin="@Embed(source='../assets/videosoftware.pro.png')" toolTip="{this.lang.videosoftwareTooltip}" click="onSocialButtonClick(this.lang.getSetting('videosoftwareLink'))" buttonMode="true" right="0" top="4" alpha="0.5"/>
+				<!-- ****** ADVANCED SETTINGS BUTTON ****** -->
+				<mx:Button id="AdvancedSettingsButton" label="System settings" left="0" styleName="Sett" top="2" click="toggleAdvancedSettingsBtn(event)" enabled="true"/>
+				<!-- ****** END ADVANCED SETTINGS BUTTON ****** -->
+			</mx:Canvas>
+			<!-- ****** END SYSTEM DATA ****** -->
+		</mx:VBox>
 		<!--END SETTINGS PANEL CONTAINER-->
 		<!--SETTINGS BUTTON-->
-		<mx:Button left="280" skin="@Embed(source='../assets/SettingsButton.png')" icon="@Embed(source='../assets/SettingsIcon.png')" id="SettingsButton" width="101"  height="21" bottom="0" label="Settings" click="toggleSettingsBtn(event)" enabled="true" fontWeight="normal" color="#707070"/>
+		<mx:Button left="178" skin="@Embed(source='../assets/SettingsButton.png')" icon="@Embed(source='../assets/SettingsIcon.png')" id="SettingsButton" width="101"  height="21" bottom="0" label="Settings" click="toggleSettingsBtn(event)" enabled="true" fontWeight="normal" color="#707070"/>
 		<!--END SETTINGS BUTTON-->
 	</mx:Canvas>
 	<!-- ****************** END SETTINGS PANEL ****************** -->
 	
-	<!-- ****************** USERS PANEL ******************
-	<mx:Script>
-		<![CDATA[
-			import mx.effects.easing.*;
-			private function toggleUsersBtn(e:MouseEvent):void{
-				if(e.currentTarget.label== 'Users')
-					UsersPanelOut.play();
-				else 
-					UsersPanelIn.play();
-			}
-		]]>
-	</mx:Script>
+	<!-- ****************** ADVANCED SETTINGS PANEL ****************** -->	
+								<mx:Script>
+									<![CDATA[
+										import mx.effects.easing.*;
+										private function toggleAdvancedSettingsBtn(e:MouseEvent):void{
+											if(e.currentTarget.label== 'System settings')
+												AdvancedSettingsPanelOut.play();
+											else 
+												AdvancedSettingsPanelIn.play();
+										}
+									]]>
+								</mx:Script>
 	
-	<mx:Move id="UsersPanelOut" target="{UsersPanel}" yTo="0" effectEnd="UsersButton.label='Close'" duration="1500" easingFunction="Bounce.easeOut"/>        
-	<mx:Move id="UsersPanelIn" target="{UsersPanel}" yTo="-380" effectEnd="UsersButton.label='Users'" duration="1000" easingFunction="Bounce.easeIn"/>        
-	
-	<mx:Canvas id="UsersPanel" width="662" height="400" y="-380" horizontalCenter="0">
-		
-		 USERS PANEL CONTAINER 
-		<mx:VBox width="662" height="371" top="4" verticalAlign="top" horizontalAlign="center"  backgroundColor="#000000" backgroundAlpha="0.8" paddingTop="10" paddingBottom="10" paddingLeft="10" paddingRight="10" verticalGap="1">
-		</mx:VBox>
-		 END USERS PANEL CONTAINER 
-		
-		 USERS BUTTON 
-		<mx:Button left="0" skin="@Embed(source='../assets/SettingsButton.png')" icon="@Embed(source='../assets/UsersIcon.png')" id="UsersButton" width="101"  height="21" bottom="0" label="Users" click="toggleUsersBtn(event)" enabled="true" fontWeight="normal" color="#707070"/>
-		 END USERS BUTTON 
-	</mx:Canvas>
-	 ****************** END USERS PANEL ****************** -->
-	
-	<!-- ****************** MAP PANEL ****************** -->	
-	<mx:Script>
-		<![CDATA[
-			import mx.events.PropertyChangeEvent;
-			import com.google.maps.controls.MapTypeControlOptions;
-			import com.google.maps.LatLng;
-			import com.google.maps.Map;
-			import com.google.maps.MapEvent;
-			import com.google.maps.MapType;
-			import com.google.maps.controls.MapTypeControl;
-			import com.google.maps.controls.ZoomControl;
-			import com.google.maps.MapOptions;
+		<!-- <mx:Move id="AdvancedSettingsPanelOut" target="{AdvancedSettingsPanel}" yTo="{settingsTop}" effectEnd="AdvancedSettingsButton.label='Close'" duration="1500" easingFunction="Bounce.easeOut"/>        
+		<mx:Move id="AdvancedSettingsPanelIn" target="{AdvancedSettingsPanel}" yTo="-335" effectEnd="AdvancedSettingsButton.label='Advanced'" duration="1000" easingFunction="Bounce.easeIn"/>	-->
+		<mx:Move id="AdvancedSettingsPanelOut" target="{AdvancedSettingsPanel}" yTo="{settingsTop}" duration="1500" easingFunction="Bounce.easeOut"/>        
+		<mx:Move id="AdvancedSettingsPanelIn" target="{AdvancedSettingsPanel}" yTo="-335" duration="1000" easingFunction="Bounce.easeIn"/>
 			
-			import mx.events.FlexEvent;
-			import mx.effects.easing.*;
-			
-			private var googleMap : Map;
-			
-			private function toggleMapBtn(e:MouseEvent):void{
-				if(e.currentTarget.label== 'Map')
-					MapPanelOut.play();
-				else 
-					MapPanelIn.play();
-			}
-			
-			protected function mapContainer_creationCompleteHandler(event:FlexEvent):void
-			{
-				if(!googleAppId)
-				{
-					addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, function(e : PropertyChangeEvent) : void {
-						if(e.property.toString() == "googleAppId") {
-							removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, arguments.callee);
-							callLater(mapContainer_creationCompleteHandler, [null]);
-						}
-					});
+		<mx:Canvas id="AdvancedSettingsPanel" width="456" height="355" y="-335" horizontalCenter="0">
+			<!--ADVANCED SETTINGS PANEL CONTAINER-->
+			<mx:VBox width="456" height="330" top="4" verticalAlign="top" horizontalAlign="center" backgroundColor="#404040" backgroundAlpha="0.9" paddingTop="10" paddingBottom="0" paddingLeft="10" paddingRight="10" verticalGap="1" borderStyle="solid" borderThickness="1" borderColor="#B7BABC" cornerRadius="4">
+					<!-- ****** SYSTEM SETTINGS ****** -->
+					<mx:Panel title="Interface settings" backgroundAlpha="0.35" width="100%" verticalGap="0" headerHeight="20" roundedBottomCorners="true">
+						<mx:HBox styleName="SettingsPanels">	
+							
+							<!--LANGUAGE SELECTOR-->
+							<mx:ComboBox width="93" id="language" dataProvider="{LanguageLoader.languages}"
+										 selectedIndex="0" change="changeLanguage(event)" open="lockOwnControls=true"
+										 close="lockOwnControls=false;if(canHideOwnControls)ownControls.visible=false" fontFamily="Arial" fontSize="9"/>
+							<!--FLASH BACKGROUND-->
+							<mx:HBox id="backgroundButtons" height="100%" verticalAlign="middle" verticalGap="0" horizontalGap="1">
+								<mx:RadioButtonGroup id="background" />
+								<mx:RadioButton enabled="true" value="" selected="true" color="#FFFFFF" group="{background}" />
+								<mx:RadioButton enabled="true" value="{lang.backgroundImage2}" color="#2A55FF" group="{background}" />
+								<mx:RadioButton enabled="true" value="{lang.backgroundImage3}" color="#AA2AFF" group="{background}" />
+								<mx:RadioButton enabled="true" value="{lang.backgroundImage4}" color="#FFFFFF" group="{background}" />
+								<mx:RadioButton enabled="true" value="{lang.backgroundImage5}" color="#2A55FF" group="{background}" />
+								<mx:RadioButton enabled="true" value="{lang.backgroundImage6}" color="#AA2AFF" group="{background}" />
+							</mx:HBox>
+							<!--VERTICAL LAYOUT-->
+							<mx:Button label="vertical" click="loadVerticalLayout()" height="22" styleName="Sett"/>
+						</mx:HBox>
+					</mx:Panel>
+					<!-- ****** END SYSTEM SETTINGS ****** -->
 					
-					return;
+					<!-- ****** SYSTEM SETTINGS ****** -->
+					<mx:Panel title="System settings" backgroundAlpha="0.35" width="100%" verticalGap="0" headerHeight="20" roundedBottomCorners="true">
+						<mx:HBox styleName="SettingsPanels">	
+							<!--MICROPHONE SELECTOR-->
+							<mx:ComboBox width="125" open="lockOwnControls=true" close="lockOwnControls=false;
+										 if(canHideOwnControls)ownControls.visible = false" id="micSelection" 
+																							dataProvider="{micNames}" change="micChanged(event)"/>
+							<!--WEBCAMERA SELECTOR-->
+							<mx:ComboBox width="125" open="lockOwnControls=true" close="lockOwnControls=false;
+										 if(canHideOwnControls)ownControls.visible = false" id="cameraSelection"
+																							dataProvider="{cameraNames}" change="cameraChanged(event)"/>
+							<!-- VIDEO QUALITY -->
+							<mx:HSlider width="136" id="videoQuality" labelStyleName="sliderLabel" labelOffset="3" labels="Video Q" minimum="50" maximum="100" change="videoQuality_changeHandler(event)" value="95" toolTip="Video Quality (sent stream)"/>
+						</mx:HBox>
+					</mx:Panel>
+					<!-- ****** END SYSTEM SETTINGS ****** -->
+					
+					<!-- ****** OPERATION MODE SETTINGS ****** -->
+					<mx:Panel title="Connection settings" backgroundAlpha="0.34" width="100%" verticalGap="0" headerHeight="20" roundedBottomCorners="true">
+						<mx:HBox styleName="SettingsPanels" width="100%">	
+							<!--CONNECT TO USER-->
+							<mx:HBox>
+								<mx:Label text="Connect me diretly to (User ID)" id="ccLabel" styleName="FilterButton"/>
+								<mx:TextInput width="63" id="ccUsername" styleName="FilterInput" alpha="0.7" borderStyle="solid" cornerRadius="4" fontSize="10"/>
+								<mx:Button label="Connect" id="ccConnect" click="findUserByName()" styleName="FilterButton"/>
+							</mx:HBox>
+							<!--END CONNECT TO USER-->
+							
+							<!--AUTO FIND NEXT-->
+							<mx:CheckBox id="cbAutoFindNext" selected="true" click="onAutoFindNext()" color="#FFFFFF" horizontalGap="0"/>
+							<!--END AUTO FIND NEXT-->
+							
+							
+							<mx:CheckBox id="cbCameraOnOnly" selected="false" click="onCameraOnOnly()" color="#ffffff"/>
+							
+						</mx:HBox>
+					</mx:Panel>
+					<mx:Panel title="System info" backgroundAlpha="0.34" width="100%" verticalGap="0" headerHeight="20" roundedBottomCorners="true">
+						<!-- ****** SYSTEM INFO ****** -->
+						<mx:HBox width="100%" textAlign="right">
+							<mx:Label text="RVC {revRVC}" styleName="InfoBoxLabel"/><!--VERSION-->
+							<mx:Label id="betaLabel" fontSize="6"/><!--BETA LABEL-->
+							<!--USERS ONLINE-->
+							<mx:Label id="lblUsersOnline" styleName="InfoBoxLabel"/><!--USERS ONLINE NO-->
+							<mx:Label id="lblOnlineIndicator" styleName="InfoBoxLabel"/><!--USERS ONLINE LABEL-->
+							<mx:Label id="lblCcCallState" styleName="InfoBoxLabel" color="#DDDDDD"/><!--CALL STATE-->
+							<!--END USERS ONLINE-->
+							<!-- ****** END SYSTEM INFO ****** -->
+						</mx:HBox>
+						<!--USER IDs-->
+						<mx:VBox width="100" height="26" verticalGap="0" paddingTop="0" paddingBottom="0">
+							<mx:Label id="lblID" width="100" fontSize="8" truncateToFit="false"/>
+							<mx:Label id="lblOtherId" width="100" fontSize="8" truncateToFit="false"/>
+						</mx:VBox>
+						<!--END USER IDs-->
+					</mx:Panel>
+					<!-- ****** END OPERATION MODE SETTINGS ****** -->
+					<mx:Canvas width="100%">
+				<!--	<mx:Button skin="@Embed(source='../assets/videosoftware.pro.png')" click="onSocialButtonClick('http://www.videosoftware.pro')" buttonMode="true" right="0" top="4" alpha="0.5"/> -->
+						<mx:Button skin="@Embed(source='../assets/videosoftware.pro.png')" toolTip="{this.lang.videosoftwareTooltip}" click="onSocialButtonClick(this.lang.getSetting('videosoftwareLink'))" buttonMode="true" right="0" top="4" alpha="0.5"/>
+						<!--SOCIAL BUTTONS-->
+						<mx:HBox width="100%" horizontalAlign="left" id="socials2" alpha="{ownControls.visible?Math.max(0.1,ownControls.alpha):0.7}" left="0" top="2">
+							<mx:Button skin="@Embed(source='../assets/facebook.png')" toolTip="{this.lang.facebookTooltip}" click="onSocialButtonClick(this.lang.getSetting('facebookLink'))" buttonMode="true"/>
+							<mx:Button skin="@Embed(source='../assets/googlebuzz.png')" toolTip="{this.lang.buzzTooltip}" click="onSocialButtonClick(this.lang.getSetting('buzzLink'))" buttonMode="true"/>
+							<mx:Button skin="@Embed(source='../assets/twitter.png')" toolTip="{this.lang.twitterTooltip}" click="onSocialButtonClick(this.lang.getSetting('twitterLink'))" buttonMode="true"/>
+							<!--- <mx:Button skin="@Embed(source='../assets/myspace.png')" toolTip="{this.lang.myspaceTooltip}" click="onSocialButtonClick(this.lang.getSetting('myspaceLink'))" buttonMode="true"/> -->
+							<mx:Button skin="@Embed(source='../assets/jabbercam.png')" toolTip="{this.lang.rvcTooltip}" click="onSocialButtonClick(this.lang.getSetting('rvcLink'))" buttonMode="true"/>
+							<!-- -->
+						</mx:HBox>
+						<!--END SOCIAL BUTTONS-->
+					</mx:Canvas>
+					
+				</mx:VBox>
+			<!--END DVANCED SETTINGS PANEL CONTAINER-->
+			<!--ADVANCED SETTINGS BUTTON-->
+			<!-- <mx:Button left="280" skin="@Embed(source='../assets/SettingsButton.png')" icon="@Embed(source='../assets/SettingsIcon.png')"
+					   id="AdvancedSettingsButton" width="101"  height="21" bottom="0" label="Advanced"
+					   click="toggleAdvancedSettingsBtn(event)" enabled="true" fontWeight="normal" color="#707070"
+					   visible="{SettingsPanel.y!=-335}" /> -->
+			<!--END ADVANCED SETTINGS BUTTON-->
+		</mx:Canvas>
+		<!-- ****************** END ADVANCED SETTINGS PANEL ****************** -->
+		<!-- ****************** MAP PANEL ****************** -->	
+		<mx:Script>
+			<![CDATA[
+				import mx.events.PropertyChangeEvent;
+				import com.google.maps.controls.MapTypeControlOptions;
+				import com.google.maps.LatLng;
+				import com.google.maps.Map;
+				import com.google.maps.MapEvent;
+				import com.google.maps.MapType;
+				import com.google.maps.controls.MapTypeControl;
+				import com.google.maps.controls.ZoomControl;
+				import com.google.maps.MapOptions;
+				
+				import mx.events.FlexEvent;
+				import mx.effects.easing.*;
+				
+				private var googleMap : Map;
+				
+				private function toggleMapBtn(e:MouseEvent):void{
+					if(e.currentTarget.label== 'Map')
+						MapPanelOut.play();
+					else 
+						MapPanelIn.play();
 				}
 				
-				googleMap = new Map();
-				googleMap.sensor = "false";
-				googleMap.key = googleAppId;
-				googleMap.addEventListener(MapEvent.MAP_READY, googleMap_mapReady);
-				googleMap.setSize(new Point(mapContainer.width, mapContainer.height));
-				googleMap.addControl(new ZoomControl());
-				googleMap.addControl(new MapTypeControl());
+				protected function mapContainer_creationCompleteHandler(event:FlexEvent):void
+				{
+					if(!googleAppId)
+					{
+						addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, function(e : PropertyChangeEvent) : void {
+							if(e.property.toString() == "googleAppId") {
+								removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, arguments.callee);
+								callLater(mapContainer_creationCompleteHandler, [null]);
+							}
+						});
+						
+						return;
+					}
+					
+					googleMap = new Map();
+					googleMap.sensor = "false";
+					googleMap.key = googleAppId;
+					googleMap.addEventListener(MapEvent.MAP_READY, googleMap_mapReady);
+					googleMap.setSize(new Point(mapContainer.width, mapContainer.height));
+					googleMap.addControl(new ZoomControl());
+					googleMap.addControl(new MapTypeControl());
+					
+					
+					mapContainer.addChild(googleMap);
+				}
 				
-				
-				mapContainer.addChild(googleMap);
-			}
-			
-			private function googleMap_mapReady(ev : MapEvent) : void {
-				googleMap.setCenter(null,NaN,MapType.SATELLITE_MAP_TYPE);
-			}
-		]]>
-	</mx:Script>
-	
-	<mx:Move id="MapPanelOut" target="{MapPanel}" yTo="0" effectEnd="MapButton.label='Close'" duration="1500" easingFunction="Bounce.easeOut"/>        
-	<mx:Move id="MapPanelIn" target="{MapPanel}" yTo="-380" effectEnd="MapButton.label='Map'" duration="1000" easingFunction="Bounce.easeIn"/>        
-	
-	<mx:Canvas id="MapPanel" width="662" height="400" y="-380" horizontalCenter="0">
+				private function googleMap_mapReady(ev : MapEvent) : void {
+					googleMap.setCenter(null,NaN,MapType.SATELLITE_MAP_TYPE);
+				}
+			]]>
+		</mx:Script>
 		
-			<!-- MAP PANEL CONTAINER-->
-			<mx:VBox width="662" height="371" top="4" verticalAlign="top" horizontalAlign="center"  backgroundColor="#000000" backgroundAlpha="0.8" paddingTop="10" paddingBottom="10" paddingLeft="10" paddingRight="10" verticalGap="1">
-				<mx:UIComponent id="mapContainer" width="100%" height="100%" creationComplete="mapContainer_creationCompleteHandler(event)" />
+		<mx:Move id="MapPanelOut" target="{MapPanel}" yTo="{settingsTop}" effectEnd="MapButton.label='Close'" duration="1500" easingFunction="Bounce.easeOut"/>        
+		<mx:Move id="MapPanelIn" target="{MapPanel}" yTo="-335" effectEnd="MapButton.label='Map'" duration="1000" easingFunction="Bounce.easeIn"/>        
+		
+		<mx:Canvas id="MapPanel" width="456" height="355" y="-335" horizontalCenter="0">	
+				<!-- MAP PANEL CONTAINER-->
+			<mx:VBox width="456" height="330" top="4" verticalAlign="top" horizontalAlign="center" backgroundColor="#404040" backgroundAlpha="0.9" paddingTop="10" paddingBottom="10" paddingLeft="10" paddingRight="10" verticalGap="1" borderStyle="solid" borderThickness="1" borderColor="#B7BABC" cornerRadius="4">
+					<mx:UIComponent id="mapContainer" width="100%" height="100%" creationComplete="mapContainer_creationCompleteHandler(event)" />
+				</mx:VBox>
+				<!--END MAP PANEL CONTAINER-->
+				
+				<!--MAP BUTTON-->
+				<mx:Button left="178" skin="@Embed(source='../assets/SettingsButton.png')" icon="@Embed(source='../assets/MapIcon.png')" id="MapButton" width="101"  height="21" bottom="0" label="Map" click="toggleMapBtn(event)" enabled="true" fontWeight="normal" color="#707070"
+						   visible="{SettingsPanel.y!=-335}"/>
+				<!--END MAP BUTTON-->
+		</mx:Canvas>
+		<!-- ****************** END MAP PANEL ****************** -->
+		
+		<!-- ****************** HELP PANEL ****************** -->	
+		<mx:Script>
+			<![CDATA[
+				import mx.effects.easing.*;
+				private function toggleHelpBtn(e:MouseEvent):void{
+					if(e.currentTarget.label== 'Help')
+						HelpPanelOut.play();
+					else 
+						HelpPanelIn.play();
+				}
+				
+				private function helpTextAreaCreated() : void {
+					var loader : URLLoader = new URLLoader();
+					var req : URLRequest = new URLRequest();
+					req.url = "help/help.html";
+					loader.addEventListener(Event.COMPLETE, onLoadComplete);
+					loader.addEventListener(IOErrorEvent.IO_ERROR, onIOError);
+					loader.load(req);
+				}
+				
+				private function onLoadComplete(ev : Event) : void {
+					helpText.htmlText = ev.target.data as String;
+				}
+				
+				private function onIOError(ev : IOErrorEvent) : void {
+					
+				}
+			]]>
+		</mx:Script>
+		
+		<mx:Move id="HelpPanelOut" target="{HelpPanel}" yTo="{settingsTop}" effectEnd="HelpButton.label='Close'" duration="1500" easingFunction="Bounce.easeOut"/>        
+		<mx:Move id="HelpPanelIn" target="{HelpPanel}" yTo="-335" effectEnd="HelpButton.label='Help'" duration="1000" easingFunction="Bounce.easeIn"/>        
+	
+		<mx:Canvas id="HelpPanel" width="456" height="355" y="-335" horizontalCenter="0">
+			
+			<!-- HELP PANEL CONTAINER-->
+			<mx:VBox width="456" height="330" top="4" verticalAlign="top" horizontalAlign="center" backgroundColor="#404040" backgroundAlpha="0.9" paddingTop="10" paddingBottom="0" paddingLeft="10" paddingRight="10" verticalGap="1" borderStyle="solid" borderThickness="1" borderColor="#B7BABC" cornerRadius="4">
+				<mx:HBox styleName="SettingsPanels" width="100%" height="100%">
+					<mx:TextArea width="421" height="295" styleName="Help" id="helpText" creationComplete="helpTextAreaCreated()"/>
+				</mx:HBox>
 			</mx:VBox>
-			<!--END MAP PANEL CONTAINER-->
+			<!--END HELP PANEL CONTAINER-->
 			
-			<!--MAP BUTTON-->
-			<mx:Button left="382" skin="@Embed(source='../assets/SettingsButton.png')" icon="@Embed(source='../assets/MapIcon.png')" id="MapButton" width="101"  height="21" bottom="0" label="Map" click="toggleMapBtn(event)" enabled="true" fontWeight="normal" color="#707070"
-					   visible="{SettingsPanel.y!=-400}"/>
-			<!--END MAP BUTTON-->
-	</mx:Canvas>
-	<!-- ****************** END MAP PANEL ****************** -->
-	
-	<!-- ****************** HELP PANEL ****************** -->	
-	<mx:Script>
-		<![CDATA[
-			import mx.effects.easing.*;
-			private function toggleHelpBtn(e:MouseEvent):void{
-				if(e.currentTarget.label== 'Help')
-					HelpPanelOut.play();
-				else 
-					HelpPanelIn.play();
-			}
-			
-			private function helpTextAreaCreated() : void {
-				var loader : URLLoader = new URLLoader();
-				var req : URLRequest = new URLRequest();
-				req.url = "help/help.html";
-				loader.addEventListener(Event.COMPLETE, onLoadComplete);
-				loader.addEventListener(IOErrorEvent.IO_ERROR, onIOError);
-				loader.load(req);
-			}
-			
-			private function onLoadComplete(ev : Event) : void {
-				helpText.htmlText = ev.target.data as String;
-			}
-			
-			private function onIOError(ev : IOErrorEvent) : void {
-				
-			}
-		]]>
-	</mx:Script>
-	
-	<mx:Move id="HelpPanelOut" target="{HelpPanel}" yTo="0" effectEnd="HelpButton.label='Close'" duration="1500" easingFunction="Bounce.easeOut"/>        
-	<mx:Move id="HelpPanelIn" target="{HelpPanel}" yTo="-380" effectEnd="HelpButton.label='Help'" duration="1000" easingFunction="Bounce.easeIn"/>        
-	
-	<mx:Canvas id="HelpPanel" width="662" height="400" y="-380" horizontalCenter="0">
-		
-		<!-- HELP PANEL CONTAINER-->
-		<mx:VBox width="662" height="371" top="4" verticalAlign="top" horizontalAlign="center"  backgroundColor="#000000" backgroundAlpha="0.8" paddingTop="10" paddingBottom="10" paddingLeft="10" paddingRight="10" verticalGap="1">
-			<mx:HBox styleName="SettingsPanels" width="100%" height="100%">
-				<mx:TextArea width="627" height="335" styleName="Help" id="helpText" creationComplete="helpTextAreaCreated()"/>
-			</mx:HBox>
-		</mx:VBox>
-		<!--END HELP PANEL CONTAINER-->
-		
-		<!--HELP BUTTON-->
-		<mx:Button left="484" skin="@Embed(source='../assets/SettingsButton.png')" icon="@Embed(source='../assets/HelpIcon.png')" id="HelpButton" width="101"  height="21" bottom="0" label="Help" click="toggleHelpBtn(event)" enabled="true" fontWeight="normal" color="#707070"
-				   visible="{MapButton.visible}"/>
-		<!--END HELP BUTTON-->
-	</mx:Canvas>
-	<!-- ****************** END HELP PANEL ****************** -->
-	
-	<!-- ****************** ABOUT PANEL ******************	
-	<mx:Script>
-		<![CDATA[
-			import mx.effects.easing.*;
-			private function toggleAboutBtn(e:MouseEvent):void{
-				if(e.currentTarget.label== 'About')
-					AboutPanelOut.play();
-				else 
-					AboutPanelIn.play();
-			}
-		]]>
-	</mx:Script>
-	
-	<mx:Move id="AboutPanelOut" target="{AboutPanel}" yTo="0" effectEnd="AboutButton.label='Close'" duration="1500" easingFunction="Bounce.easeOut"/>        
-	<mx:Move id="AboutPanelIn" target="{AboutPanel}" yTo="-380" effectEnd="AboutButton.label='About'" duration="1000" easingFunction="Bounce.easeIn"/>        
-	
-	<mx:Canvas id="AboutPanel" width="662" height="400" y="-380" horizontalCenter="0">
-		
-		 ABOUT PANEL CONTAINER 
-		<mx:VBox width="662" height="371" top="4" verticalAlign="top" horizontalAlign="center"  backgroundColor="#000000" backgroundAlpha="0.8" paddingTop="10" paddingBottom="10" paddingLeft="10" paddingRight="10" verticalGap="1">
-		</mx:VBox>
-		 END ABOUT PANEL CONTAINER 
-		
-		 ABOUT BUTTON 
-		<mx:Button left="0" skin="@Embed(source='../assets/SettingsButton.png')" icon="@Embed(source='../assets/AboutIcon.png')" id="AboutButton" width="101"  height="21" bottom="0" label="About" click="toggleAboutBtn(event)" enabled="true" fontWeight="normal" color="#707070"/>
-		 END ABOUT BUTTON 
-	</mx:Canvas>
-	 ****************** END ABOUT PANEL ****************** -->
+			<!--HELP BUTTON-->
+			<mx:Button left="280" skin="@Embed(source='../assets/SettingsButton.png')" icon="@Embed(source='../assets/HelpIcon.png')" id="HelpButton" width="101"  height="21" bottom="0" label="Help" click="toggleHelpBtn(event)" enabled="true" fontWeight="normal" color="#707070"
+					   visible="{SettingsPanel.y!=-335}"/>
+			<!--END HELP BUTTON-->
+		</mx:Canvas>
+		<!-- ****************** END HELP PANEL ****************** -->
+	<!-- ****************** END SETTINGS PANEL ****************** -->
 </mx:Application>

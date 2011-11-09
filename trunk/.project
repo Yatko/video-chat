@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>RVC 5.5</name>
+	<name>5.9</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -15,11 +15,4 @@
 		<nature>com.adobe.flexbuilder.project.flexnature</nature>
 		<nature>com.adobe.flexbuilder.project.actionscriptnature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>bin-debug</name>
-			<type>2</type>
-			<location>/Users/kalman/Documents/Yatko/PRJ/videosoftware.pro/DEV/RVC/debug</location>
-		</link>
-	</linkedResources>
 </projectDescription>

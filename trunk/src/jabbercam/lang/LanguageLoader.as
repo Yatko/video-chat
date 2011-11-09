@@ -1,6 +1,6 @@
 /**
  * VIDEOSOFTWARE.PRO
- * Copyright 2010 VideoSoftware.PRO
+ * Copyright 2011 VideoSoftware.PRO
  * All Rights Reserved.
  *
  * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License
@@ -131,8 +131,8 @@ package jabbercam.lang
 			this.getSourceCodeImage = this.lang.getSourceCodeImage.toString();
 			this.getSourceCodeLink = this.lang.getSourceCode.toString();
 			
-//			Simple trick to execute bindings
-			this.myspaceTooltip = this.facebookTooltip = this.twitterTooltip = this.buzzTooltip = "bum";
+//			Simple trick to execute bindings this.rvcTooltip = 
+			this.videosoftwareTooltip = this.myspaceTooltip = this.facebookTooltip = this.twitterTooltip = this.buzzTooltip = this.rvcTooltip = this.btnAdTooltip = this.btnHelpTooltip = this.btnAboutTooltip = "bum";
 			
 			this.dispatchEvent(new Event(Event.COMPLETE));
 		}
@@ -149,14 +149,16 @@ package jabbercam.lang
 			this.loadLanguage(value);
 		}
 		
-		public function set myspaceTooltip(value : String) : void {
+		//videosoftware.pro
+		public function set videosoftwareTooltip(value : String) : void {
 			
 		}
 		[Bindable]
-		public function get myspaceTooltip() : String {
-			return lang.myspaceButtonTooltip.toString();
+		public function get videosoftwareTooltip() : String {
+			return lang.videosoftwareLogoTooltip.toString();
 		}
 		
+		//Facebook
 		public function set facebookTooltip(value : String) : void {
 			
 		}
@@ -165,6 +167,7 @@ package jabbercam.lang
 			return lang.facebookButtonTooltip.toString();
 		}
 		
+		//Twitter
 		public function set twitterTooltip(value : String) : void {
 			
 		}
@@ -173,12 +176,58 @@ package jabbercam.lang
 			return lang.twitterButtonTooltip.toString();
 		}
 		
+		//Google buzz
 		public function set buzzTooltip(value : String) : void {
 			
 		}
 		[Bindable]
 		public function get buzzTooltip() : String {
 			return lang.buzzButtonTooltip.toString();
+		}
+		
+		//mySpace
+		public function set myspaceTooltip(value : String) : void {
+			
+		}
+		[Bindable]
+		public function get myspaceTooltip() : String {
+			return lang.myspaceButtonTooltip.toString();
+		}
+		
+		//RVC
+		public function set rvcTooltip(value : String) : void {
+			
+		}
+		[Bindable]
+		public function get rvcTooltip() : String {
+			return lang.rvcButtonTooltip.toString();
+		}
+		
+		//RVC Ad button
+		public function set btnAdTooltip(value : String) : void {
+			
+		}
+		[Bindable]
+		public function get btnAdTooltip() : String {
+			return lang.adButtonTooltip.toString();
+		}
+		
+		//RVC About
+		public function set btnAboutTooltip(value : String) : void {
+			
+		}
+		[Bindable]
+		public function get btnAboutTooltip() : String {
+			return lang.aboutTooltip.toString();
+		}
+		
+		//RVC Help
+		public function set btnHelpTooltip(value : String) : void {
+			
+		}
+		[Bindable]
+		public function get btnHelpTooltip() : String {
+			return lang.helpTooltip.toString();
 		}
 		
 		public function getSimpleProperty(key : String) : String {
