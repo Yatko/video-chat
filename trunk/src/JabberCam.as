@@ -1751,6 +1751,9 @@
 				mConnectionTimeoutTimer.addEventListener(TimerEvent.TIMER, onConnectionTimeoutTimer);
 	            mConnectionTimeoutTimer.start();
 			} else {
+				
+				(userManager as Red5CCUserManager).connectToPeer(mOtherId);
+				
 				if(outgoingStream) {
 					outgoingStream.removeEventListener(NetStatusEvent.NET_STATUS, outgoingStreamHandler);
 					try {
@@ -1762,13 +1765,13 @@
 				outgoingStream = new NetStream(netConnection);
 				outgoingStream.addEventListener(NetStatusEvent.NET_STATUS, outgoingStreamHandler);
 				outgoingStream.publish(mId);
-				
+/*				
 				(userManager as Red5CCUserManager).connectToPeer(mOtherId);
-                                
+				
 				incomingStream = new NetStream(netConnection);
 				incomingStream.addEventListener(NetStatusEvent.NET_STATUS, incomingStreamHandler);
 				incomingStream.play(mOtherId);
-				
+*/				
 				// set volume for incoming stream
 				var st:SoundTransform = new SoundTransform(speakerVolumeSlider.value); // TODO: volume settings
 				incomingStream.soundTransform = st;
@@ -1799,6 +1802,10 @@
 				}
 				
 				remoteVideo.attachNetStream(incomingStream);
+				
+				incomingStream = new NetStream(netConnection);
+				incomingStream.addEventListener(NetStatusEvent.NET_STATUS, incomingStreamHandler);
+				incomingStream.play(mOtherId);
 				
 				clearTaChat();
 				setConnectionSuccess();
@@ -2174,7 +2181,7 @@
 			}
 			curCamera = camera;
 			
-			camera.setMode(320, 240, 15);
+			camera.setMode(320, 240, 30);
 			camera.setQuality(0, oldCamera.quality);
 			
 			try {
@@ -2378,8 +2385,8 @@
 		
 			if(btnPreview.selected && camera) {
 				
-				camera.setQuality(0,100);
-				camera.setMode(320, 240, 15);
+				camera.setQuality(0,95);
+				camera.setMode(320, 240, 30);
 				vidMe.attachCamera(camera);
 				
 				if(!firstTimeCheckCamera && !cameraAllowed) {
@@ -2389,7 +2396,7 @@
 			} else if(camera) {
 				
 				camera.setQuality(0, videoQuality.value);
-				camera.setMode(320, 240, 15);
+				camera.setMode(320, 240, 30);
 				
 				if(ccCallState == CCCallEstablished)
 				vidMe.attachCamera(camera);
