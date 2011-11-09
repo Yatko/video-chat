@@ -1,6 +1,6 @@
 /**
  * VIDEOSOFTWARE.PRO
- * Copyright 2010 VideoSoftware.PRO
+ * Copyright 2011 VideoSoftware.PRO
  * All Rights Reserved.
  *
  * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License
@@ -15,7 +15,10 @@
  */
 
 /* CSS file */
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
 
+/*
 Application{
 	width: 670;
 	height: 488;
@@ -29,6 +32,7 @@ Application{
 	color: #000000;
 	backgroundColor: #000000;
 }
+*/
 
 .MainContainerH {
 	width: 670;
@@ -62,7 +66,7 @@ Application{
 	paddingLeft: 5;
 	paddingRight: 5;
 	backgroundColor: #000000;
-	borderColor: #B7BABC;
+	borderColor: #000000;
 	borderStyle: solid;
 	borderThickness: 4;
 	cornerRadius: 4;
@@ -99,20 +103,20 @@ Application{
 	height: 240; 
 }
 
+/*
 Button {
-	backgroundColor: #ff0000;
-	rollOverColor: #ff0000;
-	selectionColor: #ff0000;
-	color: #686C72;
+	backgroundColor: #000000;
+	rollOverColor: #000000;
+	selectionColor: #000000;
+	color: #ffffff;
 	textRollOverColor: #979797;
 	textAlign: center;
 	fontWeight: bold;
-	borderColor: #FFFFFF;
+	borderColor: #B7BABC;
 	themeColor: #B7BABC;
 	textSelectedColor: #666666;
 }
-
-
+*/
 
 .adContainer {
 	backgroundColor: #000000;
@@ -197,8 +201,8 @@ Button {
 
 .UserInfo {
 	color: #ffffff;
-	fontSize: 8;
-	alpha: 0.5;
+	fontSize: 9;
+	fontWeight: bold;
 	backgroundColor: #ffffff;
 	backgroundAlpha: 0.1;
 	paddingTop: 2;
@@ -211,6 +215,20 @@ Button {
 	borderStyle: solid;
 	borderThickness: 1;
 	cornerRadius: 4;
+}
+
+.myUsername {
+	borderStyle: solid;
+	borderColor: #3B5997;
+	borderThickness: 1;
+	backgroundColor: #ffffff;
+	backgroundAlpha: 0.8;
+	borderAlpha: 0.1;
+	backgroundDisabledColor: #000000;
+	color: #ffffff;
+	fontSize: 12;
+	textAlign: left;
+	paddingTop: 0;
 }
 
 .White {
@@ -246,15 +264,17 @@ Button {
 	fontWeight: bold;
 }
 
+/*
 TextArea {
 	borderStyle: none;
 	borderThickness: 0;
 }
+*/
 
 .TextAreaH {
 	backgroundAlpha: 0.95;
-	backgroundColor: #D7E0E7;
-	borderColor: #B7BABC;
+	backgroundColor: #000000;
+	borderColor: #000000;
 	borderStyle: solid;
 	borderThickness: 4;
 	cornerRadius: 4;
@@ -290,9 +310,9 @@ TextArea {
 	paddingRight: 6;
 	verticalGap: 0;
 	horizontalGap: 6;
-	backgroundColor: #D7E0E7;
+	backgroundColor: #000000;
 	backgroundAlpha: 0.95;
-	borderColor: #B7BABC;
+	borderColor: #000000;
 	borderStyle: solid;
 	borderThickness: 4;
 	cornerRadius: 4;
@@ -339,7 +359,7 @@ TextArea {
 	borderColor: #FFFFFF;
 	themeColor: #B7BABC;
 	textSelectedColor: #666666;
-	color: #686C72;
+	color: #ffffff;
 	textRollOverColor: #979797;
 	paddingLeft: 2;
 	paddingRight: 2;
@@ -362,6 +382,7 @@ TextArea {
 	fontWeight: normal;
 }
 
+/*
 TextInput {
 	color: #3B5997;
 	fontFamily: Arial, Helvetica;
@@ -372,6 +393,7 @@ TextInput {
 	cornerRadius: 4;
 	alpha: 0.5;
 }
+*/
 
 .SettingsPanels {
 	backgroundColor: #ffffff;
@@ -427,6 +449,13 @@ fontSize: 9;
 color: #3B5997;
 }
 
+.Sett {
+	fontFamily: Arial, Helvetica;
+	fontSize: 9;
+	fontWeight: normal;
+	color: #000000;
+}
+
 .Black {
 	backgroundColor: #ff0000;
 	rollOverColor: #ff0000;
@@ -440,6 +469,7 @@ color: #3B5997;
 	textSelectedColor: #666666;
 }
 
+/*
 ScrollBar {
 up-arrow-skin: ClassReference(null);
 down-arrow-skin: ClassReference(null);
@@ -448,7 +478,33 @@ thumbUpSkin: Embed(source="../assets/ScrollBarThumb_up.png", scaleGridLeft="1", 
 thumbOverSkin: Embed(source="../assets/ScrollBarThumb_over.png", scaleGridLeft="1", scaleGridTop="4", scaleGridRight="5", scaleGridBottom="16");
 thumbDownSkin: Embed(source="../assets/ScrollBarThumb_down.png", scaleGridLeft="1", scaleGridTop="4", scaleGridRight="5", scaleGridBottom="16");
 }
+*/
 
+mx|TextArea {
+	verticalScrollBarStyleName: scrollBarStyle;
+	horizontalScrollBarStyleName: scrollBarStyle;
+}
+
+mx|TextInput {
+	verticalScrollBarStyleName: scrollBarStyle;
+	horizontalScrollBarStyleName: scrollBarStyle;
+}
+
+/** To compile with SDK 3.6
+   comment "thumbSkin: ClassReference("jabbercam.skins.JabberCamScrollBarSkin");" important! 
+un-comment "thumbSkin: ClassReference(null);" or leave it and use the "ScrollBar" class above
+
+*/
+
+.scrollBarStyle {
+	up-arrow-skin: ClassReference(null);
+	down-arrow-skin: ClassReference(null);
+	trackSkin: ClassReference(null);
+/*	thumbSkin: ClassReference(null); */
+	thumbSkin: ClassReference("jabbercam.skins.JabberCamScrollBarSkin");
+}
+
+/*
 ComboBox {
 openDuration : 500;
 fontFamily: Arial, Helvetica;
@@ -463,6 +519,7 @@ shadow-direction: 90;
 shadow-distance: 1px;
 drop-shadow-enabled:true;
 }
+*/
 
 .jabberCamButton {
 	corner-radius: 14;
