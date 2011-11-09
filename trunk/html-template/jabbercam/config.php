@@ -1,7 +1,7 @@
 <!--
 /**
  * VIDEOSOFTWARE.PRO
- * Copyright 2010 VideoSoftware.PRO
+ * Copyright 2011 VideoSoftware.PRO
  * All Rights Reserved.
  *
  * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License
@@ -26,8 +26,8 @@
 //SYSTEM SETTINGS
 
 /* Back-en location (exact location of functions.php on your domain | http://www.your_domain.com/[folder]/jabbercam/functions.php */
-$WEB_SERVICE_URL = "WEB_SERVICE_URL/jabbercam/functions.php";		// http://www.your_domain.com/jabbercam/functions.php
-$GOOGLE_APP_ID = "GOOGLE_MAPS_APP_ID";								// required for Google maps (to remove, read forum)
+$WEB_SERVICE_URL = "http://www.WEB_SERVICE_URL/jabbercam/functions.php";		// http://www.your_domain.com/jabbercam/functions.php
+$GOOGLE_APP_ID = "GOOGLE_MAPS_APP_ID";								            // required for Google maps (to remove, read forum)
 
 /* Optional database configuration for Red5, used to install database tables (for Red5 database configuration read forum) */
 $RED5_DB_HOST = "localhost";			//database host (server)
