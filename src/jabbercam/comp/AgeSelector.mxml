@@ -2,7 +2,7 @@
 <!--
 /**
 * VIDEOSOFTWARE.PRO
-* Copyright 2010 VideoSoftware.PRO
+* Copyright 2011 VideoSoftware.PRO
 * All Rights Reserved.
 *
 * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License
@@ -17,12 +17,12 @@
 */
 -->
 <mx:HSlider xmlns:mx="http://www.adobe.com/2006/mxml"
-	hideEffect="Fade" showEffect="Fade" width="100%" snapInterval="1"
-	labels="{AgeIntervals.intervals.source}"
-	minimum="0" maximum="{AgeIntervals.intervals.length-1}" top="10" tickColor="#ffffff" 
-	tickInterval="1" labelStyleName="sliderLabelStyle" labelOffset="30"
-	dataTipFormatFunction="{function():String{return AgeIntervals.intervals[value];}}"
-	liveDragging="true">
+			labels="{AgeIntervals.intervals.source}"
+			hideEffect="Fade" showEffect="Fade" liveDragging="true" labelStyleName="sliderLabel"
+			snapInterval="1" tickInterval="1" showDataTip="false"
+			minimum="0" maximum="{AgeIntervals.intervals.length-1}"  
+			dataTipFormatFunction="{function():String{return AgeIntervals.intervals[value];}}"
+			>
 	<mx:Script>
 		<![CDATA[
 			import jabbercam.lang.AgeIntervals;

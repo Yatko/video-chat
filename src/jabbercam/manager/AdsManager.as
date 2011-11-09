@@ -1,6 +1,6 @@
 /**
  * VIDEOSOFTWARE.PRO
- * Copyright 2010 VideoSoftware.PRO
+ * Copyright 2011 VideoSoftware.PRO
  * All Rights Reserved.
  *
  * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License
@@ -54,7 +54,7 @@ package jabbercam.manager
 		
 		private function complete(e : Event) : void {
 			var text : String = e.target.data as String;
-			text = text.replace(/\r+|(?:\r\n)+|\n+/g, '\n');
+			text = text.replace(/\r+/g, '\n').replace(/\n+/g, '\n');
 			
 			lines = text.split('\n');
 			

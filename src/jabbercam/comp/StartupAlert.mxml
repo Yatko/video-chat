@@ -2,7 +2,7 @@
 <!--
 /**
 * VIDEOSOFTWARE.PRO
-* Copyright 2010 VideoSoftware.PRO
+* Copyright 2011 VideoSoftware.PRO
 * All Rights Reserved.
 *
 * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License
@@ -33,7 +33,8 @@
 		<mx:Text text="Type in your name in the box below than press Enter." color="#B0BAD0" textAlign="center" paddingTop="0"/>
 		<mx:HBox horizontalAlign="center" width="100%">
 			<mx:FormItem label="Name" required="true" color="#ffffff">
-				<mx:TextInput id="username" width="101" color="#3B5997" fontWeight="bold" borderStyle="solid" cornerRadius="4" />
+				<mx:TextInput id="username" width="101" color="#3B5997" fontWeight="bold" borderStyle="solid" cornerRadius="4"
+							  creationComplete="username_creationCompleteHandler(event)"/>
 			</mx:FormItem>
 			<mx:FormItem>
 				<mx:Button label="ENTER" id="submit" width="71" color="#3B5997"/>
@@ -47,8 +48,8 @@
 		<mx:Button skin="@Embed(source='../assets/facebook.png')" toolTip="{Application.application.lang.facebookTooltip}" click="Application.application.onSocialButtonClick(Application.application.lang.getSetting('facebookLink'))" buttonMode="true" right="10" top="40"/>
 		<mx:Button skin="@Embed(source='../assets/googlebuzz.png')" toolTip="{Application.application.lang.buzzTooltip}" click="Application.application.onSocialButtonClick(Application.application.lang.getSetting('buzzLink'))" buttonMode="true" right="10" top="65"/>
 		<mx:Button skin="@Embed(source='../assets/twitter.png')" toolTip="{Application.application.lang.twitterTooltip}" click="Application.application.onSocialButtonClick(Application.application.lang.getSetting('twitterLink'))" buttonMode="true" right="10" top="90"/>
-		<mx:Button skin="@Embed(source='../assets/myspace.png')" toolTip="{Application.application.lang.myspaceTooltip}" click="Application.application.onSocialButtonClick(Application.application.lang.getSetting('myspaceLink'))" buttonMode="true" right="10" top="115"/>
-		<mx:Button skin="@Embed(source='../assets/jabbercam.png')" toolTip="Start your own video chat website! Get the program and the source code. Click here for more information." click="Application.application.onSocialButtonClick('http://videosoftware.pro/index.php/products/rvc/')" buttonMode="true" right="10" top="140"/>
+		<!--- <mx:Button skin="@Embed(source='../assets/myspace.png')" toolTip="{Application.application.lang.myspaceTooltip}" click="Application.application.onSocialButtonClick(Application.application.lang.getSetting('myspaceLink'))" buttonMode="true" right="10" top="115"/> -->
+		<mx:Button skin="@Embed(source='../assets/jabbercam.png')" toolTip="{Application.application.lang.rvcTooltip}" click="Application.application.onSocialButtonClick(Application.application.lang.getSetting('rvcLink'))" buttonMode="true" right="10" top="140"/>
 	</mx:HBox>
 	<mx:Script>
 		<![CDATA[
@@ -59,6 +60,7 @@
 			import jabbercam.manager.events.IdManagerEvent;
 			
 			import mx.core.Application;
+			import mx.events.FlexEvent;
 			import mx.events.ValidationResultEvent;
 			import mx.managers.CursorManager;
 			import mx.rpc.CallResponder;
@@ -73,7 +75,7 @@
 			private var banned : Boolean = false;
 			
 			public static function showSettingsPanel() : void {
-				if(firstTime)
+				if(firstTime) {
 				try {
 //					var conn : NetConnection = new NetConnection();
 //					conn.connect(null);
@@ -85,7 +87,7 @@
 				} catch(e : Error) {
 					
 				}
-				else
+				}else
 				Security.showSettings(SecurityPanel.PRIVACY);
 				firstTime = false;
 			}
@@ -181,6 +183,25 @@
 				}
 				CursorManager.removeBusyCursor();
 			}
+
+			protected function username_creationCompleteHandler(event:FlexEvent):void
+			{
+				
+				username.text = generateRandomUsername();
+			}
+			
+			static public function generateRandomUsername() : String {
+				var name : String = "";
+				while(name.length < 6) {
+					name += String.fromCharCode(Math.round(Math.random()*25+65));
+				}
+				name = name.toLowerCase();
+				//first character to upper case
+				//name = name.charAt(0).toUpperCase()+name.toLowerCase().substring(1);
+				
+				return name;
+			}
+
 		]]>
 	</mx:Script>
 </mx:Panel>
