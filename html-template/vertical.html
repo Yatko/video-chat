@@ -2,7 +2,7 @@
 <!--
 /**
  * VIDEOSOFTWARE.PRO
- * Copyright 2010 VideoSoftware.PRO
+ * Copyright 2011 VideoSoftware.PRO
  * All Rights Reserved.
  *
  * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License
@@ -18,24 +18,54 @@
 -->
 <html>
 	<head>
-		<title>JabberCam | Random Video Chat</title>
-		<meta name="Generator" content="JabberCam">
-		<meta name="Author" content="www.videosoftware.pro">
-		<meta name="Keywords" content="random video chat, video chat script, webcam chat, video chat">
-		<meta name="Description" content="JabberCam, open source random video chat.">
+		<title>Video Chat | RVC Random Video Chat</title>
+		<meta name="generator" content="RVC">
+		<meta name="author" content="www.videosoftware.pro">
+		<meta name="keywords" content="video chat, video call, random video chat, video chat script, free video chat, chatroulette, chatroulette alternative, chatroulette clone, chat roulette software, best chat roulette">
+		<meta name="description" content="Video chat and random video chat with source code download. Highest customer-rated video chat script, including language support, Speed Dating, GeoIP location and more...">
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-		
-		<link rel="stylesheet" type="text/css" href="jabbercam/stylesheet.css" />
 		<!--  BEGIN Browser History required section -->
-		<link rel="stylesheet" type="text/css" href="jabbercam/history/history.css" />
+		<style>
+			/* This CSS stylesheet also defines styles used by required elements in a flex application page that supports browser history */
+
+			#ie_historyFrame	{ width: 0px; height: 0px; display:none }
+			#firefox_anchorDiv	{ width: 0px; height: 0px; display:none }
+			#safari_formDiv		{ width: 0px; height: 0px; display:none }
+			#safari_rememberDiv	{ width: 0px; height: 0px; display:none }
+			
+			img#bg			{position:fixed;top:0;left:0;width:100%;height:100%;}
+			#download		{position:absolute;top:0;right:0;width:120px;height:14px;color:#fff;background-color:#ff0000;text-align:center;}
+			#page			{position:relative;z-index:1;}
+			#floater		{float:left; height:50%; margin-bottom:-244px;}
+			#top			{float:right; width:100%; text-align:center;}
+			#content		{clear:both; width:670px; height:488px; position:relative;margin-left: auto;margin-right:auto ;}
+			#bottom			{float:right; width:100%; text-align:center;}
+			#social			{width:646px;text-align:center;margin-left: auto;margin-right:auto ;padding-top:40px;padding-left:18px;}
+			/* #social			{ position:absolute;top:0;right:0;width:200px;padding:20px;}
+			*/
+			body			{font-family:Arial,Verdana,Sans;color:#606060;font-size:62.5%;background="../jabbercam/media/images/BgImage6.jpg";}
+			a:link			{color:#fff;text-decoration:none;font-size:21px;font-weight:bold;}
+			a:visited		{color:#fff;text-decoration:none;}
+			a:hover			{text-decoration:none;}
+			h1 a:link		{font-size:18px;}
+
+		</style>
+	<!--[if IE 6]>
+		<style type="text/css">
+			html { overflow-y: hidden; }
+			body { overflow-y: auto; }
+			img#bg { position:absolute; z-index:-1; }
+			#page { position:static; }
+		</style>
+	<![endif]-->
 		<!--  END Browser History required section -->
-		<script src="jabbercam/AC_OETags.js" language="javascript"></script>
+		<script src="jabbercam/AC_OETags.js"></script>
 		<!--  BEGIN Browser History required section -->
-		<script src="jabbercam/history/history.js" language="javascript"></script>
+		<script src="jabbercam/history/history.js"></script>
 		<!--  END Browser History required section -->
 
-		<script language="JavaScript" type="text/javascript">
+		<script type="text/javascript">
 		<!--
 		// -----------------------------------------------------------------------------
 		// Globals
@@ -48,123 +78,59 @@
 		// -----------------------------------------------------------------------------
 		// -->
 		</script>
+
 	</head>
 
 	<body>
-		<!--<div id="header">
-		Welcome to JabberCam, the Open Source Random Video Chat!
+	    <img src="jabbercam/media/images/BgImage.jpg" alt="background image" id="bg" name="background"/>
+	    <div id="page">
+		<div id="download"><a href="http://www.videosoftware.pro/products/rvc" target="_blank" style="font-size:11px;font-weight:normal;">download this software</a></div>
+	    <!-- title -->
+		<div id="top">
+		    
+			<h1 style="color:#fff;margin:4px;"><a href="http://videosoftware.pro/products/rvc/" target="_blank">Video Chat</a></h1>
+		    
 		</div>
-		-->	
-		<div id="adspace_v1">
-				<div style="float: left;">
-				<script type="text/javascript"><!--
-				google_ad_client = "pub-5297748103482341";
-				/* JabberCam Image Ad 468x60 */
-				google_ad_slot = "4516481492";
-				google_ad_width = 468;
-				google_ad_height = 60;
-				//-->
-				</script>
-				<script type="text/javascript"
-				src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
-				</script>
-
-				</div>
-				<div style="float: right;">
-				<script type="text/javascript"><!--
-				google_ad_client = "pub-5297748103482341";
-				/* JabberCam Image Ad 468x60 */
-				google_ad_slot = "4516481492";
-				google_ad_width = 468;
-				google_ad_height = 60;
-				//-->
-				</script>
-				<script type="text/javascript"
-				src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
-				</script>
-				</div>
+		<div id="floater"></div>
+	    <!-- video chat -->
+		<div id="content">
+		    <object id="JabberCam" width="670" height="488">
+			<param name="movie" value="JabberCam_v.swf" codebase="http://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab"/>
+			<param name="quality" value="high" />
+			<param name="bgcolor" value="#3B5997" />
+			<param name="scale" value="noscale" />
+			<param name="allowFullScreen" value="true" />
+			<param name="allowscriptaccess" value="always" />
+			<param name="base" value="http://demo.videosoftware.pro/rvc/" />
+			<param name="wmode" value="transparent" />
+			<embed name="JabberCam" src="JabberCam_v.swf" loop="false" quality="high" play="true" bgcolor="#3B5997" width="670" height="488" align="middle" scale="noscale" wmode="transparent" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflashplayer" base="http://demo.videosoftware.pro/rvc/" allowscriptaccess="always" allowfullscreen="true"></embed>
+		    </object>		
 		</div>
-		<div id="body_v">
-			<script language="JavaScript" type="text/javascript">
-					<!--
-					// Version check for the Flash Player that has the ability to start Player Product Install (6.0r65)
-					var hasProductInstall = DetectFlashVer(6, 0, 65);
-
-					// Version check based upon the values defined in globals
-					var hasRequestedVersion = DetectFlashVer(requiredMajorVersion, requiredMinorVersion, requiredRevision);
-
-					if ( hasProductInstall && !hasRequestedVersion ) {
-						// DO NOT MODIFY THE FOLLOWING FOUR LINES
-						// Location visited after installation is complete if installation is required
-						var MMPlayerType = (isIE == true) ? "ActiveX" : "PlugIn";
-						var MMredirectURL = window.location;
-						document.title = document.title.slice(0, 47) + " - Flash Player Installation";
-						var MMdoctitle = document.title;
-
-						AC_FL_RunContent(
-							"src", "jabbercam/playerProductInstall",
-							"FlashVars", "MMredirectURL="+MMredirectURL+'&MMplayerType='+MMPlayerType+'&MMdoctitle='+MMdoctitle+"",
-							"width", "100%",
-							"height", "621",
-							"align", "middle",
-							"id", "JabberCam",
-							"quality", "high",
-							"bgcolor", "#3B5997",
-							"name", "JabberCam",
-							"allowScriptAccess","sameDomain",
-							"type", "application/x-shockwave-flash",
-							"pluginspage", "http://www.adobe.com/go/getflashplayer"
-						);
-					} else if (hasRequestedVersion) {
-						// if we've detected an acceptable version
-						// embed the Flash Content SWF when all tests are passed
-						AC_FL_RunContent(
-								"src", "JabberCam_v",
-								"width", "100%",
-								"height", "621",
-								"align", "middle",
-								"id", "JabberCam",
-								"quality", "high",
-								"bgcolor", "#3B5997",
-								"name", "JabberCam",
-								"allowScriptAccess","sameDomain",
-								"type", "application/x-shockwave-flash",
-								"pluginspage", "http://www.adobe.com/go/getflashplayer"
-						);
-					  } else {  // flash is too old or we can't detect the plugin
-						var alternateContent = 'Alternate HTML content should be placed here. '
-						+ 'This content requires the Adobe Flash Player. '
-						+ '<a href=http://www.adobe.com/go/getflash/>Get Flash</a>';
-						document.write(alternateContent);  // insert non-flash content
-					  }
-					// -->
-					</script>
-
-					<noscript>
-						<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" id="JabberCam" width="100%" height="621"	codebase="http://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab">
-								<param name="movie" value="JabberCam_v.swf" />
-								<param name="quality" value="high" />
-								<param name="bgcolor" value="#3B5997" />
-
-								<param name="allowScriptAccess" value="sameDomain" />
-								<embed src="JabberCam_v.swf" quality="high" bgcolor="#000000"
-									width="100%" height="621" name="JabberCam" align="middle"
-									play="true"
-									loop="false"
-
-									quality="high"
-									allowScriptAccess="sameDomain"
-									type="application/x-shockwave-flash"
-									pluginspage="http://www.adobe.com/go/getflashplayer">
-								</embed>
-						</object>
-					</noscript>
+	    <!-- background -->
+		<div id="bottom">
+		    <a href="#" onclick="background.src='jabbercam/media/images/BgImage1.jpg'">&#9679;</a>
+		    <a href="#" onclick="background.src='jabbercam/media/images/BgImage2.jpg'">&#9679;</a>
+		    <a href="#" onclick="background.src='jabbercam/media/images/BgImage3.jpg'">&#9679;</a>
+		    <a href="#" onclick="background.src='jabbercam/media/images/BgImage4.jpg'">&#9679;</a>
+		    <a href="#" onclick="background.src='jabbercam/media/images/BgImage5.jpg'">&#9679;</a>
+		    <a href="#" onclick="background.src='jabbercam/media/images/BgImage6.jpg'">&#9679;</a>
+		    <a href="#" onclick="background.src='jabbercam/media/images/BgImage7.jpg'">&#9679;</a>
+		    <a href="#" onclick="background.src='jabbercam/media/images/BgImage.jpg'" style="color:#6C6E71;">&#9679;</a>
 		</div>
-		<div id="footer_v">
-			<div id="adspace_v2">
-				<iframe src="http://www.facebook.com/plugins/likebox.php?id=373684374832&amp;width=897&amp;connections=34&amp;stream=false&amp;header=true&amp;height=287" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:897px; height:287px;" allowTransparency="true"></iframe>
-			</div>
+	    <!-- facebook like and Google +1 -->
+	    	<div id="social">
+		    <!-- Facebook Like BEGIN --> 
+		    <iframe src="http://www.facebook.com/plugins/like.php?app_id=164022367006916&amp;href=facebook.com%2FJabberCam&amp;send=false&amp;layout=button_count&amp;width=112&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:112px; height:21px;" allowTransparency="true"></iframe>
+		    <!-- Facebook Like END --> 
+		    <g:plusone size="medium" href="http://www.jabbercam.com/"></g:plusone>
 		</div>
-		
+	</div>
+	<script type="text/javascript">
+	    (function() {
+	      var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+	      po.src = 'https://apis.google.com/js/plusone.js';
+	      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+	    })();
+	</script>
 	</body>
 </html>

@@ -1,7 +1,6 @@
-
 <html>
 <head>
-<title>login sample for RVC</title>
+<title>Login JabberCam</title>
 
 <script type="text/javascript">
 function checkSubmit() {
