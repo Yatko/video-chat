@@ -1,9 +1,9 @@
-#summary JaberCam Random Video Chat (Open Source).
-#labels Phase-Requirements
+#summary Govido Random Video Chat (Open Source).
+#labels Phase-Requirements,Govido,VideoChat
 
 = Introduction =
 
-Open Source version of the RVC random video chat software, built with Adobe Flash Builder (Flex) and based on Adobe Cirrus/AFMS or Red5. The initial project is based on RVC v4.0, the software that powered JabberCam for over five months and brought the popularity to this website.
+Open Source version of the RVC random video chat software, built with Adobe Flash Builder (Flex) and based on Adobe Cirrus/AFMS or Red5. The initial project is based on RVC v4.0, the software that powered Govido for over five months and brought the popularity to this website.
 
 Future: we will further develop RVC Open Source and kindly ask you to join us with posting your ideas and contribution in order to create a better random video chat that is available to everyone, for free:
 http://www.videosoftware.pro/forum/THREAD-Open-Source-Video-Chat
