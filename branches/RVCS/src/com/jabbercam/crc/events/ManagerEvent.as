@@ -13,6 +13,7 @@ package com.jabbercam.crc.events
 		public static const FIND_PEERS_RESPONSE : String = "findPeersResponse";
 		public static const CONNECT_TO_PEER_RESPONSE : String = "connectToPeerResponse";
 		public static const DISCONNECT_FROM_PEER_RESPONSE : String = "disconnectFromPeer";
+		public static const NUM_USERS_REPONSE : String = "numUsersReponse";
 		
 		public var response : Object;
 		
