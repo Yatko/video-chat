@@ -20,7 +20,7 @@ import flash.utils.Endian;
 import flash.utils.Timer;
 
 import mx.events.PropertyChangeEvent;
-//import mx.formatters.DateFormatter;
+import mx.formatters.DateFormatter;
 
 import org.osmf.events.TimeEvent;
 
@@ -62,7 +62,7 @@ public var numUsersOnline : int = 0;
 
 [Bindable]
 public var autoNext : Boolean = true;
-private var _autoNextTime : int = 600;
+private var _autoNextTime : int = 5;
 private var _autoNextTimer : Timer;
 
 public function loadConfig(src : String) : void {
@@ -227,7 +227,7 @@ crc function onManagerStatusChanged(event : PropertyChangeEvent) : void {
 			
 			setupAutoNext();
 		} else if(((manager.status & Status.STARTED) >> 3) && (manager.status & Status.CALLING)) {
-			startBut.label = "Searching";
+			startBut.label = "Switching";
 		}  else if(!((manager.status & Status.STARTED) >> 3) && (manager.status & Status.READY)) {
 			if((manager.status & Status.CONNECTED) >> 2) {
 				startBut.label = "Again";
@@ -468,14 +468,12 @@ private function onMessageReceived(message:String) : void {
 }
 
 public function putMessage(message : String, sender : String) : void {
-//	var fmt : DateFormatter = new DateFormatter();
-//	fmt.formatString = "HH:NN:SS";
-//	textOut.text += fmt.format(new Date())+" "+sender+": "+message+"\n";
-	textOut.text += sender+": "+message+"\n";
+	var fmt : DateFormatter = new DateFormatter();
+	fmt.formatString = "HH:NN:SS";
+	textOut.text += fmt.format(new Date())+" "+sender+": "+message+"\n";
 }
 
 public function sendMessage(message : String) : void {
-	if(_sendStream)
 	_sendStream.send("onMessage", message);
 }
 
@@ -573,7 +571,5 @@ crc function changeMic(mic : Microphone) : void {
 crc function changeCamera(camera : Camera) : void {
 	if(_sendStream) {
 		_sendStream.attachCamera(camera);
-		camera.setMode(320, 240, 30);
-		camera.setQuality(0, 95);
 	}
 }

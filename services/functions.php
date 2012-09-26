@@ -21,6 +21,9 @@ if(isset($_GET['method'])) {
 		case 'disconnectpeer':
 			$method = METHOD_DISCONNECT_FROM_PEER;
 			break;
+		case 'getnumusers':
+			$method = METHOD_GET_NUM_USERS;
+			break;
 		default:
 			$method = METHOD_UPDATE;
 	}
@@ -79,12 +82,33 @@ if(file_exists('files/index') && $index < (int)(filesize('files/index')/INDEX_BL
 		}
 		
 		fwrite($f, pack('Ci',$byte['inf'],time()));
+		
+		if($method == METHOD_GET_NUM_USERS) {
+			fseek($f, 0, SEEK_SET);
+			$pos = 0;
+			$peers_online = 0;
+			while(($read=fread($f,100)) != false) {
+				$i=0;
+				while($i*INDEX_BLOCK_SIZE < strlen($read)) {
+					$bytes = unpack('Cinf/itm',substr($read, $i*INDEX_BLOCK_SIZE, INDEX_BLOCK_SIZE));
+					if($i+$pos != $index && ($bytes['inf'] & 3) == 3 && $bytes['tm']>=time()-TIME_TO_LIVE)
+						$peers_online++;
+					
+					$i++;
+				}
+				
+				$pos += intval(strlen($read)/INDEX_BLOCK_SIZE);
+			}
+		}
 	}
 	
 	flock($f, LOCK_UN);
 	fclose($f);
 	
-	echo pack('C', true);
+	if($method == METHOD_GET_NUM_USERS)
+		echo pack('N',$peers_online);
+	else
+		echo pack('C', true);
 	exit;
 }
 echo pack('C', false);
