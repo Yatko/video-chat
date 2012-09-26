@@ -1,6 +1,6 @@
 <?php
-$WEB_SERVICE_URL = 'http://localhost/yatko.dev/PRJ/RVCS/services/connect.php';
-$DEVELOPER_KEY = '';
+$WEB_SERVICE_URL = 'http://localhost/CRC/services/connect.php';
+$DEVELOPER_KEY = 'b98303e80ed756f27297edef-272816eb91e1';
 $CAMERA_REQUIRED = false;
 $SPEAKER_VOLUME = 70;
 $MICROPHONE_VOLUME = 50;
