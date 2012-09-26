@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:mx="library://ns.adobe.com/flex/mx" 
+				xmlns:crc="com.jabbercam.crc.*" layout="absolute" width="100%" height="100%"
+				applicationComplete="application1_applicationCompleteHandler(event)">
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+
+			protected function application1_applicationCompleteHandler(event:FlexEvent):void
+			{
+				loadConfig('http://localhost/CRC/services/config.php?setts');
+			}
+
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Script source="CRC.as" />
+	<mx:VDividedBox x="0" y="0" width="100%" height="100%" >
+		<mx:Canvas width="100%" height="100%" id="videoContainer">
+			<crc:ManipulatedComponent width="200" height="150" x="30" y="40">
+				<crc:VideoRenderer width="100%" height="100%" backgroundColor="#ff0000" />
+			</crc:ManipulatedComponent>
+			<crc:ManipulatedComponent width="80" height="60" x="280" y="70" minWidth="100" minHeight="75" keepAspect="true">
+				<crc:VideoRenderer width="100%" height="100%" backgroundColor="#00ff00"
+								   camera="{Camera.getCamera()}"/>
+			</crc:ManipulatedComponent>
+		</mx:Canvas>
+		<mx:VBox width="100%" height="60%" id="chatContainer">
+		</mx:VBox>
+	</mx:VDividedBox>
+</mx:Application>
