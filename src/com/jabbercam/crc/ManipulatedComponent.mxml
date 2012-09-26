@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		   xmlns:mx="library://ns.adobe.com/flex/mx" width="400" height="300" clipContent="true"
+		   mouseDown="canvas1_mouseDownHandler(event)" creationComplete="canvas1_creationCompleteHandler(event)"
+		   horizontalScrollPolicy="off" verticalScrollPolicy="off">
+	<fx:Script>
+		<![CDATA[
+			import mx.core.UIComponent;
+			import mx.events.FlexEvent;
+			import mx.olap.aggregators.MinAggregator;
+
+			
+			public static const T : int = 1;
+			public static const R : int = 2;
+			public static const B : int = 4;
+			public static const L : int = 8;
+			
+			protected var _moving : Boolean = false;
+			protected var _direction : int = 0;
+			protected var _lastPosition : Point = null;
+			
+			public var visibleCorner : UIComponent;
+
+			protected function visibleCorner_updateCompleteHandler(event:FlexEvent):void
+			{
+				visibleCorner.graphics.clear();
+				visibleCorner.graphics.beginFill(0x888888,0.5);
+				visibleCorner.graphics.moveTo(Math.max(visibleCorner.width-20,0),0);
+				visibleCorner.graphics.lineTo(visibleCorner.width,0);
+				visibleCorner.graphics.lineTo(visibleCorner.width, Math.min(20,visibleCorner.height));
+				visibleCorner.graphics.lineTo(Math.max(visibleCorner.width-20,0),0);
+				visibleCorner.graphics.endFill();
+			}
+
+
+			protected function canvas1_mouseDownHandler(event:MouseEvent):void
+			{
+				stage.addEventListener(MouseEvent.MOUSE_MOVE, canvas1_mouseMoveHandler);
+				stage.addEventListener(MouseEvent.MOUSE_UP, canvas1_mouseUpHandler);
+				stage.addEventListener(Event.MOUSE_LEAVE, canvas1_mouseUpHandler);
+				
+				if(new Rectangle(20, 20, visibleCorner.width - 40, visibleCorner.height-40).
+					contains(visibleCorner.mouseX, visibleCorner.mouseY)) {
+					_moving = true;
+					_lastPosition = new Point(visibleCorner.mouseX, visibleCorner.mouseY);
+				} else {
+					_moving = false;
+					_direction = 0;
+					
+					if(visibleCorner.mouseX < 20) {
+						_direction |= L;
+					} else if(visibleCorner.mouseX > visibleCorner.width - 20) {
+						_direction |= R;
+					}
+					
+					if(visibleCorner.mouseY < 20) {
+						_direction |= T;
+					} else if(visibleCorner.mouseY > visibleCorner.height - 20) {
+						_direction |= B;
+					}
+				}
+				
+				parent.setChildIndex(this, parent.numChildren - 1);
+			}
+
+
+			protected function canvas1_mouseUpHandler(event:MouseEvent):void
+			{
+				stage.removeEventListener(MouseEvent.MOUSE_MOVE, canvas1_mouseMoveHandler);
+				stage.removeEventListener(MouseEvent.MOUSE_UP, canvas1_mouseUpHandler);
+				stage.removeEventListener(Event.MOUSE_LEAVE, canvas1_mouseUpHandler);
+			}
+
+
+			protected function canvas1_mouseMoveHandler(event:MouseEvent):void
+			{
+				if(_moving) {
+					var newPos : Point = new Point(x + visibleCorner.mouseX - _lastPosition.x,
+							y + visibleCorner.mouseY - _lastPosition.y);
+					if(newPos.x < 0)
+						newPos.x = 0;
+					if(newPos.y < 0)
+						newPos.y = 0;
+					if(newPos.x + visibleCorner.width > parent.width)
+						newPos.x = parent.width - visibleCorner.width;
+					if(newPos.y + visibleCorner.height > parent.height)
+						newPos.y = parent.height - visibleCorner.height;
+					
+					this.x = newPos.x;
+					this.y = newPos.y;
+					
+					_lastPosition = new Point(visibleCorner.mouseX, visibleCorner.mouseY);
+				} else {
+					var widthGain : Number;
+					var newRect : Rectangle = new Rectangle(x, y, width, height);
+					if(_direction & L) {
+						widthGain = -visibleCorner.mouseX;
+						newRect.width += widthGain;
+						newRect.x -= widthGain;
+					} else if(_direction & R) {
+						widthGain = visibleCorner.mouseX - width;
+						newRect.width += widthGain;
+					}
+					
+					var heightGain : Number;
+					if(_direction & T) {
+						heightGain = keepAspect && !isNaN(widthGain)?widthGain * 3/4:-visibleCorner.mouseY;
+						newRect.height += heightGain;
+						newRect.y -= heightGain;
+					} else if(_direction & B) {
+						heightGain = keepAspect && !isNaN(widthGain)?widthGain*3/4:visibleCorner.mouseY - height;
+						newRect.height += heightGain;
+					} else if(widthGain && keepAspect) {
+						newRect.height += widthGain*3/4;
+					}
+					
+					if(isNaN(widthGain) && keepAspect && !isNaN(heightGain)) {
+						newRect.width += 4/3*heightGain;
+					}
+					
+					var minWidth : Number = minWidth?minWidth:80;
+					var minHeight : Number = minHeight?minHeight:60;
+					if(newRect.width < minWidth) {
+						newRect.width = minWidth;
+						if(keepAspect)
+							newRect.height = newRect.width * 3/4;
+					}
+					if(newRect.height < minHeight) {
+						newRect.height = minHeight;
+						if(keepAspect)
+							newRect.width = newRect.height * 4/3;
+					}
+					if(newRect.width > parent.width) {
+						newRect.width = parent.width;
+						if(keepAspect)
+							newRect.height = newRect.width*3/4;
+					}
+					if(newRect.height > parent.height) {
+						newRect.height = parent.height;
+						if(keepAspect) {
+							newRect.width = newRect.height * 4/3;
+						}
+					}
+					if(newRect.x + newRect.width > parent.width) {
+						newRect.width = parent.width - newRect.x;
+						if(keepAspect) {
+							newRect.height = newRect.width*3/4;
+						}
+					}
+					if(newRect.y + newRect.height > parent.height) {
+						newRect.height = parent.height - newRect.y;
+						if(keepAspect) {
+							newRect.width = newRect.height * 4/3;
+						}
+					}
+					if(newRect.x < 0) {
+						newRect.width += newRect.x;
+						if(keepAspect) {
+							newRect.height = newRect.width * 3/4;
+						}
+						newRect.x = 0;
+					}
+					if(newRect.y < 0) {
+						newRect.height += newRect.y;
+						if(keepAspect) {
+							newRect.width = newRect.height * 4/3;
+						}
+						newRect.y = 0;
+					}
+					
+					width = newRect.width;
+					height = newRect.height;
+					move(newRect.x, newRect.y);
+				}
+			}
+
+
+			protected function canvas1_creationCompleteHandler(event:FlexEvent):void
+			{
+				visibleCorner = new UIComponent();
+				visibleCorner.name = "visibleCorner";
+				visibleCorner.percentWidth = 100;
+				visibleCorner.percentHeight = 100;
+				visibleCorner.addEventListener(FlexEvent.UPDATE_COMPLETE, visibleCorner_updateCompleteHandler);
+				addChild(visibleCorner);
+			}
+
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<fx:Boolean id="keepAspect">false</fx:Boolean>
+	</fx:Declarations>
+</mx:Canvas>

@@ -1,20 +1,41 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<actionScriptProperties analytics="false" mainApplicationPath="JabberCam.mxml" projectUUID="1afe796d-ca39-40d4-8282-77601c11b0f0" version="10">
-  <compiler additionalCompilerArguments="-locale en_US -define+=CONFIG::DEBUGGING,false &quot;-define+=CONFIG::RELEASE,CONFIG::DEBUGGING == false&quot;" autoRSLOrdering="false" copyDependentFiles="true" flexSDK="Flex 4.5" fteInMXComponents="false" generateAccessible="false" htmlExpressInstall="true" htmlGenerate="false" htmlHistoryManagement="true" htmlPlayerVersionCheck="true" includeNetmonSwc="false" outputFolderPath="bin-debug" removeUnusedRSL="true" sourceFolderPath="src" strict="true" targetPlayerVersion="10.2.0" useApolloConfig="false" useDebugRSLSwfs="true" verifyDigests="true" warn="true">
+<actionScriptProperties mainApplicationPath="CRC.mxml" projectUUID="49b19739-a3be-4bbe-ae8d-3a2dd12de3b8" version="6">
+  <compiler additionalCompilerArguments="-locale en_US" autoRSLOrdering="true" copyDependentFiles="true" fteInMXComponents="false" generateAccessible="true" htmlExpressInstall="true" htmlGenerate="true" htmlHistoryManagement="true" htmlPlayerVersionCheck="true" includeNetmonSwc="true" outputFolderPath="bin-debug" sourceFolderPath="src" strict="true" targetPlayerVersion="0.0.0" useApolloConfig="false" useDebugRSLSwfs="true" verifyDigests="true" warn="true">
     <compilerSourcePath/>
     <libraryPath defaultLinkType="1">
-      <libraryPathEntry kind="4" path=""/>
+      <libraryPathEntry kind="4" path="">
+        <modifiedEntries>
+          <libraryPathEntry index="6" kind="3" linkType="4" path="${PROJECT_FRAMEWORKS}/libs/rpc.swc" useDefaultLinkType="true">
+            <crossDomainRsls>
+              <crossDomainRslEntry autoExtract="true" policyFileUrl="http://fpdownload.adobe.com/pub/swz/crossdomain.xml" rslUrl="http://fpdownload.adobe.com/pub/swz/flex/4.0.0.14159/rpc_4.0.0.14159.swz"/>
+              <crossDomainRslEntry autoExtract="true" policyFileUrl="" rslUrl="rpc_4.0.0.14159.swz"/>
+            </crossDomainRsls>
+          </libraryPathEntry>
+        </modifiedEntries>
+        <excludedEntries>
+          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/flex.swc" useDefaultLinkType="false"/>
+          <libraryPathEntry index="5" kind="3" linkType="4" path="${PROJECT_FRAMEWORKS}/libs/sparkskins.swc" useDefaultLinkType="true">
+            <crossDomainRsls>
+              <crossDomainRslEntry autoExtract="true" policyFileUrl="http://fpdownload.adobe.com/pub/swz/crossdomain.xml" rslUrl="http://fpdownload.adobe.com/pub/swz/flex/4.0.0.14159/sparkskins_4.0.0.14159.swz"/>
+              <crossDomainRslEntry autoExtract="true" policyFileUrl="" rslUrl="sparkskins_4.0.0.14159.swz"/>
+            </crossDomainRsls>
+          </libraryPathEntry>
+          <libraryPathEntry index="4" kind="3" linkType="4" path="${PROJECT_FRAMEWORKS}/libs/spark.swc" useDefaultLinkType="true">
+            <crossDomainRsls>
+              <crossDomainRslEntry autoExtract="true" policyFileUrl="http://fpdownload.adobe.com/pub/swz/crossdomain.xml" rslUrl="http://fpdownload.adobe.com/pub/swz/flex/4.0.0.14159/spark_4.0.0.14159.swz"/>
+              <crossDomainRslEntry autoExtract="true" policyFileUrl="" rslUrl="spark_4.0.0.14159.swz"/>
+            </crossDomainRsls>
+          </libraryPathEntry>
+        </excludedEntries>
+      </libraryPathEntry>
       <libraryPathEntry kind="1" linkType="1" path="libs"/>
     </libraryPath>
     <sourceAttachmentPath/>
   </compiler>
   <theme themeIsDefault="false" themeIsSDK="true" themeLocation="${SDK_THEMES_DIR}/frameworks/themes/Halo"/>
   <applications>
-    <application path="Red5Tester.mxml"/>
-    <application path="JabberCam_v.mxml"/>
-    <application path="JabberCam.mxml"/>
+    <application path="CRC.mxml"/>
   </applications>
   <modules/>
   <buildCSSFiles/>
-  <flashCatalyst validateFlashCatalystCompatibility="false"/>
 </actionScriptProperties>

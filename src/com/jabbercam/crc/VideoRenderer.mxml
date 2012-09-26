@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		   xmlns:mx="library://ns.adobe.com/flex/mx" width="400" height="300">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			import mx.events.ResizeEvent;
+			
+			protected var _video : Video;
+			
+			protected var _netStream : NetStream;
+			
+			protected var _camera : Camera;
+			
+			[Bindable]
+			public function set netStream(value : NetStream) : void {
+				_netStream = value;
+				
+				if(_video) {
+					_video.attachNetStream(_netStream);
+				}
+			}
+			
+			public function get netStream() : NetStream {
+				return _netStream;
+			}
+			
+			[Bindable]
+			public function set camera(value : Camera) : void {
+				_camera = value;
+				
+				if(_video) {
+					_video.attachCamera(_camera);
+				}
+			}
+			
+			public function get camera() : Camera {
+				return _camera;
+			}
+
+			protected function videoContainer_resizeHandler(event:ResizeEvent):void
+			{
+				if(_video) {
+					_video.width = videoContainer.width;
+					_video.height = videoContainer.height;
+				}
+			}
+
+
+			protected function videoContainer_creationCompleteHandler(event:FlexEvent):void
+			{
+				_video = new Video(videoContainer.width, videoContainer.height);
+				_video.smoothing = true;
+				videoContainer.addChild(_video);
+				
+				if(_netStream)
+					_video.attachNetStream(_netStream);
+				else if(_camera)
+					_video.attachCamera(_camera);
+			}
+
+			public function stopVideo() : void {
+				if(_video) {
+					_video.attachCamera(null);
+					_video.attachNetStream(null);
+					_camera = null;
+					_netStream = null;
+					_video.clear();
+				}
+			}
+		]]>
+	</fx:Script>
+	<mx:UIComponent id="videoContainer" width="100%" height="100%" resize="videoContainer_resizeHandler(event)"
+					creationComplete="videoContainer_creationCompleteHandler(event)"/>
+</mx:Canvas>
