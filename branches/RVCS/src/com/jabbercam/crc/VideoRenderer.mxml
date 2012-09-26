@@ -20,6 +20,7 @@
 				_netStream = value;
 				
 				if(_video) {
+					_video.clear();
 					_video.attachNetStream(_netStream);
 				}
 			}

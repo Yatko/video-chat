@@ -19,6 +19,7 @@ package com.jabbercam.crc
 	import mx.events.PropertyChangeEvent;
 	import mx.events.PropertyChangeEventKind;
 
+	[Bindable]
 	public class HttpManager extends AbstractManager
 	{
 		public static const METHOD_UPDATE : String = "update";
@@ -26,6 +27,7 @@ package com.jabbercam.crc
 		public static const METHOD_STOP : String = "disconnect";
 		public static const METHOD_CONNECT_TO_PEER : String = "connect";
 		public static const METHOD_DISCONNECT_FROM_PEER : String = "disconnectpeer";
+		public static const METHOD_GET_NUM_USERS : String = "getnumusers";
 		
 		public static var BASE_URL : String = "";
 		public static const SERVICE_CONNECT : String = "connect.php";
@@ -42,30 +44,24 @@ package com.jabbercam.crc
 			super(id, timeToLive);
 			this.serviceUrl = serviceUrl;
 			
-			setStatus(Status.READY);
+			var timer : Timer = new Timer(1,1);
+			timer.addEventListener(TimerEvent.TIMER_COMPLETE, function(event : TimerEvent) : void {
+				timer.removeEventListener(TimerEvent.TIMER_COMPLETE, arguments.callee);
+				setStatus(Status.READY);
+			});
+			timer.start();
 		}
 		
 		override public function get isActive() : Boolean {
 			return _loader != null;
 		}
 		
-		[Bindable]
 		public function set serviceUrl(value : String) : void {
 			_serviceUrl = value;
 			BASE_URL = _serviceUrl.match(/^(.*?\/?)connect\.php/)[1];
 		}
 		public function get serviceUrl() : String {
 			return _serviceUrl;
-		}
-		
-		override public function setStatus(status : int) : void {
-			var oldVal : int = _status;
-			
-			_status = status;
-			
-			if(oldVal != _status)
-			dispatchEvent(new PropertyChangeEvent(PropertyChangeEvent.PROPERTY_CHANGE, false, false,
-				PropertyChangeEventKind.UPDATE, "status", oldVal, status, this));
 		}
 		
 		private function createLoader(service : String = "connect.php") : URLRequest {
@@ -329,8 +325,6 @@ package com.jabbercam.crc
 		}
 		
 		override public function findPeers():void {
-			if(_idOnServer < 0 || _loader)
-				return;
 			
 			if(((_status & Status.STARTED) >> 3) && !(_status & Status.CALLING)) {
 				var req : URLRequest = createLoader(SERVICE_FIND_PEERS);
@@ -364,13 +358,15 @@ package com.jabbercam.crc
 			var response : ByteArray = event.target.data as ByteArray;
 			
 			var peers : Array = new Array();
-			while(response.bytesAvailable >= 64) {
+			while(response.bytesAvailable >= 68) {
 				try {
-					peers.push(response.readUTFBytes(64));
+					peers.push({idOnServer:response.readInt(), id:response.readUTFBytes(64)});
 				} catch(e : EOFError) {
 					
 				}
 			}
+			
+			_lastFoundPeers = peers;
 			
 			var evt : ManagerEvent = new ManagerEvent(ManagerEvent.FIND_PEERS_RESPONSE, 
 				{peers:peers, raw : response});
@@ -424,8 +420,10 @@ package com.jabbercam.crc
 						if(!_callQueue)
 							_callQueue = [];
 						if(!_callQueue.some(function(obj:*, index:int,arr:Array):Boolean{
-							if(obj.func == connectToPeer)
+							if(obj.func == connectToPeer) {
+								obj.params = [peer_idOnServer];
 								return true;
+							}
 							return false;
 						}))
 							_callQueue.push({func:connectToPeer, params:[peer_idOnServer]});
@@ -512,7 +510,7 @@ package com.jabbercam.crc
 			}
 		}
 		
-		private function disconnectFromPeerError(error : Error) : void {
+		private function disconnectFromPeerError(error : Object) : void {
 			setStatus(Status.CONNECTED_TO_PEER);
 			processQueue();
 		}
@@ -531,6 +529,60 @@ package com.jabbercam.crc
 			destroyLoader();
 			if(!((_status & Status.STARTED) >> 3))
 				stopUpdateSequence();
+			else startUpdateSequence();
+		}
+		
+		override public function getNumUsers():void {
+			if((_status & Status.CONNECTED) >> 2) {
+				if(!(_status & Status.CALLING)) {
+					var req : URLRequest = createLoader(SERVICE_FUNCTIONS);
+					_loader.addEventListener(Event.COMPLETE, getNumUsersResponse);
+					_loader.addEventListener(IOErrorEvent.IO_ERROR, getNumUsersError);
+					try {
+						req.data.method = METHOD_GET_NUM_USERS;
+						req.data.index = _idOnServer;
+						
+						_loader.load(req);
+						stopUpdateSequence();
+					} catch(e : Error) {
+						getNumUsersError(e);
+					}
+				} else {
+					if(!_callQueue)
+						_callQueue = [];
+					if(!_callQueue.some(function(obj:*, index:int,arr:Array):Boolean{
+						if(obj.func == getNumUsers) {
+							return true;
+						}
+						return false;
+					}))
+						_callQueue.push({func:getNumUsers, params:null});
+				}
+				
+			}
+		}
+		
+		private function getNumUsersResponse(event : Event) : void {
+			var response : ByteArray = event.target.data as ByteArray;
+			
+			var evt : ManagerEvent = new ManagerEvent(ManagerEvent.NUM_USERS_REPONSE, response);
+			try {
+				evt.response = response;
+				status = _status & (0xffffff ^ Status.CALLING);
+			} catch(e : EOFError) {
+				
+			} finally {
+				destroyLoader();
+				response.position = 0;
+				
+				dispatchEvent(evt);
+				processQueue();
+			}
+		}
+		
+		private function getNumUsersError(error : Object) : void {
+			status = _status & (0xffffff ^ Status.CALLING);
+			processQueue();
 		}
 	}
 }

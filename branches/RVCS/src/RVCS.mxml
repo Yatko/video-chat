@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:mx="library://ns.adobe.com/flex/mx" 
+				xmlns:crc="com.jabbercam.crc.*" layout="absolute" width="100%" height="100%"
+				applicationComplete="application1_applicationCompleteHandler(event)" backgroundGradientAlphas="0,0" backgroundAlpha="0">
+	<fx:Script>
+		<![CDATA[
+			import com.jabbercam.crc.CookieManager;
+			import com.jabbercam.crc.Status;
+			
+			import mx.events.FlexEvent;
+			import mx.events.ListEvent;
+			import mx.events.SliderEvent;
+
+			protected function application1_applicationCompleteHandler(event:FlexEvent):void
+			{
+				loadConfig('services/config.php?setts');
+			}
+
+
+			protected function micSlider_changeHandler(event:SliderEvent):void
+			{
+				crc::changeMic(Microphone.getMicrophone(microphones.selectedIndex));
+			}
+
+
+			protected function cameras_changeHandler(event:ListEvent):void
+			{
+				crc::changeCamera(Camera.getCamera(cameras.selectedIndex.toString()));
+			}
+
+
+			protected function microphones_changeHandler(event:ListEvent):void
+			{
+				crc::setMicrophoneGain(micSlider.value);
+			}
+
+
+			protected function speakerSlider_changeHandler(event:SliderEvent):void
+			{
+				crc::setSpeakerVolume(speakerSlider.value);
+			}
+
+
+			protected function startBut_clickHandler(event:MouseEvent):void
+			{
+				if(startBut.label.toLowerCase() == "searching")
+					return; // TODO: fix this otherwise
+				crc::startNext();
+			}
+
+
+			protected function stopBut_clickHandler(event:MouseEvent):void
+			{
+				crc::stop();
+			}
+
+
+			protected function textInput_enterHandler(event:FlexEvent):void
+			{
+				putMessage(textInput.text, "Me");
+				sendMessage(textInput.text);
+				textInput.text = "";
+			}
+
+
+			protected function mvC_changeHandler(event:Event):void
+			{
+				CookieManager.instance.saveMyVideoSettings(mvC.getRect(videoContainer));
+				CookieManager.instance.flush();
+			}
+
+
+			protected function ovC_changeHandler(event:Event):void
+			{
+				CookieManager.instance.savePartnerVideoSettings(ovC.getRect(videoContainer));
+				CookieManager.instance.flush();
+			}
+
+
+			protected function ovC_creationCompleteHandler(event:FlexEvent):void
+			{
+				var cm : CookieManager = CookieManager.instance;
+				ovC.x = cm.partnerVideo.x;
+				ovC.y = cm.partnerVideo.y;
+				ovC.width = cm.partnerVideo.width;
+				ovC.height = cm.partnerVideo.height;
+			}
+
+
+			protected function mvC_creationCompleteHandler(event:FlexEvent):void
+			{
+				var cm : CookieManager = CookieManager.instance;
+				mvC.x = cm.myVideo.x;
+				mvC.y = cm.myVideo.y;
+				mvC.width = cm.myVideo.width;
+				mvC.height = cm.myVideo.height;
+			}
+
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<mx:Move id="SettingsPanelOut" target="{SettingsPanel}" yTo="100" effectEnd="SettingsButton.label='Close'" duration="1500" easingFunction="Bounce.easeOut"/>        
+		<mx:Move id="SettingsPanelIn" target="{SettingsPanel}" yTo="-81" effectEnd="SettingsButton.label='Settings'" duration="1000" easingFunction="Bounce.easeIn"/>
+	</fx:Declarations>
+	<fx:Script source="RVCS.as" />
+	<fx:Style source="../assets/style.css"></fx:Style>
+	<mx:VDividedBox x="0" y="0" width="100%" height="100%" verticalGap="4">
+		<mx:Canvas width="100%" height="67%" id="videoContainer">
+			<mx:Canvas width="100%" height="100%">
+				<crc:ManipulatedComponent minWidth="160" minHeight="120" keepAspect="true"
+										  change="ovC_changeHandler(event)" creationComplete="ovC_creationCompleteHandler(event)" id="ovC">
+					<crc:VideoRenderer width="100%" height="100%" backgroundColor="#000000"
+									   id="otherVideo" styleName="VideoWindows"/>
+					<mx:Image bottom="6" right="20" width="16" height="20" id="volumeLabel" source="@Embed(source='../assets/speaker.png')"></mx:Image>
+					<mx:HSlider bottom="12" right="37" width="100" minimum="0" maximum="100" value="{speakerVolume}"
+								change="speakerSlider_changeHandler(event)" id="speakerSlider" />
+				</crc:ManipulatedComponent>
+				<crc:ManipulatedComponent minWidth="160" minHeight="120" keepAspect="true"
+										  change="mvC_changeHandler(event)" creationComplete="mvC_creationCompleteHandler(event)" id="mvC">
+					<crc:VideoRenderer width="100%" height="100%" backgroundColor="#000000"
+									   camera="{Camera.getCamera(cameras.selectedIndex.toString())}" styleName="VideoWindows"/>
+					<mx:Image bottom="6" left="20" width="16" height="20" id="microphoneLabel" source="@Embed(source='../assets/microphone.png')"></mx:Image>
+					<mx:HSlider bottom="12" left="37" width="100" minimum="0" maximum="100" value="{microphoneVolume}"
+								change="micSlider_changeHandler(event)" id="micSlider" />
+					<mx:Label bottom="9" left="137" text="{60+numUsersOnline}" fontSize="9"/>
+				</crc:ManipulatedComponent>
+			</mx:Canvas>
+		</mx:Canvas>
+		<mx:VBox width="100%" height="33%" id="controlContainer">
+			<mx:VBox bottom="0" width="100%" horizontalAlign="center">
+				<mx:HBox>
+					<mx:Button id="startBut" width="100" click="startBut_clickHandler(event)"
+							   label="Initializing" enabled="{manager &amp;&amp; Boolean(manager.status &amp; Status.READY)
+							   &amp;&amp; !Boolean(manager.status &amp; Status.CALLING)}"/>
+					<mx:Button id="stopBut" width="100" click="stopBut_clickHandler(event)"
+							   enabled="{manager &amp;&amp; (Boolean((manager.status &amp; Status.STARTED) >> 3) || 
+							   Boolean(manager.status &amp; Status.CALLING))}"
+							   label="Stop"/>
+				</mx:HBox>
+			</mx:VBox>
+			<mx:VBox width="100%" height="60%" id="chatContainer" horizontalAlign="center">
+				<mx:TextInput id="textInput" width="500" height="30" enter="textInput_enterHandler(event)" enabled="{Boolean((manager.status &amp; Status.CONNECTED_TO_PEER)>>4)}" styleName="InputArea"/>
+				<mx:Canvas width="500">
+					<mx:TextArea editable="false" id="textOut" width="500" height="63" styleName="TextArea" valueCommit="textOut.verticalScrollPosition=textOut.maxVerticalScrollPosition"/>
+					<!--SETTINGS BUTTON-->
+					<mx:Button width="101"  height="21" right="23"  top="0" skin="@Embed(source='../assets/SettingsButton.png')" icon="@Embed(source='../assets/SettingsIcon.png')" id="SettingsButton" label="Settings" click="toggleSettingsBtn(event)" enabled="true" fontWeight="normal" color="#707070"/>
+					<!--END SETTINGS BUTTON-->
+					<!--
+					<mx:Button left="10" bottom="10" skin="@Embed(source='../assets/facebook.png')" toolTip="Facebook App" click="onSocialButtonClick('http://www.facebook.com/VideoCall')" buttonMode="true"/>
+					-->
+					</mx:Canvas>
+				<!--<mx:HBox width="100%" bottom="0">
+				<mx:Button id="changeBackground" label="Change background" click="changeBackground_clickHandler(event)" left="0" />
+				</mx:HBox>-->
+			</mx:VBox>
+		</mx:VBox>	
+	</mx:VDividedBox>
+	
+	<!-- //////////////////////////////////the slide down Settings Panel////////////////////////////////// -->
+	
+	<!-- ****************** SETTINGS PANEL ****************** -->	
+	<fx:Script>
+		<![CDATA[
+		import mx.effects.easing.*;
+		private function toggleSettingsBtn(e:MouseEvent):void{
+		if(e.currentTarget.label== 'Settings') {
+		SettingsPanelOut.play();
+		} else { 
+		SettingsPanelIn.play();
+		}
+		}		
+		]]>
+	</fx:Script>
+	
+	<mx:Canvas id="SettingsPanel" width="402" height="101" y="-81" horizontalCenter="0">
+		<!--SETTINGS PANEL CONTAINER-->
+		<mx:VBox width="402" height="76" verticalAlign="middle" horizontalAlign="center"  backgroundColor="#B7BABC" backgroundAlpha="0.8" paddingTop="0" paddingBottom="0" paddingLeft="10" paddingRight="10" verticalGap="1">
+			
+			<!-- ****** SYSTEM SETTINGS ****** -->
+				<mx:HBox styleName="SettingsPanels">	
+					<!--WEBCAMERA SELECTOR-->
+					<mx:ComboBox id="cameras" width="150" dataProvider="{Camera.names}" selectedIndex="0"
+								 change="cameras_changeHandler(event)" />
+					<!--MICROPHONE SELECTOR-->
+					<mx:ComboBox id="microphones" width="150" dataProvider="{Microphone.names}" selectedIndex="0"
+								 change="microphones_changeHandler(event)" />
+					<!--FACEBOOk-->
+					<mx:Button skin="@Embed(source='../assets/facebook.png')" toolTip="JabberCam on Facebook" click="onSocialButtonClick('http://www.facebook.com/VideoCall')" buttonMode="true"/>
+					<!--CRC-->
+					<mx:Button width="16" height="20" skin="@Embed(source='../assets/about.png')" toolTip="About" id="btnAbout" click="onSocialButtonClick('http://www.videosoftware.pro/products/rvcs')"/>
+				</mx:HBox>
+			<!-- ****** END SYSTEM SETTINGS ****** -->
+		</mx:VBox>
+		<!--END SETTINGS PANEL CONTAINER-->
+	</mx:Canvas>
+	<!-- ****************** END SETTINGS PANEL ****************** -->
+</mx:Application>
