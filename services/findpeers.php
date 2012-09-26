@@ -18,10 +18,10 @@ header('Cache-Control: no-cache');
 $real_peers = array();
 
 if(file_exists('files/index')) {
-	$f = fopen('files/index','rb');
+	$f = fopen('files/index','rb+');
 	flock($f, LOCK_SH);
 	$fp = fopen('files/peers','rb');
-	flock($f, LOCK_SH);
+	flock($fp, LOCK_SH);
 	
 	$maxpeers = min((int)(filesize('files/index')/INDEX_BLOCK_SIZE)-1,$maxpeers);
 	$peers = array();
@@ -32,12 +32,18 @@ if(file_exists('files/index')) {
 		$i=0;
 		while($i*INDEX_BLOCK_SIZE < strlen($read)) {
 			$bytes = unpack('Cinf/itm',substr($read, $i*INDEX_BLOCK_SIZE, INDEX_BLOCK_SIZE));
-			if(($bytes['inf'] & 3) == 3 && $i+$pos != $index && $bytes['tm']>=time()-TIME_TO_LIVE)
+			if($i+$pos == $index) {
+				$pt = ftell($f);
+				fseek($f, ($i+$pos) * INDEX_BLOCK_SIZE, SEEK_SET);
+				fwrite($f, pack('Ci', $bytes['inf'], time()));
+				fseek($f, $pt, SEEK_SET);
+			} else if(($bytes['inf'] & 3) == 3 && $bytes['tm']>=time()-TIME_TO_LIVE)
 				$peers_available[]=$pos+$i;
 			$i++;
 			
 		}
-		$pos += strlen($read);
+		
+		$pos += intval(strlen($read)/INDEX_BLOCK_SIZE);
 	}
 	
 	if(count($peers_available) > $maxpeers) {
@@ -54,19 +60,19 @@ if(file_exists('files/index')) {
 		fseek($fp, $peer * BLOCK_SIZE, SEEK_SET);
 		$read = fread($fp, BLOCK_SIZE);
 		$id = unpack('a'.BLOCK_SIZE, $read);
-		$real_peers[]=implode('', $id);
+		$real_peers[$peer]=implode('', $id);
 	}
 	
-	flock($f, LOCK_UN);
-	fclose($f);
 	flock($fp, LOCK_UN);
 	fclose($fp);
+	flock($f, LOCK_UN);
+	fclose($f);
 }
 
-$contentsize = count($real_peers)>0?count($real_peers)*BLOCK_SIZE:1;
+$contentsize = count($real_peers)>0?count($real_peers)*(BLOCK_SIZE+4):1;
 header('Content-Length: '.$contentsize);
-foreach($real_peers as $peer)
-	echo pack('a'.BLOCK_SIZE, $peer);
+foreach($real_peers as $key=>$peer)
+	echo pack('Na'.BLOCK_SIZE, $key, $peer);
 
 if($contentsize == 1)
 	echo pack('C', FALSE);

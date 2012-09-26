@@ -11,6 +11,8 @@ package com.jabbercam.crc
 	[Event(name="findPeersResponse", 			type="com.jabbercam.crc.events.ManagerEvent")]
 	[Event(name="connectToPeerResponse", 		type="com.jabbercam.crc.events.ManagerEvent")]
 	[Event(name="disconnectFromPeerResponse", 	type="com.jabbercam.crc.events.ManagerEvent")]
+	[Event(name="numUsersReponse",				type="com.jabbercam.crc.events.ManagerEvent")]
+	[Bindable]
 	public class AbstractManager extends EventDispatcher
 	{
 		protected var _id : String = "";
@@ -19,14 +21,16 @@ package com.jabbercam.crc
 		protected var _peer_idOnServer : int = -1;
 		protected var _status : int = Status.INVALID;
 		
+		protected var _lastFoundPeers : Array;
+		
 		public function AbstractManager(id : String = "", timeToLive : int = 45)
 		{
 			super();
 			this.id = id;
 			this.timeToLive = timeToLive;
+			_lastFoundPeers = [];
 		}
 		
-		[Bindable]
 		public function set id(value : String) : void {
 			_id = value;
 		}
@@ -35,7 +39,14 @@ package com.jabbercam.crc
 			return _id;
 		}
 		
-		[Bindable]
+		public function get idOnServer() : int {
+			return _idOnServer;
+		}
+		
+		public function get peerIdOnServer() : int {
+			return _peer_idOnServer;
+		}
+		
 		public function set timeToLive(value : int) : void {
 			_timeToLive = value;
 		}
@@ -47,8 +58,13 @@ package com.jabbercam.crc
 		public function get status() : int {
 			return _status;
 		}
+		
+		public function set status(value : int) : void {
+			_status = value;
+		}
+		
 		public function setStatus(status : int) : void {
-			
+			this.status = status;
 		}
 		
 		public function connect() : void {
@@ -67,6 +83,10 @@ package com.jabbercam.crc
 			
 		}
 		
+		public function get lastFoundPeers() : Array {
+			return _lastFoundPeers;
+		}
+		
 		public function connectToPeer(peer_idOnServer : int) : void {
 			
 		}
@@ -80,6 +100,10 @@ package com.jabbercam.crc
 		}
 		
 		public function localDisconnectFromPeer() : void {
+			
+		}
+		
+		public function getNumUsers() : void {
 			
 		}
 		

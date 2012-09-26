@@ -7,7 +7,6 @@
 		<![CDATA[
 			import mx.core.UIComponent;
 			import mx.events.FlexEvent;
-			import mx.olap.aggregators.MinAggregator;
 
 			
 			public static const T : int = 1;
@@ -69,6 +68,8 @@
 				stage.removeEventListener(MouseEvent.MOUSE_MOVE, canvas1_mouseMoveHandler);
 				stage.removeEventListener(MouseEvent.MOUSE_UP, canvas1_mouseUpHandler);
 				stage.removeEventListener(Event.MOUSE_LEAVE, canvas1_mouseUpHandler);
+				
+				dispatchEvent(new Event(Event.CHANGE));
 			}
 
 
@@ -118,8 +119,8 @@
 						newRect.width += 4/3*heightGain;
 					}
 					
-					var minWidth : Number = minWidth?minWidth:80;
-					var minHeight : Number = minHeight?minHeight:60;
+					var minWidth : Number = this.minWidth?this.minWidth:80;
+					var minHeight : Number = this.minHeight?this.minHeight:60;
 					if(newRect.width < minWidth) {
 						newRect.width = minWidth;
 						if(keepAspect)
@@ -142,16 +143,18 @@
 						}
 					}
 					if(newRect.x + newRect.width > parent.width) {
-						newRect.width = parent.width - newRect.x;
+						newRect.width = Math.max(parent.width - newRect.x, minWidth);
 						if(keepAspect) {
 							newRect.height = newRect.width*3/4;
 						}
+						newRect.x = parent.width-newRect.width;
 					}
 					if(newRect.y + newRect.height > parent.height) {
-						newRect.height = parent.height - newRect.y;
+						newRect.height = Math.max(parent.height - newRect.y, minHeight);
 						if(keepAspect) {
 							newRect.width = newRect.height * 4/3;
 						}
+						newRect.y = parent.height - newRect.height;
 					}
 					if(newRect.x < 0) {
 						newRect.width += newRect.x;
@@ -168,10 +171,13 @@
 						newRect.y = 0;
 					}
 					
+					
+					
 					width = newRect.width;
 					height = newRect.height;
 					move(newRect.x, newRect.y);
 				}
+
 			}
 
 
@@ -191,4 +197,7 @@
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 		<fx:Boolean id="keepAspect">false</fx:Boolean>
 	</fx:Declarations>
+	<fx:Metadata>
+		[Event(name="change", type="flash.events.Event")]
+	</fx:Metadata>
 </mx:Canvas>
