@@ -1,4 +1,40 @@
 /* CSS file */
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx"; 
+
+/*
+ScrollBar {
+	up-arrow-skin: ClassReference(null);
+	down-arrow-skin: ClassReference(null);
+	trackSkin: Embed(source="../assets/ScrollBarTrack.png", scaleGridLeft="1", scaleGridTop="4", scaleGridRight="5", scaleGridBottom="16");
+	thumbUpSkin: Embed(source="../assets/ScrollBarThumb_up.png", scaleGridLeft="1", scaleGridTop="4", scaleGridRight="5", scaleGridBottom="16");
+	thumbOverSkin: Embed(source="../assets/ScrollBarThumb_over.png", scaleGridLeft="1", scaleGridTop="4", scaleGridRight="5", scaleGridBottom="16");
+	thumbDownSkin: Embed(source="../assets/ScrollBarThumb_down.png", scaleGridLeft="1", scaleGridTop="4", scaleGridRight="5", scaleGridBottom="16");
+}
+*/
+
+mx|TextArea {
+	verticalScrollBarStyleName: scrollBarStyle;
+	horizontalScrollBarStyleName: scrollBarStyle;
+}
+
+mx|TextInput {
+	verticalScrollBarStyleName: scrollBarStyle;
+	horizontalScrollBarStyleName: scrollBarStyle;
+}
+
+/* add your component here */
+mx|Application {
+	verticalScrollBarStyleName: scrollBarStyle;
+	horizontalScrollBarStyleName: scrollBarStyle;
+}
+
+.scrollBarStyle {
+	up-arrow-skin: ClassReference(null);
+	down-arrow-skin: ClassReference(null);
+	trackSkin: ClassReference(null);
+	thumbSkin: ClassReference(null);
+} 
 
 .vspro_url {
 	fontSize: 11;
@@ -31,7 +67,6 @@
 	cornerRadius: 4;
 	fontFamily: Arial, Helvetica;
 	fontSize: 10;
-	color: #767C82;
 	paddingLeft: 3;
 	paddingRight: 3;
 }
